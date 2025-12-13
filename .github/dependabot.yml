@@ -1,0 +1,41 @@
+version: 2
+
+updates:
+  # =========================
+  # Frontend — React (npm)
+  # =========================
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "daily"
+    versioning-strategy: "increase"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "frontend"
+
+  # =========================
+  # Backend — Python (pip)
+  # requirements.txt
+  # =========================
+  - package-ecosystem: "pip"
+    directory: "/backend"
+    schedule:
+      interval: "daily"
+    versioning-strategy: "increase"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "backend"
+
+  # =========================
+  # GitHub Actions (CI)
+  # =========================
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "ci"
