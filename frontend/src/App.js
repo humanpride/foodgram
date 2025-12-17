@@ -1,6 +1,6 @@
 import "./fonts/SanFranciscoProDisplay/fonts.css";
 import "./App.css";
-import { Routes, Route, useNavigate, Redirect } from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Header, Footer, ProtectedRoute } from "./components";
 import api from "./api";
@@ -326,7 +326,7 @@ function App() {
               />
             </Route>
             <Route exact path="/">
-              <Redirect to="/recipes" />
+              <Navigate to="/recipes" />
             </Route>
             <Route path="*">
               <NotFound />

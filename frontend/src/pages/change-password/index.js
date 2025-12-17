@@ -9,7 +9,7 @@ import {
 import styles from "./styles.module.css";
 import { useFormWithValidation } from "../../utils";
 import { AuthContext } from "../../contexts";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { ChangePasswordText } from "../../components/change-password-text";

@@ -11,14 +11,14 @@ import { useFormWithValidation } from '../../utils';
 import { Helmet } from 'react-helmet-async';
 import { AuthContext } from '../../contexts';
 import { useContext } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 const ResetPassword = ({ onPasswordReset }) => {
   const { values, handleChange, isValid } = useFormWithValidation();
   const authContext = useContext(AuthContext);
 
   if (authContext) {
-    return <Redirect to="/recipes" />;
+    return <Navigate to="/recipes" />;
   }
 
   return (

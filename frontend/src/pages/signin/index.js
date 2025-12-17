@@ -9,7 +9,7 @@ import {
 import styles from "./styles.module.css";
 import { useFormWithValidation } from "../../utils";
 import { AuthContext } from "../../contexts";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 
@@ -24,7 +24,7 @@ const SignIn = ({ onSignIn, submitError, setSubmitError }) => {
 
   return (
     <Main withBG asFlex>
-      {authContext && <Redirect to="/recipes" />}
+      {authContext && <Navigate to="/recipes" />}
       <Container className={styles.center}>
         <Helmet>
           <title>Войти на сайт</title>
