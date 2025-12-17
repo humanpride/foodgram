@@ -23,7 +23,6 @@ const renderMenuItem = (
       title={item.title}
       activeClassName={styles['nav-menu__link_active']}
       href={item.href}
-      exact
       className={styles['nav-menu__link']}
     />}
   </li>

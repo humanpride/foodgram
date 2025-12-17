@@ -3,20 +3,13 @@ import { NavLink } from "react-router-dom";
 import styles from "./style.module.css";
 import cn from "classnames";
 
-const LinkComponent = ({
-  exact,
-  href,
-  title,
-  className,
-  activeClassName,
-  ...rest
-}) => {
+const LinkComponent = ({ href, title, className, activeClassName, ...rest }) => {
   return (
     <NavLink
-      exact={exact}
-      activeClassName={activeClassName}
-      className={cn(styles.link, className)}
       to={href}
+      className={({ isActive }) =>
+        cn(styles.link, className, { [activeClassName]: isActive })
+      }
       {...rest}
     >
       {title}
