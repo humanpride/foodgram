@@ -1,50 +1,63 @@
-import { Container, Input, Main, Form, Button, FormTitle } from '../../components'
-import styles from './styles.module.css'
-import { useFormWithValidation } from '../../utils'
-import MetaTags from 'react-meta-tags'
-import { AuthContext } from '../../contexts'
-import { useContext } from 'react'
-import { Redirect } from 'react-router-dom'
+import {
+  Container,
+  Input,
+  Main,
+  Form,
+  Button,
+  FormTitle
+} from '../../components';
+import styles from './styles.module.css';
+import { useFormWithValidation } from '../../utils';
+import { Helmet } from 'react-helmet-async';
+import { AuthContext } from '../../contexts';
+import { useContext } from 'react';
+import { Redirect } from 'react-router-dom';
 
 const ResetPassword = ({ onPasswordReset }) => {
-  const { values, handleChange, isValid, resetForm } = useFormWithValidation()
-  const authContext = useContext(AuthContext)
+  const { values, handleChange, isValid } = useFormWithValidation();
+  const authContext = useContext(AuthContext);
 
-  {authContext && <Redirect to='/recipes' />}
+  if (authContext) {
+    return <Redirect to="/recipes" />;
+  }
 
-  return <Main withBG asFlex>
-    <Container className={styles.center}>
-      <MetaTags>
-        <title>Войти на сайт</title>
-        <meta name="description" content="Фудграм - Сброс пароля" />
-        <meta property="og:title" content="Сброс пароля" />
-      </MetaTags>
-      <Form
-        className={styles.form}
-        onSubmit={e => {
-          e.preventDefault()
-          onPasswordReset(values)
-        }}
-      >
-        <FormTitle>Сброс пароля</FormTitle>
+  return (
+    <Main withBG asFlex>
+      <Container className={styles.center}>
+        <Helmet>
+          <title>Сброс пароля</title>
+          <meta name="description" content="Фудграм - Сброс пароля" />
+          <meta property="og:title" content="Сброс пароля" />
+        </Helmet>
 
-        <Input
-          required
-          name='email'
-          placeholder='Email'
-          onChange={handleChange}
-        />
-        <Button
-          modifier='style_dark'
-          disabled={!isValid}
-          type='submit'
-          className={styles.button}
+        <Form
+          className={styles.form}
+          onSubmit={e => {
+            e.preventDefault();
+            onPasswordReset(values);
+          }}
         >
-          Сбросить
-        </Button>
-      </Form>
-    </Container>
-  </Main>
-}
+          <FormTitle>Сброс пароля</FormTitle>
 
-export default ResetPassword
+          <Input
+            required
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+          />
+
+          <Button
+            modifier="style_dark"
+            disabled={!isValid}
+            type="submit"
+            className={styles.button}
+          >
+            Сбросить
+          </Button>
+        </Form>
+      </Container>
+    </Main>
+  );
+};
+
+export default ResetPassword;

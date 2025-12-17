@@ -15,7 +15,7 @@ import api from "../../api";
 import { useEffect, useState } from "react";
 import { useTags } from "../../utils";
 import { useHistory } from "react-router-dom";
-import MetaTags from "react-meta-tags";
+import { Helmet } from "react-helmet-async";
 import { Icons } from "../../components";
 import cn from "classnames";
 
@@ -116,21 +116,23 @@ const RecipeCreate = ({ onEdit }) => {
   };
 
   return (
-    <Main>
-      <Container>
-        <MetaTags>
-          <title>Создание рецепта</title>
-          <meta name="description" content="Фудграм - Создание рецепта" />
-          <meta property="og:title" content="Создание рецепта" />
-        </MetaTags>
-        <Title title="Создание рецепта" />
-        <Form
-          className={styles.form}
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (checkIfDisabled()) {
-              return;
-            }
+  <Main>
+    <Container>
+      <Helmet>
+        <title>Создание рецепта</title>
+        <meta name="description" content="Фудграм - Создание рецепта" />
+        <meta property="og:title" content="Создание рецепта" />
+      </Helmet>
+
+      <Title title="Создание рецепта" />
+
+      <Form
+        className={styles.form}
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (checkIfDisabled()) {
+            return;
+          }
             const data = {
               text: recipeText,
               name: recipeName,

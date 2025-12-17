@@ -16,7 +16,7 @@ import { useEffect, useState, useContext } from "react";
 import api from "../../api";
 import { useParams, useHistory } from "react-router-dom";
 import { AuthContext, UserContext } from "../../contexts";
-import MetaTags from "react-meta-tags";
+import { Helmet } from "react-helmet-async";
 import DefaultImage from "../../images/userpic-icon.jpg";
 
 const UserPage = ({ updateOrders }) => {
@@ -42,9 +42,8 @@ const UserPage = ({ updateOrders }) => {
 
   const getRecipes = ({ page = 1, tags }) => {
     api.getRecipes({ page, author: id, tags }).then((res) => {
-      const { results, count } = res;
-      setRecipes(results);
-      setRecipesCount(count);
+      setRecipes(res.results);
+      setRecipesCount(res.count);
     });
   };
 
@@ -55,95 +54,60 @@ const UserPage = ({ updateOrders }) => {
         setUser(res);
         setSubscribed(res.is_subscribed);
       })
-      .catch((err) => {
+      .catch(() => {
         history.push("/not-found");
       });
   };
 
-  useEffect(
-    (_) => {
-      if (!user) {
-        return;
-      }
+  useEffect(() => {
+    if (user) {
       getRecipes({ page: recipesPage, tags: tagsValue, author: user.id });
-    },
-    [recipesPage, tagsValue, user]
-  );
+    }
+  }, [recipesPage, tagsValue, user]);
 
-  useEffect((_) => {
+  useEffect(() => {
     getUser();
   }, []);
 
-  useEffect((_) => {
+  useEffect(() => {
     api.getTags().then((tags) => {
       setTagsValue(tags.map((tag) => ({ ...tag, value: true })));
     });
   }, []);
 
+  const pageTitle = user ? `${user.first_name} ${user.last_name}` : "Страница пользователя";
+
   return (
     <Main>
       <Container className={styles.container}>
-        <MetaTags>
-          <title>
-            {user
-              ? `${user.first_name} ${user.last_name}`
-              : "Страница пользователя"}
-          </title>
-          <meta
-            name="description"
-            content={
-              user
-                ? `Фудграм - ${user.first_name} ${user.last_name}`
-                : "Фудграм - Страница пользователя"
-            }
-          />
-          <meta
-            property="og:title"
-            content={
-              user
-                ? `${user.first_name} ${user.last_name}`
-                : "Страница пользователя"
-            }
-          />
-        </MetaTags>
+        <Helmet>
+          <title>{pageTitle}</title>
+          <meta name="description" content={`Фудграм - ${pageTitle}`} />
+          <meta property="og:title" content={pageTitle} />
+        </Helmet>
+
         <div className={styles.title}>
           <div className={styles.titleTextBox}>
             <div className={styles.user}>
               <div
                 className={styles.userAvatar}
                 style={{
-                  "background-image": `url(${
-                    (user && user.avatar) || DefaultImage
-                  })`,
+                  backgroundImage: `url(${(user && user.avatar) || DefaultImage})`,
                 }}
               />
-              <Title
-                className={cn({
-                  [styles.titleText]: true,
-                })}
-                title={user ? `${user.first_name} ${user.last_name}` : ""}
-              />
+              <Title className={styles.titleText} title={user ? pageTitle : ""} />
             </div>
 
-            {(userContext || {}).id !== (user || {}).id && authContext && (
+            {(userContext?.id !== user?.id) && authContext && (
               <Button
-                className={cn(styles.buttonSubscribe, {
-                  [styles.buttonSubscribeActive]: subscribed,
-                })}
+                className={cn(styles.buttonSubscribe, { [styles.buttonSubscribeActive]: subscribed })}
                 modifier={subscribed ? "style_dark" : "style_light"}
-                clickHandler={(_) => {
-                  const method = subscribed
-                    ? api.deleteSubscriptions.bind(api)
-                    : api.subscribe.bind(api);
-                  method({
-                    author_id: id,
-                  }).then((_) => {
-                    setSubscribed(!subscribed);
-                  });
+                clickHandler={() => {
+                  const method = subscribed ? api.deleteSubscriptions.bind(api) : api.subscribe.bind(api);
+                  method({ author_id: id }).then(() => setSubscribed(!subscribed));
                 }}
               >
-                <Icons.AddUser />{" "}
-                {subscribed ? "Отписаться от автора" : "Подписаться на автора"}
+                <Icons.AddUser /> {subscribed ? "Отписаться от автора" : "Подписаться на автора"}
               </Button>
             )}
           </div>
@@ -170,6 +134,7 @@ const UserPage = ({ updateOrders }) => {
             ))}
           </CardList>
         )}
+
         <Pagination
           count={recipesCount}
           limit={6}

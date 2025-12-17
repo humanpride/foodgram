@@ -11,7 +11,7 @@ import { useFormWithValidation } from "../../utils";
 import { AuthContext } from "../../contexts";
 import { Redirect } from "react-router-dom";
 import { useContext } from "react";
-import MetaTags from "react-meta-tags";
+import { Helmet } from "react-helmet-async";
 import { ChangePasswordText } from "../../components/change-password-text";
 
 const ChangePassword = ({ onPasswordChange, submitError, setSubmitError }) => {
@@ -27,14 +27,15 @@ const ChangePassword = ({ onPasswordChange, submitError, setSubmitError }) => {
   return (
     <Main withBG asFlex>
       <Container className={styles.center}>
-        <MetaTags>
+        <Helmet>
           <title>Изменить пароль</title>
           <meta
             name="description"
             content="Фудграм - Изменить пароль"
           />
           <meta property="og:title" content="Изменить пароль" />
-        </MetaTags>
+        </Helmet>
+
         <Form
           className={styles.form}
           onSubmit={(e) => {
@@ -43,6 +44,7 @@ const ChangePassword = ({ onPasswordChange, submitError, setSubmitError }) => {
           }}
         >
           <FormTitle>Изменить пароль</FormTitle>
+
           <Input
             required
             isAuth={true}
@@ -52,6 +54,7 @@ const ChangePassword = ({ onPasswordChange, submitError, setSubmitError }) => {
             error={errors}
             onChange={onChange}
           />
+
           <Input
             required
             isAuth={true}
@@ -61,6 +64,7 @@ const ChangePassword = ({ onPasswordChange, submitError, setSubmitError }) => {
             error={errors}
             onChange={onChange}
           />
+
           <ul className={styles.texts}>
             <li className={styles.text}>
               <ChangePasswordText text="Ваш пароль не должен совпадать с вашим именем или другой персональной информацией или быть слишком похожим на неё" />
@@ -75,6 +79,7 @@ const ChangePassword = ({ onPasswordChange, submitError, setSubmitError }) => {
               <ChangePasswordText text="Ваш пароль не может состоять только из цифр" />
             </li>
           </ul>
+
           <Input
             required
             isAuth={true}
@@ -85,6 +90,7 @@ const ChangePassword = ({ onPasswordChange, submitError, setSubmitError }) => {
             submitError={submitError}
             onChange={onChange}
           />
+
           <Button
             modifier="style_dark"
             type="submit"
