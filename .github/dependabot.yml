@@ -13,6 +13,10 @@ updates:
     labels:
       - "dependencies"
       - "frontend"
+    ignore:
+      # Не открывать PRы для мажорных обновлений (всех пакетов)
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
 
   # =========================
   # Backend — Python (pip)
@@ -27,6 +31,9 @@ updates:
     labels:
       - "dependencies"
       - "backend"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
 
   # =========================
   # GitHub Actions (CI)
@@ -39,3 +46,6 @@ updates:
     labels:
       - "dependencies"
       - "ci"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
