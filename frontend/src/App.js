@@ -1,6 +1,6 @@
 import "./fonts/SanFranciscoProDisplay/fonts.css";
 import "./App.css";
-import { Switch, Route, useNavigate, Redirect } from "react-router-dom";
+import { Routes, Route, useNavigate, Redirect } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Header, Footer, ProtectedRoute } from "./components";
 import api from "./api";
@@ -222,7 +222,7 @@ function App() {
       <UserContext.Provider value={user}>
         <div className="App">
           <Header orders={orders} loggedIn={loggedIn} onSignOut={onSignOut} />
-          <Switch>
+          <Routes>
             <Route
               exact
               path="/user/:id"
@@ -331,7 +331,7 @@ function App() {
             <Route path="*">
               <NotFound />
             </Route>
-          </Switch>
+          </Routes>
           <Footer />
         </div>
       </UserContext.Provider>
