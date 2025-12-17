@@ -13,7 +13,7 @@ import styles from "./styles.module.css";
 import Ingredients from "./ingredients";
 import Description from "./description";
 import cn from "classnames";
-import { useRouteMatch, useParams, useHistory } from "react-router-dom";
+import { useMatch, useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import DefaultImage from "../../images/userpic-icon.jpg";
 import { useRecipe } from "../../utils/index.js";
@@ -32,7 +32,7 @@ const SingleCard = ({ loadItem, updateOrders }) => {
   const authContext = useContext(AuthContext);
   const userContext = useContext(UserContext);
   const { id } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleCopyLink = () => {
     api
@@ -74,11 +74,11 @@ const SingleCard = ({ loadItem, updateOrders }) => {
         setLoading(false);
       })
       .catch((err) => {
-        history.push("/not-found");
+        navigate("/not-found");
       });
   }, []);
 
-  const { url } = useRouteMatch();
+  const { url } = useMatch();
   const {
     author = {},
     image,

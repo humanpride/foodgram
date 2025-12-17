@@ -1,12 +1,12 @@
 import { Button, Container, Main } from "../../components";
 import styles from "./styles.module.css";
 import image from "../../images/not-found.png";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const Favorites = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
-  const handleClick = () => history.replace("/recipes");
+  const handleClick = () => navigate("/recipes", { replace: true });
 
   return (
     <Main className={styles.root}>

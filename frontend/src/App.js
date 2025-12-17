@@ -1,6 +1,6 @@
 import "./fonts/SanFranciscoProDisplay/fonts.css";
 import "./App.css";
-import { Switch, Route, useHistory, Redirect } from "react-router-dom";
+import { Switch, Route, useNavigate, Redirect } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { Header, Footer, ProtectedRoute } from "./components";
 import api from "./api";
@@ -47,7 +47,7 @@ function App() {
     api
       .signup({ email, password, username, first_name, last_name })
       .then(() => {
-        history.push("/signin");
+        navigate("/signin");
       })
       .catch((err) => {
         const errors = Object.values(err);
@@ -62,7 +62,7 @@ function App() {
     api
       .changePassword({ new_password, current_password })
       .then((res) => {
-        history.push("/signin");
+        navigate("/signin");
       })
       .catch((err) => {
         const errors = Object.values(err);
@@ -77,7 +77,7 @@ function App() {
       .changeAvatar({ file })
       .then((res) => {
         setUser({ ...user, avatar: res.avatar });
-        history.push(`/recipes`);
+        navigate(`/recipes`);
       })
       .catch((err) => {
         const { non_field_errors } = err;
@@ -109,7 +109,7 @@ function App() {
             })
             .catch((err) => {
               setLoggedIn(false);
-              history.push("/signin");
+              navigate("/signin");
             });
         } else {
           setLoggedIn(false);
@@ -130,7 +130,7 @@ function App() {
         email,
       })
       .then((res) => {
-        history.push("/signin");
+        navigate("/signin");
       })
       .catch((err) => {
         const errors = Object.values(err);
@@ -147,7 +147,7 @@ function App() {
     }, 3000);
   };
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const onSignOut = () => {
     api
       .signout()
@@ -198,7 +198,7 @@ function App() {
         })
         .catch((err) => {
           setLoggedIn(false);
-          history.push("/recipes");
+          navigate("/recipes");
         });
     } else {
       setLoggedIn(false);

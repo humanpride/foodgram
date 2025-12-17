@@ -14,7 +14,7 @@ import styles from "./styles.module.css";
 import { useRecipes } from "../../utils/index.js";
 import { useEffect, useState, useContext } from "react";
 import api from "../../api";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext, UserContext } from "../../contexts";
 import { Helmet } from "react-helmet-async";
 import DefaultImage from "../../images/userpic-icon.jpg";
@@ -36,7 +36,7 @@ const UserPage = ({ updateOrders }) => {
   const { id } = useParams();
   const [user, setUser] = useState(null);
   const [subscribed, setSubscribed] = useState(false);
-  const history = useHistory();
+  const navigate = useNavigate();
   const userContext = useContext(UserContext);
   const authContext = useContext(AuthContext);
 
@@ -55,7 +55,7 @@ const UserPage = ({ updateOrders }) => {
         setSubscribed(res.is_subscribed);
       })
       .catch(() => {
-        history.push("/not-found");
+        navigate("/not-found");
       });
   };
 

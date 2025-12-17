@@ -14,7 +14,7 @@ import styles from "./styles.module.css";
 import api from "../../api";
 import { useEffect, useState } from "react";
 import { useTags } from "../../utils";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
 import { Icons } from "../../components";
 import cn from "classnames";
@@ -22,7 +22,7 @@ import cn from "classnames";
 const RecipeCreate = ({ onEdit }) => {
   const { value, handleChange, setValue } = useTags();
   const [recipeName, setRecipeName] = useState("");
-  const history = useHistory();
+  const navigate = useNavigate();
   const [ingredientValue, setIngredientValue] = useState({
     name: "",
     id: null,
@@ -147,7 +147,7 @@ const RecipeCreate = ({ onEdit }) => {
             api
               .createRecipe(data)
               .then((res) => {
-                history.push(`/recipes/${res.id}`);
+                navigate(`/recipes/${res.id}`);
               })
               .catch((err) => {
                 const { non_field_errors, ingredients, cooking_time } = err;

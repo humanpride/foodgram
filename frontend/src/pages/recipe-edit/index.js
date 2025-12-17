@@ -14,7 +14,7 @@ import styles from "./styles.module.css";
 import api from "../../api";
 import { useEffect, useState } from "react";
 import { useTags } from "../../utils";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Icons } from "../../components";
 import cn from "classnames";
@@ -43,7 +43,7 @@ const RecipeEdit = ({ onItemDelete }) => {
   const [submitError, setSubmitError] = useState({ submitError: "" });
   const [ingredientError, setIngredientError] = useState("");
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleAddIngredient = () => {
     if (
@@ -111,7 +111,7 @@ const RecipeEdit = ({ onItemDelete }) => {
           setLoading(false);
         })
         .catch((err) => {
-          history.push("/recipes");
+          navigate("/recipes");
         });
     },
     [value]
@@ -177,7 +177,7 @@ const RecipeEdit = ({ onItemDelete }) => {
             api
               .updateRecipe(data, recipeFileWasManuallyChanged)
               .then((res) => {
-                history.push(`/recipes/${id}`);
+                navigate(`/recipes/${id}`);
               })
               .catch((err) => {
                 const { non_field_errors, ingredients, cooking_time } = err;
@@ -407,7 +407,7 @@ const RecipeEdit = ({ onItemDelete }) => {
               onClick={(_) => {
                 api.deleteRecipe({ recipe_id: id }).then((res) => {
                   onItemDelete && onItemDelete();
-                  history.push("/recipes");
+                  navigate("/recipes");
                 });
               }}
             >
