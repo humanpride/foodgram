@@ -68,7 +68,7 @@ const Purchase = ({
       return <li>{ingredient.name}</li>
       })}
     </ul>}
-    
+
   </li>
 }
 

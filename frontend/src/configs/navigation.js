@@ -24,7 +24,7 @@ export const UserMenu = [
     auth: true,
     icon: <Icons.SavedMenu />
   }, {
-    
+
     title: 'Сменить пароль',
     href: '/change-password',
     auth: true,

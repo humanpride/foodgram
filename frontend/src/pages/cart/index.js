@@ -11,7 +11,7 @@ const Cart = ({ updateOrders, orders }) => {
     setRecipes,
     handleAddToCart
   } = useRecipes()
-  
+
   const getRecipes = () => {
     api
       .getRecipes({

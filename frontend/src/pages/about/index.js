@@ -3,14 +3,14 @@ import styles from './styles.module.css'
 import { Helmet } from 'react-helmet-async'
 
 const About = ({ updateOrders, orders }) => {
-  
+
   return <Main>
     <Helmet>
       <title>О проекте</title>
       <meta name="description" content="Фудграм - О проекте" />
       <meta property="og:title" content="О проекте" />
     </Helmet>
-    
+
     <Container>
       <h1 className={styles.title}>Привет!</h1>
       <div className={styles.content}>
@@ -25,7 +25,7 @@ const About = ({ updateOrders, orders }) => {
               приготовления блюда, просмотреть рецепты друзей и добавить любимые рецепты в список избранных.
             </p>
             <p className={styles.textItem}>
-              Чтобы использовать все возможности сайта — нужна регистрация. Проверка адреса электронной почты не осуществляется, вы можете ввести любой email. 
+              Чтобы использовать все возможности сайта — нужна регистрация. Проверка адреса электронной почты не осуществляется, вы можете ввести любой email.
             </p>
             <p className={styles.textItem}>
               Заходите и делитесь своими любимыми рецептами!
@@ -46,7 +46,7 @@ const About = ({ updateOrders, orders }) => {
           </div>
         </aside>
       </div>
-      
+
     </Container>
   </Main>
 }
