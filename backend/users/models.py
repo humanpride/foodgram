@@ -36,12 +36,12 @@ class User(AbstractUser):
 
 
 class Subscription(models.Model):
-    user = models.ForeignKey(
+    from_user = models.ForeignKey(
         User,
         related_name='subscriptions',
         on_delete=models.CASCADE,
     )
-    author = models.ForeignKey(
+    to_user = models.ForeignKey(
         User,
         related_name='subscribers',
         on_delete=models.CASCADE,
@@ -50,13 +50,13 @@ class Subscription(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(
-                fields=['user', 'author'],
+                fields=['from_user', 'to_user'],
                 name='unique_subscription',
             ),
         ]
 
     def __str__(self):
-        return f'{self.user} → {self.author}'
+        return f'{self.from_user} → {self.to_user}'
 
 
 class Favorite(models.Model):
