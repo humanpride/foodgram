@@ -5,12 +5,9 @@ from recipes.models import Recipe
 
 
 class User(AbstractUser):
-    USER = 'user'
-    ADMIN = 'admin'
-
     ROLE_CHOICES = (
-        (USER, 'User'),
-        (ADMIN, 'Admin'),
+        ('user', 'User'),
+        ('admin', 'Admin'),
     )
 
     email = models.EmailField(
@@ -25,14 +22,14 @@ class User(AbstractUser):
     role = models.CharField(
         max_length=10,
         choices=ROLE_CHOICES,
-        default=USER,
+        default='user',
     )
 
     def __str__(self):
         return self.username
 
     def is_admin(self) -> bool:
-        return self.role == self.ADMIN
+        return self.role == 'admin' or self.is_staff
 
 
 class Subscription(models.Model):
@@ -46,6 +43,7 @@ class Subscription(models.Model):
         related_name='subscribers',
         on_delete=models.CASCADE,
     )
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         constraints = [
@@ -70,6 +68,7 @@ class Favorite(models.Model):
         related_name='favorited_by',
         on_delete=models.CASCADE,
     )
+    created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         constraints = [
@@ -91,6 +90,7 @@ class ShoppingCartItem(models.Model):
         related_name='in_shopping_carts',
         on_delete=models.CASCADE,
     )
+    added_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         constraints = [

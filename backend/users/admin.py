@@ -11,7 +11,6 @@ class UserAdmin(DjangoUserAdmin):
     """
 
     list_display = (
-        'id',
         'username',
         'email',
         'role',
