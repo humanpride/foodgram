@@ -14,7 +14,7 @@ jobs:
     name: Style + Tests (SQLite)
     runs-on: ubuntu-latest
     env:
-      DJANGO_SETTINGS_MODULE: backend.foodgram.settings
+      DJANGO_SETTINGS_MODULE: foodgram.settings
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,37 +25,39 @@ jobs:
           python-version: '3.14'
 
       - name: Install dependencies
+        working-directory: backend
         run: |
           python -m pip install --upgrade pip
-          cd backend
           pip install -r requirements.txt
 
       - name: 'Lint: isort (check)'
+        working-directory: backend
         run: isort --check-only .
 
       - name: 'Lint: flake8'
+        working-directory: backend
         run: flake8 .
 
       - name: 'Django: makemigrations check'
+        working-directory: backend
         # env:
         #   DJANGO_SETTINGS_MODULE: backend.foodgram.settings
         run: |
-          cd backend
           python manage.py makemigrations --check --dry-run
 
       - name: 'Django: migrate'
+        working-directory: backend
         # env:
         #   DJANGO_SETTINGS_MODULE: backend.foodgram.settings
         run: |
-          cd backend
           python manage.py makemigrations
           python manage.py migrate --noinput
 
       - name: Run tests (pytest)
+        working-directory: backend
         # env:
         #   DJANGO_SETTINGS_MODULE: foodgram_project.settings
         run: |
-          cd backend
           pytest -q
 
   # postgres-checks:
