@@ -40,12 +40,14 @@ jobs:
         # env:
         #   DJANGO_SETTINGS_MODULE: backend.foodgram.settings
         run: |
+          cd backend
           python manage.py makemigrations --check --dry-run
 
       - name: 'Django: migrate'
         # env:
         #   DJANGO_SETTINGS_MODULE: backend.foodgram.settings
         run: |
+          cd backend
           python manage.py makemigrations
           python manage.py migrate --noinput
 
@@ -53,6 +55,7 @@ jobs:
         # env:
         #   DJANGO_SETTINGS_MODULE: foodgram_project.settings
         run: |
+          cd backend
           pytest -q
 
   # postgres-checks:
