@@ -6,7 +6,7 @@ from ingredients.models import Ingredient
 from recipes.models import Recipe, RecipeIngredient
 from tags.models import Tag
 from users.models import Favorite, ShoppingCartItem
-from users.serializers import UserSerializer  # для author
+from users.serializers import UserSerializer
 
 
 class IngredientInRecipeSerializer(serializers.Serializer):
