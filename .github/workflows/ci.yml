@@ -13,6 +13,9 @@ jobs:
   sqlite-tests:
     name: Style + Tests (SQLite)
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
     env:
       DJANGO_SETTINGS_MODULE: foodgram.settings
     steps:
@@ -25,38 +28,29 @@ jobs:
           python-version: '3.14'
 
       - name: Install dependencies
-        working-directory: backend
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: 'Lint: isort (check)'
-        working-directory: backend
-        run: isort --check-only .
+      - name: Install ruff
+        run: |
+          pip install ruff
 
-      - name: 'Lint: flake8'
-        working-directory: backend
-        run: flake8 .
+      - name: 'Lint: ruff (check)'
+        run: |
+          ruff check .
+          ruff format --check .
 
       - name: 'Django: makemigrations check'
-        working-directory: backend
-        # env:
-        #   DJANGO_SETTINGS_MODULE: backend.foodgram.settings
         run: |
           python manage.py makemigrations --check --dry-run
 
       - name: 'Django: migrate'
-        working-directory: backend
-        # env:
-        #   DJANGO_SETTINGS_MODULE: backend.foodgram.settings
         run: |
           python manage.py makemigrations
           python manage.py migrate --noinput
 
       - name: Run tests (pytest)
-        working-directory: backend
-        # env:
-        #   DJANGO_SETTINGS_MODULE: foodgram_project.settings
         run: |
           pytest -q
 
