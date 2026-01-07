@@ -4,6 +4,12 @@ line-length = 79
 [tool.ruff.format]
 quote-style = 'single'
 
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.ruff.lint.isort]
+known-first-party = ['core', 'export', 'foodgram', 'ingredients', 'recipes', 'tags', 'users']
+
 [tool.isort]
 sections = ['FUTURE', 'STDLIB', 'THIRDPARTY', 'FIRSTPARTY', 'LOCALFOLDER']
 known_first_party = ['core', 'export', 'foodgram', 'ingredients', 'recipes', 'tags', 'users']
