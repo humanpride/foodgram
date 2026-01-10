@@ -2,7 +2,6 @@ from django.contrib.auth import get_user_model
 from rest_framework import serializers
 
 from recipes.models import Recipe
-from recipes.serializers import RecipeListSerializer
 
 
 User = get_user_model()
@@ -62,6 +61,8 @@ class UserWithRecipesSerializer(UserSerializer):
         fields = UserSerializer.Meta.fields + ('recipes', 'recipes_count')
 
     def get_recipes(self, obj):
+        from recipes.serializers import RecipeListSerializer
+
         # recipes_limit is handled in the view
         # by passing in context['recipes_limit'] OR via request query param
         limit = self.context.get('recipes_limit')

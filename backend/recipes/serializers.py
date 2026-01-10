@@ -10,27 +10,28 @@ from users.serializers import UserSerializer
 
 
 class IngredientInRecipeSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
+    ingredient = serializers.IntegerField()
     amount = serializers.IntegerField(min_value=1)
 
+    def validate_ingredient(self, ingredient_id):
+        if not Ingredient.objects.filter(id=ingredient_id).exists():
+            raise serializers.ValidationError(
+                'Ингредиент с таким id не найден.'
+            )
+        return ingredient_id
 
-class IngredientNestedSerializer(serializers.ModelSerializer):
-    amount = serializers.IntegerField(read_only=True)
 
-    class Meta:
-        model = Ingredient
-        fields = ('id', 'name', 'measurement_unit', 'amount')
+# class IngredientNestedSerializer(serializers.ModelSerializer):
+#     amount = serializers.IntegerField(read_only=True)
+
+#     class Meta:
+#         model = Ingredient
+#         fields = ('id', 'name', 'measurement_unit', 'amount')
 
 
 class RecipeCreateUpdateBaseSerializer(serializers.ModelSerializer):
     image = Base64ImageField()
-    ingredients = serializers.ListField(
-        child=(
-            serializers.IntegerField(),  # ingredient id
-            serializers.IntegerField(min_value=1),  # amount
-        ),
-        allow_empty=False,
-    )
+    ingredients = IngredientInRecipeSerializer(many=True)
     tags = serializers.ListField(
         child=serializers.IntegerField(), allow_empty=False
     )
@@ -51,17 +52,21 @@ class RecipeCreateUpdateBaseSerializer(serializers.ModelSerializer):
         input_tags = set(value)
         tags_qs = Tag.objects.filter(id__in=input_tags)
         if tags_qs.count() != len(input_tags):
-            raise serializers.ValidationError('One or more tags not found')
+            raise serializers.ValidationError(
+                'Один или более тегов не найдены.'
+            )
         return tuple(input_tags)
 
-    def validate_ingredients(self, value):
-        ids = set(i[0] for i in value)
-        ingredients = Ingredient.objects.filter(id__in=ids)
-        if ingredients.count() != len(ids):
+    def validate_ingredients(self, ingredients):
+        if not ingredients:
+            raise serializers.ValidationError('Укажите хотя бы 1 ингредиент.')
+        ids = set(i[0] for i in ingredients)
+        ingr_qs = Ingredient.objects.filter(id__in=ids)
+        if ingr_qs.count() != len(ids):
             raise serializers.ValidationError(
-                'One or more ingredients not found'
+                'Один или более ингредиентов не найдены.'
             )
-        return value
+        return ingredients
 
     def _create_recipe_ingredient_rows(self, recipe, ingredients_data):
         rows = []
@@ -122,7 +127,7 @@ class RecipeIngredientReadSerializer(serializers.Serializer):
     amount = serializers.IntegerField()
 
 
-class RecipeListSerializer(serializers.ModelSerializer):
+class RecipeDetailSerializer(serializers.ModelSerializer):
     tags = serializers.SerializerMethodField()
     author = UserSerializer(read_only=True)
     ingredients = serializers.SerializerMethodField()
@@ -180,7 +185,6 @@ class RecipeListSerializer(serializers.ModelSerializer):
         return ShoppingCartItem.objects.filter(user=user, recipe=obj).exists()
 
 
-class RecipeDetailSerializer(RecipeListSerializer):
-    # same as list but could add extra fields if needed
-    class Meta(RecipeListSerializer.Meta):
-        fields = RecipeListSerializer.Meta.fields + ()
+class RecipeListSerializer(RecipeDetailSerializer):
+    class Meta(RecipeDetailSerializer.Meta):
+        pass
