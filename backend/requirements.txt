@@ -1,5 +1,6 @@
 django==5.2.9
 djangorestframework==3.16.1
+django-filter==25.2
 djoser==2.3.3
 pillow==12.1.0
 pytest==9.0.2

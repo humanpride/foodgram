@@ -1,12 +1,14 @@
 from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from core.permissions import IsAuthorOrAdmin
+from recipes.filters import RecipeFilter
 from recipes.models import Recipe, RecipeIngredient
 from recipes.serializers import (
     RecipeCreateSerializer,
@@ -29,6 +31,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
     queryset = Recipe.objects.all()
     queryset = queryset.select_related('author').prefetch_related('tags')
     lookup_field = 'id'
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = RecipeFilter
 
     def get_permissions(self):
         if self.action in ('partial_update', 'update', 'destroy'):
@@ -56,55 +60,55 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
-    def get_queryset(self):
-        """
-        Реализация фильтров:
-          - is_favorited=1
-          - is_in_shopping_cart=1
-          - author=[id]
-          - tags=[slug list], пример `tags=breakfast&tags=lunch`
+    # def get_queryset(self):
+    #     """
+    #     Реализация фильтров:
+    #       - is_favorited=1
+    #       - is_in_shopping_cart=1
+    #       - author=[id]
+    #       - tags=[slug list], пример `tags=breakfast&tags=lunch`
 
-        Фильтрация через query_params.
-        """
-        qs = super().get_queryset()
+    #     Фильтрация через query_params.
+    #     """
+    #     qs = super().get_queryset()
 
-        request = self.request
-        params = request.query_params
+    #     request = self.request
+    #     params = request.query_params
 
-        # author filter
-        author = params.get('author')
-        if author:
-            qs = qs.filter(author__id=author)
+    #     # author filter
+    #     author = params.get('author')
+    #     if author:
+    #         qs = qs.filter(author__id=author)
 
-        # tags by slug (multiple)
-        tags = params.getlist('tags')
-        if tags:
-            qs = qs.filter(tags__slug__in=tags).distinct()
+    #     # tags by slug (multiple)
+    #     tags = params.getlist('tags')
+    #     if tags:
+    #         qs = qs.filter(tags__slug__in=tags).distinct()
 
-        # is_favorited
-        is_fav = params.get('is_favorited')
-        if is_fav in ('1', '0'):  # if is_fav==None: do nothing
-            if is_fav == '1':
-                if request.user.is_authenticated:
-                    qs = qs.filter(favorite__user=request.user)
-                else:
-                    qs = qs.none()  # anon can't have favorites
-            elif request.user.is_authenticated:
-                # exclude favorites
-                qs = qs.exclude(favorite__user=request.user)
+    #     # is_favorited
+    #     is_fav = params.get('is_favorited')
+    #     if is_fav in ('1', '0'):  # if is_fav==None: do nothing
+    #         if is_fav == '1':
+    #             if request.user.is_authenticated:
+    #                 qs = qs.filter(favorite__user=request.user)
+    #             else:
+    #                 qs = qs.none()  # anon can't have favorites
+    #         elif request.user.is_authenticated:
+    #             # exclude favorites
+    #             qs = qs.exclude(favorite__user=request.user)
 
-        # is_in_shopping_cart
-        is_cart = params.get('is_in_shopping_cart')
-        if is_cart in ('1', '0'):
-            if is_cart == '1':
-                if request.user.is_authenticated:
-                    qs = qs.filter(shoppingcartitem__user=request.user)
-                else:
-                    qs = qs.none()
-            elif request.user.is_authenticated:
-                qs = qs.exclude(shoppingcartitem__user=request.user)
+    #     # is_in_shopping_cart
+    #     is_cart = params.get('is_in_shopping_cart')
+    #     if is_cart in ('1', '0'):
+    #         if is_cart == '1':
+    #             if request.user.is_authenticated:
+    #                 qs = qs.filter(shoppingcartitem__user=request.user)
+    #             else:
+    #                 qs = qs.none()
+    #         elif request.user.is_authenticated:
+    #             qs = qs.exclude(shoppingcartitem__user=request.user)
 
-        return qs.distinct()
+    #     return qs.distinct()
 
     @action(
         detail=True,
