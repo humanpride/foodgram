@@ -9,6 +9,7 @@ extend-select = ["I"]
 
 [tool.ruff.lint.isort]
 known-first-party = ['core', 'export', 'foodgram', 'ingredients', 'recipes', 'tags', 'users']
+lines-after-imports = 2
 
 [tool.isort]
 sections = ['FUTURE', 'STDLIB', 'THIRDPARTY', 'FIRSTPARTY', 'LOCALFOLDER']

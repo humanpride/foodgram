@@ -4,6 +4,7 @@ from rest_framework import serializers
 
 from core.fields import Base64ImageField
 
+
 # 1x1 PNG encoded in base64 (data URI)
 SAMPLE_BASE64_PNG = (
     'data:image/png;base64,'

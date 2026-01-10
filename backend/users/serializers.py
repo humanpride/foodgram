@@ -4,6 +4,7 @@ from rest_framework import serializers
 from recipes.models import Recipe
 from recipes.serializers import RecipeListSerializer
 
+
 User = get_user_model()
 
 
