@@ -8,6 +8,7 @@ from core.permissions import IsAdmin
 from users.models import Subscription, User
 from users.serializers import (
     SetAvatarSerializer,
+    SetPasswordSerializer,
     UserCreateSerializer,
     UserSerializer,
     UserWithRecipesSerializer,
@@ -122,3 +123,16 @@ class UserViewSet(
             # DELETE
             request.user.avatar.delete(save=True)
             return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @action(
+        detail=False,
+        methods=['post'],
+        permission_classes=[IsAuthenticated],
+    )
+    def set_password(self, request):
+        serializer = SetPasswordSerializer(
+            data=request.data, context={'request': request}
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)

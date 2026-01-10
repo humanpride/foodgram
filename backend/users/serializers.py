@@ -92,3 +92,21 @@ class SetAvatarSerializer(serializers.Serializer):
         file = self.validated_data['avatar']
         user.avatar.save(file.name, file, save=True)
         return user
+
+
+class SetPasswordSerializer(serializers.Serializer):
+    current_password = serializers.CharField(write_only=True)
+    new_password = serializers.CharField(write_only=True)
+
+    def validate_current_password(self, value):
+        user = self.context['request']
+        if not user or not user.check_password(value):
+            raise serializers.ValidationError('Текущий пароль неверный.')
+        return value
+
+    def save(self, **kwargs):
+        user = self.context['request'].get('user', None)
+        new_password = self.validated_data['new_password']
+        user.set_password(new_password)
+        user.save()
+        return user
