@@ -1,4 +1,3 @@
-from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
@@ -105,9 +104,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=['post'])
     def favorite(self, request, id=None):
-        recipe = get_object_or_404(Recipe, id=id)
+        recipe = self.get_object()
         user = request.user
-        if Favorite.objects.filter(user=user, recipe=recipe).exists():
+        if recipe.is_favorited:
             return Response(
                 {'detail': 'Already in favorites.'},
                 status=status.HTTP_400_BAD_REQUEST,
@@ -122,7 +121,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     @favorite.mapping.delete
     def unfavorite(self, request, id=None):
-        recipe = get_object_or_404(Recipe, id=id)
+        recipe = self.get_object()
         user = request.user
         deleted, _ = Favorite.objects.filter(user=user, recipe=recipe).delete()
         if not deleted:
@@ -139,9 +138,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
         url_name='shopping_cart',
     )
     def add_to_shopping_cart(self, request, id=None):
-        recipe = get_object_or_404(Recipe, id=id)
+        recipe = self.get_object()
         user = request.user
-        if ShoppingCartItem.objects.filter(user=user, recipe=recipe).exists():
+        if recipe.is_in_shopping_cart:
             return Response(
                 {'detail': 'Already in shopping cart.'},
                 status=status.HTTP_400_BAD_REQUEST,
@@ -155,7 +154,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     @add_to_shopping_cart.mapping.delete
     def remove_from_shopping_cart(self, request, id=None):
-        recipe = get_object_or_404(Recipe, id=id)
+        recipe = self.get_object()
         user = request.user
         deleted, _ = ShoppingCartItem.objects.filter(
             user=user, recipe=recipe
@@ -171,12 +170,11 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def get_link(self, request, id=None):
         """
         Возвращает короткую ссылку на рецепт.
-        Если у вас есть модель ShortLink — используйте её.
 
         Здесь простая реализация:
         `https://<host>/s/<recipe_id>`
         """
-        recipe = get_object_or_404(Recipe, id=id)
+        recipe = self.get_object()
         short = request.build_absolute_uri(f'/s/{recipe.id}')
         return Response({'short-link': short})
 
@@ -190,12 +188,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
         """
         from export import utils
 
-        user = request.user
-        if not user.is_authenticated:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
-
         response_format = request.query_params.get('format', 'txt').lower()
-        aggregated = utils.build_aggregated_ingredients(user)
+        aggregated = utils.build_aggregated_ingredients(request.user)
 
         if response_format in ('pdf', 'application/pdf'):
             return utils.build_pdf_response(aggregated, request)
