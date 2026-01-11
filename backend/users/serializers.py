@@ -46,11 +46,10 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
     def get_is_subscribed(self, obj):
-        request = self.context.get('request')
-        user = getattr(request, 'user', None)
+        user = self.context['request'].user
         if not user or not user.is_authenticated:
             return False
-        return user.subscription_set.filter(to_user=obj).exists()
+        return user.subscriptions.filter(to_user=obj).exists()
 
 
 class UserWithRecipesSerializer(UserSerializer):
