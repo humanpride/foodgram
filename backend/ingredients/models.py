@@ -11,9 +11,11 @@ class Ingredient(models.Model):
         ('чайные ложки', 'ч.л.'),
     )
 
-    name = models.CharField(max_length=128)
+    name = models.CharField('Название', max_length=128)
     measurement_unit = models.CharField(
-        max_length=64, choices=MEASUREMENT_UNITS
+        'Единица измерения',
+        max_length=64,
+        choices=MEASUREMENT_UNITS,
     )
 
     class Meta:

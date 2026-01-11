@@ -52,6 +52,8 @@ class Subscription(models.Model):
                 name='unique_subscription',
             ),
         ]
+        verbose_name = 'Подписка'
+        verbose_name_plural = 'Подписки'
 
     def __str__(self):
         return f'{self.from_user} → {self.to_user}'
@@ -77,6 +79,11 @@ class Favorite(models.Model):
                 name='unique_favorite',
             ),
         ]
+        verbose_name = 'Избранное'
+        verbose_name_plural = 'Избранное'
+
+    def __str__(self) -> str:
+        return f'{self.recipe.name[:10]} в избранном у {self.user}'
 
 
 class ShoppingCartItem(models.Model):
@@ -99,3 +106,8 @@ class ShoppingCartItem(models.Model):
                 name='unique_shopping_cart_item',
             ),
         ]
+        verbose_name = 'Объект в корзине'
+        verbose_name_plural = 'Объекты в корзине'
+
+    def __str__(self) -> str:
+        return f'{self.recipe.name[:10]} в корзине у {self.user}'

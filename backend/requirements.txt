@@ -6,11 +6,11 @@ pillow==12.1.0
 pytest==9.0.2
 pytest-django==4.11.1
 factory-boy==3.3.3
-coverage==7.13.1
+# coverage==7.13.1
 python-dotenv==1.2.1
 gunicorn==23.0.0
-flake8==7.3.0
-isort==7.0.0
+flake8==7.3.0  # поменять на ruff
+isort==7.0.0  # поменять на ruff?
 pre-commit==4.5.1
 pillow==12.1.0
 weasyprint==67.0

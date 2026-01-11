@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import RedirectView
 from rest_framework.authtoken.views import obtain_auth_token
@@ -16,6 +17,7 @@ router.register('ingredients', IngredientViewSet, basename='ingredient')
 router.register('tags', TagViewSet, basename='tag')
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
     # DRF token login
     path('api/auth/token/login/', obtain_auth_token, name='token_login'),
     # You may want a logout endpoint which deletes token,
