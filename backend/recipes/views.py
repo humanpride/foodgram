@@ -1,5 +1,3 @@
-from django.db.models import Sum
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, viewsets
@@ -9,7 +7,7 @@ from rest_framework.response import Response
 
 from core.permissions import IsAuthorOrAdmin
 from recipes.filters import RecipeFilter
-from recipes.models import Recipe, RecipeIngredient
+from recipes.models import Recipe
 from recipes.serializers import (
     RecipeCreateSerializer,
     RecipeDetailSerializer,
@@ -28,8 +26,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
     Доп. actions: favorite, shopping_cart, get-link, download_shopping_cart
     """
 
-    queryset = Recipe.objects.all()
-    queryset = queryset.select_related('author').prefetch_related('tags')
+    queryset = (
+        Recipe.objects.all().select_related('author').prefetch_related('tags')
+    )
     lookup_field = 'id'
     filter_backends = (DjangoFilterBackend,)
     filterset_class = RecipeFilter
@@ -60,62 +59,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
-    # def get_queryset(self):
-    #     """
-    #     Реализация фильтров:
-    #       - is_favorited=1
-    #       - is_in_shopping_cart=1
-    #       - author=[id]
-    #       - tags=[slug list], пример `tags=breakfast&tags=lunch`
-
-    #     Фильтрация через query_params.
-    #     """
-    #     qs = super().get_queryset()
-
-    #     request = self.request
-    #     params = request.query_params
-
-    #     # author filter
-    #     author = params.get('author')
-    #     if author:
-    #         qs = qs.filter(author__id=author)
-
-    #     # tags by slug (multiple)
-    #     tags = params.getlist('tags')
-    #     if tags:
-    #         qs = qs.filter(tags__slug__in=tags).distinct()
-
-    #     # is_favorited
-    #     is_fav = params.get('is_favorited')
-    #     if is_fav in ('1', '0'):  # if is_fav==None: do nothing
-    #         if is_fav == '1':
-    #             if request.user.is_authenticated:
-    #                 qs = qs.filter(favorite__user=request.user)
-    #             else:
-    #                 qs = qs.none()  # anon can't have favorites
-    #         elif request.user.is_authenticated:
-    #             # exclude favorites
-    #             qs = qs.exclude(favorite__user=request.user)
-
-    #     # is_in_shopping_cart
-    #     is_cart = params.get('is_in_shopping_cart')
-    #     if is_cart in ('1', '0'):
-    #         if is_cart == '1':
-    #             if request.user.is_authenticated:
-    #                 qs = qs.filter(shoppingcartitem__user=request.user)
-    #             else:
-    #                 qs = qs.none()
-    #         elif request.user.is_authenticated:
-    #             qs = qs.exclude(shoppingcartitem__user=request.user)
-
-    #     return qs.distinct()
-
-    @action(
-        detail=True,
-        methods=['post'],
-        # url_path='favorite',
-        # url_name='favorite',
-    )
+    @action(detail=True, methods=['post'])
     def favorite(self, request, id=None):
         recipe = get_object_or_404(Recipe, id=id)
         user = request.user
@@ -179,13 +123,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
             )
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    @action(
-        detail=True,
-        methods=['get'],
-        permission_classes=[AllowAny],
-        # url_path='get-link',
-        # url_name='get_link',
-    )
+    @action(detail=True, methods=['get'])
     def get_link(self, request, id=None):
         """
         Возвращает короткую ссылку на рецепт.
@@ -198,46 +136,25 @@ class RecipeViewSet(viewsets.ModelViewSet):
         short = request.build_absolute_uri(f'/s/{recipe.id}')
         return Response({'short-link': short})
 
-    @action(
-        detail=False,
-        methods=['get'],
-        # url_path='download_shopping_cart',
-        # url_name='download_shopping_cart',
-    )
+    @action(detail=False, methods=['get'])
     def download_shopping_cart(self, request):
         """
         Собирает все рецепты из корзины пользователя, агрегирует ингредиенты
-        и отдаёт в виде text/plain.
+        и отдаёт в виде text/csv/pdf в зависимости от query_params.
+
+        Query params: ?format=pdf | csv | txt (по умолчанию txt)
         """
+        from export import utils
+
         user = request.user
         if not user.is_authenticated:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
-        recipe_ids = ShoppingCartItem.objects.filter(user=user).values_list(
-            'recipe_id', flat=True
-        )
-        if not recipe_ids:
-            return HttpResponse(
-                'Ваша корзина пуста.\n', content_type='text/plain'
-            )
+        response_format = request.query_params.get('format', 'txt').lower()
+        aggregated = utils.build_aggregated_ingredients(user)
 
-        # группировка по ingredient id, суммирование amounts
-        aggregation = (
-            RecipeIngredient.objects.filter(recipe_id__in=list(recipe_ids))
-            .values('ingredient__name', 'ingredient__measurement_unit')
-            .annotate(total_amount=Sum('amount'))
-            .order_by('ingredient__name')
-        )
-
-        lines = []
-        for row in aggregation:
-            lines.append(
-                f'{row["ingredient__name"]} — '
-                f'{row["total_amount"]} '
-                f'{row["ingredient__measurement_unit"]}'
-            )
-        response = HttpResponse('\n'.join(lines), content_type='text/plain')
-        response['Content-Disposition'] = (
-            'attachment; filename=shopping_list.txt'
-        )
-        return response
+        if response_format in ('pdf', 'application/pdf'):
+            return utils.build_pdf_response(aggregated, request)
+        if response_format in ('csv', 'text/csv'):
+            return utils.build_csv_response(aggregated)
+        return utils.build_text_response(aggregated)

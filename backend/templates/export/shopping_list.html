@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Shopping list</title>
+  <style>
+    body { font-family: DejaVu Sans, Arial, sans-serif; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align:left; }
+  </style>
+</head>
+<body>
+  <h1>Список покупок</h1>
+  <table>
+    <thead><tr><th>Ингредиент</th><th>Количество</th><th>Ед.</th></tr></thead>
+    <tbody>
+      {% for row in items %}
+      <tr>
+        <td>{{ row.ingredient__name }}</td>
+        <td>{{ row.total_amount }}</td>
+        <td>{{ row.ingredient__measurement_unit }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
