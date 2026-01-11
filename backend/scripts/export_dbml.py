@@ -37,6 +37,14 @@ args = parser.parse_args()
 
 # если запуск не из директории с manage.py,
 # убедитесь, что установлена переменная DJANGO_SETTINGS_MODULE
+script_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.abspath(os.path.join(script_dir, '..'))
+
+# Гарантируем, что корень проекта в sys.path
+#  тогда импорт foodgram.settings найдётся.
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'foodgram.settings')
 try:
     django.setup()
