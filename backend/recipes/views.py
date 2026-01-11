@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from core.permissions import IsAuthorOrAdmin
 from recipes.filters import RecipeFilter
-from recipes.models import Recipe
+from recipes.models import Recipe, RecipeIngredient
 from recipes.serializers import (
     RecipeCreateSerializer,
     RecipeDetailSerializer,
@@ -26,12 +26,56 @@ class RecipeViewSet(viewsets.ModelViewSet):
     Доп. actions: favorite, shopping_cart, get-link, download_shopping_cart
     """
 
-    queryset = (
-        Recipe.objects.all().select_related('author').prefetch_related('tags')
-    )
     lookup_field = 'id'
     filter_backends = (DjangoFilterBackend,)
     filterset_class = RecipeFilter
+
+    def get_queryset(self):
+        from django.db.models import (
+            BooleanField,
+            Count,
+            Exists,
+            OuterRef,
+            Prefetch,
+            Value,
+        )
+
+        qs = (
+            Recipe.objects.all()
+            .select_related('author')
+            .prefetch_related(
+                'tags',
+                Prefetch(
+                    'recipe_ingredients',
+                    queryset=RecipeIngredient.objects.select_related(
+                        'ingredient'
+                    ),
+                ),
+            )
+        )
+
+        user = self.request.user
+        if user.is_authenticated:
+            favorite_qs = Favorite.objects.filter(
+                user=user, recipe=OuterRef('pk')
+            )
+            cart_qs = ShoppingCartItem.objects.filter(
+                user=user, recipe=OuterRef('pk')
+            )
+            qs = qs.annotate(
+                is_favorited=Exists(favorite_qs),
+                is_in_shopping_cart=Exists(cart_qs),
+            )
+        else:
+            # анонимному пользователю — False по обоим полям
+            qs = qs.annotate(
+                is_favorited=Value(False, output_field=BooleanField()),
+                is_in_shopping_cart=Value(False, output_field=BooleanField()),
+            )
+
+        qs = qs.annotate(favorites_count=Count('favorited_by', distinct=True))
+
+        return qs
 
     def get_permissions(self):
         if self.action in ('partial_update', 'update', 'destroy'):
