@@ -13,6 +13,7 @@ class User(AbstractUser):
     email = models.EmailField(
         unique=True,
         verbose_name='Email',
+        max_length=254,
     )
     avatar = models.ImageField(
         upload_to='users/avatars/',

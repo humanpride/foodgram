@@ -8,14 +8,19 @@ User = get_user_model()
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(max_length=254)
+    id = serializers.IntegerField(read_only=True)
+    username = serializers.RegexField(r'^[\w.@+-]+\z', max_length=150)
     password = serializers.CharField(write_only=True)
+    first_name = serializers.CharField(max_length=150)
+    last_name = serializers.CharField(max_length=150)
 
     class Meta:
         model = User
         fields = (
+            'email',
             'id',
             'username',
-            'email',
             'first_name',
             'last_name',
             'password',
@@ -79,12 +84,10 @@ class SetAvatarSerializer(serializers.Serializer):
     avatar = serializers.CharField()  # base64 string
 
     def validate_avatar(self, value):
-        # reuse Base64ImageField decode:
-        # we can instantiate it and call to_internal_value
         from core.fields import Base64ImageField
 
         field = Base64ImageField()
-        file = field.to_internal_value(value)  # raise ValidationError if wrong
+        file = field.to_internal_value(value)
         return file
 
     def save(self, user):

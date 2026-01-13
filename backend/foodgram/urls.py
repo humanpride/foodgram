@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import RedirectView
-from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework.routers import DefaultRouter
 
 from ingredients.views import IngredientViewSet
@@ -18,12 +17,8 @@ router.register('tags', TagViewSet, basename='tag')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # DRF token login
-    path('api/auth/token/login/', obtain_auth_token, name='token_login'),
-    # You may want a logout endpoint which deletes token,
-    # implement separately if needed.
+    path('api/auth/', include('djoser.urls.authtoken')),
     path('api/', include(router.urls)),
-    # example short link redirect (optional) — redirect to recipe detail
     path(
         's/<int:pk>/',
         RedirectView.as_view(pattern_name='recipe-detail', permanent=False),
