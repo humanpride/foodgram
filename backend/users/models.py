@@ -12,15 +12,17 @@ class User(AbstractUser):
 
     email = models.EmailField(
         unique=True,
-        verbose_name='Email',
+        verbose_name='Адрес эл. почты',
         max_length=254,
     )
     avatar = models.ImageField(
+        'Аватар',
         upload_to='users/avatars/',
         blank=True,
         null=True,
     )
     role = models.CharField(
+        'Роль',
         max_length=10,
         choices=ROLE_CHOICES,
         default='user',

@@ -8,10 +8,6 @@ User = get_user_model()
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(max_length=254)
-    id = serializers.IntegerField(read_only=True)
-    username = serializers.RegexField(r'^[\w.@+-]+\z', max_length=150)
-    password = serializers.CharField(write_only=True)
     first_name = serializers.CharField(max_length=150)
     last_name = serializers.CharField(max_length=150)
 
@@ -25,6 +21,8 @@ class UserCreateSerializer(serializers.ModelSerializer):
             'last_name',
             'password',
         )
+        read_only_fields = ('id',)
+        extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         password = validated_data.pop('password')
