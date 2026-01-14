@@ -1,5 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import status, viewsets
+from rest_framework import filters, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
@@ -26,8 +26,14 @@ class RecipeViewSet(viewsets.ModelViewSet):
     """
 
     lookup_field = 'id'
-    filter_backends = (DjangoFilterBackend,)
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
     filterset_class = RecipeFilter
+    search_fileds = (
+        '^name',
+        'name',
+        'author__first_name',
+        'author__last_name',
+    )
 
     def get_queryset(self):
         from django.db.models import (
