@@ -54,7 +54,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 'tags',
                 Prefetch(
                     'recipe_ingredients',
-                    queryset=RecipeIngredient.objects.select_related(
+                    queryset=RecipeIngredient.objects.all().select_related(
                         'ingredient'
                     ),
                 ),

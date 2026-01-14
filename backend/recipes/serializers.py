@@ -1,5 +1,3 @@
-from typing import Dict, List
-
 from django.db import transaction
 from rest_framework import serializers
 
@@ -90,9 +88,15 @@ class RecipeDetailSerializer(serializers.ModelSerializer):
 
 class RecipeCreateUpdateBaseSerializer(serializers.ModelSerializer):
     image = Base64ImageField()
-    ingredients = IngredientInRecipeWriteSerializer(many=True, write_only=True)
+    ingredients = IngredientInRecipeWriteSerializer(
+        many=True,
+        write_only=True,
+        required=True,
+    )
     tags = serializers.ListField(
-        child=serializers.IntegerField(), allow_empty=False
+        child=serializers.IntegerField(),
+        allow_empty=False,
+        required=True,
     )
 
     class Meta:
@@ -116,7 +120,7 @@ class RecipeCreateUpdateBaseSerializer(serializers.ModelSerializer):
             )
         return tuple(input_tags)
 
-    def validate_ingredients(self, ingredients: List[Dict[str, int]]):
+    def validate_ingredients(self, ingredients=None):
         if not ingredients:
             raise serializers.ValidationError('Укажите хотя бы 1 ингредиент.')
         ids = [ingredient['id'] for ingredient in ingredients]
@@ -126,6 +130,24 @@ class RecipeCreateUpdateBaseSerializer(serializers.ModelSerializer):
                 'Один или более ингредиентов не найдены.'
             )
         return ingredients
+
+    def validate(self, attrs):
+        """
+        Дополнительная валидация: при `partial=True` (PATCH).
+
+        Требуем, чтобы оба поля `ingredients` и `tags` присутствовали
+        в исходных данных запроса.
+        """
+        if self.partial:
+            missing = {}
+            if 'ingredients' not in self.initial_data:
+                missing['ingredients'] = ['Это поле обязательно.']
+            if 'tags' not in self.initial_data:
+                missing['tags'] = ['Это поле обязательно.']
+            if missing:
+                raise serializers.ValidationError(missing)
+
+        return attrs
 
     def _create_recipe_ingredient_rows(self, recipe, ingredients_data):
         rows = []
