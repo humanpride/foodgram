@@ -16,11 +16,25 @@ class RecipeFilter(filters.FilterSet):
         field_name='is_in_shopping_cart'
     )
     author = filters.NumberFilter(field_name='author__id')
-    tags = CharInFilter(field_name='tags__slug', lookup_expr='in')
+    tags = filters.CharFilter(method='filter_tags')
 
     class Meta:
         model = Recipe
         fields = ('is_favorited', 'is_in_shopping_cart', 'author', 'tags')
+
+    def filter_tags(
+        self, queryset: QuerySet, field_name: str, value: str
+    ) -> QuerySet:
+        raw = self.data.getlist(field_name)
+        if not raw:
+            # если не было повторяющихся params,
+            # попробуем распарсить value (comma-separated)
+            raw = [tag.strip() for tag in value.split(',')]
+
+        if not raw:
+            return queryset
+
+        return queryset.filter(tags__slug__in=raw)
 
 
 class IngrediendFilter(filters.FilterSet):
