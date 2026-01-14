@@ -67,14 +67,14 @@ class UserViewSet(
         user = request.user
         if target == user:
             return Response(
-                {'detail': 'Cannot subscribe to self.'},
+                {'detail': 'Нельзя подписаться на себя.'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
         if Subscription.objects.filter(
             from_user=user, to_user=target
         ).exists():
             return Response(
-                {'detail': 'Already subscribed.'},
+                {'detail': 'Вы уже подписаны на этого пользователя.'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
         Subscription.objects.create(from_user=user, to_user=target)

@@ -204,5 +204,6 @@ class RecipeUpdateSerializer(RecipeCreateUpdateBaseSerializer):
 
 
 class RecipeListSerializer(RecipeDetailSerializer):
-    class Meta(RecipeDetailSerializer.Meta):
-        pass
+    class Meta:
+        model = Recipe
+        fields = ('id', 'name', 'image', 'cooking_time')
