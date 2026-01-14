@@ -5,6 +5,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from core.filters import RecipeFilter
+from core.pagination import PageLimitPagination
 from core.permissions import IsAuthorOrAdmin
 from recipes.models import Recipe, RecipeIngredient
 from recipes.serializers import (
@@ -34,6 +35,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         'author__first_name',
         'author__last_name',
     )
+    pagination_class = PageLimitPagination
 
     def get_queryset(self):
         from django.db.models import (

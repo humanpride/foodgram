@@ -39,13 +39,13 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
+            'email',
             'id',
             'username',
-            'email',
             'first_name',
             'last_name',
-            'avatar',
             'is_subscribed',
+            'avatar',
         )
 
     def get_is_subscribed(self, obj):

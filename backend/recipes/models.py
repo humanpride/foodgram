@@ -2,6 +2,8 @@ from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.db import models
 
+from ingredients.models import Ingredient
+
 
 class Recipe(models.Model):
     name = models.CharField(max_length=256)
@@ -11,6 +13,12 @@ class Recipe(models.Model):
         related_name='recipes',
     )
     tags = models.ManyToManyField('tags.Tag', related_name='recipes')
+    ingredients = models.ManyToManyField(
+        Ingredient,
+        through='RecipeIngredient',
+        verbose_name='Ингредиенты',
+        related_name='recipes',
+    )
     image = models.ImageField(upload_to='recipes/images/')
     text = models.TextField()
     cooking_time = models.PositiveIntegerField(
