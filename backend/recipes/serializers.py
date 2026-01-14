@@ -65,9 +65,6 @@ class RecipeDetailSerializer(serializers.ModelSerializer):
         ]
 
     def get_ingredients(self, recipe):
-        # recipe_ingredients = RecipeIngredient.objects.filter(
-        #     recipe=obj
-        # ).select_related('ingredient')
         return IngredientInRecipeReadSerializer(
             RecipeIngredient.objects.filter(recipe=recipe).select_related(
                 'ingredient'
@@ -113,7 +110,7 @@ class RecipeCreateUpdateBaseSerializer(serializers.ModelSerializer):
     def validate_tags(self, value):
         input_tags = set(value)
         tags_qs = Tag.objects.filter(id__in=input_tags)
-        if tags_qs.count() != len(input_tags):
+        if tags_qs.count() != len(value):
             raise serializers.ValidationError(
                 'Один или более тегов не найдены.'
             )
