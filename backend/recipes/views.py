@@ -174,7 +174,12 @@ class RecipeViewSet(viewsets.ModelViewSet):
             )
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    @action(detail=True, methods=['get'])
+    @action(
+        detail=True,
+        methods=['get'],
+        url_name='get-link',
+        url_path='get-link',
+    )
     def get_link(self, request, id=None):
         """
         Возвращает короткую ссылку на рецепт.
