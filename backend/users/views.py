@@ -4,6 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
+from core.pagination import PageLimitPagination
 from core.permissions import IsAdmin
 from users.models import Subscription, User
 from users.serializers import (
@@ -31,6 +32,7 @@ class UserViewSet(
 
     queryset = User.objects.all()
     lookup_field = 'id'
+    pagination_class = PageLimitPagination
 
     def get_serializer_class(self):
         if self.action == 'create':
