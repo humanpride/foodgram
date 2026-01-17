@@ -99,7 +99,7 @@ class UserViewSet(
 
     @action(detail=False, methods=['get'])
     def subscriptions(self, request):
-        qs = User.objects.filter(subscription__from_user=request.user)
+        qs = User.objects.filter(subscriptions__from_user=request.user)
         page = self.paginate_queryset(qs)
         if page:
             serializer = UserWithRecipesSerializer(
