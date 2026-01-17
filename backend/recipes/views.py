@@ -91,7 +91,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
             'create',
             'download_shopping_cart',
             'favorite',
-            'shopping_cart',
+            'unfavorite',
+            'add_to_shopping_cart',
+            'remove_from_shopping_cart',
         ):
             permission_classes = [IsAuthenticated]
         else:
