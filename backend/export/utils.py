@@ -8,9 +8,15 @@ from recipes.models import RecipeIngredient
 
 def build_aggregated_ingredients(user):
     return list(
-        RecipeIngredient.objects.filter(recipe__shoppingcartitem__user=user)
+        RecipeIngredient.objects.filter(
+            recipe__id__in=user.shopping_cart.all().values_list(
+                'recipe__id', flat=True
+            )
+        )
         .values(
-            'ingredient_id', 'ingredient__name', 'ingredient__measurement_unit'
+            'ingredient__id',
+            'ingredient__name',
+            'ingredient__measurement_unit',
         )
         .annotate(total_amount=Sum('amount'))
         .order_by('ingredient__name')
