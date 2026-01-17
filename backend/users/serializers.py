@@ -76,7 +76,7 @@ class UserWithRecipesSerializer(UserSerializer):
     def get_recipes(self, obj):
         from recipes.serializers import RecipeListSerializer
 
-        limit = self.context['request'].get('recipes_limit')
+        limit = self.context['request'].query_params.get('recipes_limit')
         qs = Recipe.objects.filter(author=obj)
         if limit:
             qs = qs[: int(limit)]
