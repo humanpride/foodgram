@@ -22,12 +22,11 @@ class UserViewSet(
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
 ):
-    """
-    Действия:
-      - create / list / retrieve
-      - me (GET)
-      - set_password handled elsewhere (or add action)
-      - subscribe / unsubscribe
+    """Действия:
+    - create / list / retrieve
+    - me (GET)
+    - set_password handled elsewhere (or add action)
+    - subscribe / unsubscribe
     """
 
     queryset = User.objects.all()
@@ -99,7 +98,11 @@ class UserViewSet(
 
     @action(detail=False, methods=['get'])
     def subscriptions(self, request):
-        qs = User.objects.filter(subscriptions__from_user=request.user)
+        qs = User.objects.filter(
+            id__in=Subscription.objects.filter(
+                from_user=request.user
+            ).values_list('to_user__id', flat=True)
+        )
         page = self.paginate_queryset(qs)
         if page:
             serializer = UserWithRecipesSerializer(

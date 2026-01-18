@@ -1,16 +1,35 @@
 [tool.ruff]
 line-length = 79
+target-version = 'py314'
+exclude = [
+    "tests",
+    "*/migrations",
+    "data",
+    "venv",
+    "env",
+    "docs",
+    "frontend",
+    "infra"
+]
 
 [tool.ruff.format]
 quote-style = 'single'
+docstring-code-format = true
 
 [tool.ruff.lint]
-extend-select = ["I"]
+extend-select = [
+    "B",    # flake8-bugbear
+    "C4",   # flake8-comprehensions
+    "I",    # isort (импорты)
+    "N",    # pep8-naming
+    "S",    # security (bandit-like)
+    "E",    # pycodestyle
+    "W",    # pycodestyle warnings
+]
+
+[tool.ruff.lint.per-file-ignores]
+"**/settings.py" = ["E501"]
 
 [tool.ruff.lint.isort]
 known-first-party = ['core', 'export', 'foodgram', 'ingredients', 'recipes', 'tags', 'users']
 lines-after-imports = 2
-
-[tool.isort]
-sections = ['FUTURE', 'STDLIB', 'THIRDPARTY', 'FIRSTPARTY', 'LOCALFOLDER']
-known_first_party = ['core', 'export', 'foodgram', 'ingredients', 'recipes', 'tags', 'users']

@@ -13,7 +13,7 @@ import styles from "./styles.module.css";
 import Ingredients from "./ingredients";
 import Description from "./description";
 import cn from "classnames";
-import { useMatch, useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import DefaultImage from "../../images/userpic-icon.jpg";
 import { useRecipe } from "../../utils/index.js";
@@ -33,6 +33,7 @@ const SingleCard = ({ loadItem, updateOrders }) => {
   const userContext = useContext(UserContext);
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation(); // <-- используем для получения текущего пути
 
   const handleCopyLink = () => {
     api
@@ -47,10 +48,7 @@ const SingleCard = ({ loadItem, updateOrders }) => {
             }, 3000);
           })
           .catch(() => {
-            /**
-             * В Safari не работает запись в буфер внутри асинхронного запроса,
-             * поэтому добавил отдельную плашку на этот случай
-             */
+            // Safari fallback
             setNotificationError({
               text: `Ваша ссылка: ${shortLink}`,
               position: "40px",
@@ -64,7 +62,9 @@ const SingleCard = ({ loadItem, updateOrders }) => {
     setNotificationError((prev) => ({ ...prev, position: "-100%" }));
   };
 
-  useEffect((_) => {
+  useEffect(() => {
+    if (!id) return; // защитимся, если id вдруг не задан
+    setLoading(true);
     api
       .getRecipe({
         recipe_id: id,
@@ -76,9 +76,13 @@ const SingleCard = ({ loadItem, updateOrders }) => {
       .catch((err) => {
         navigate("/not-found");
       });
-  }, []);
+    // обновлять при смене id
+  }, [id, setRecipe, navigate]);
 
-  const { url } = useMatch();
+  // Получаем текущий путь — безопасно и корректно в v6
+  // Используем location.pathname вместо useMatch()
+  const url = location.pathname; // example: "/recipes/1"
+
   const {
     author = {},
     image,
@@ -89,7 +93,11 @@ const SingleCard = ({ loadItem, updateOrders }) => {
     text,
     is_favorited,
     is_in_shopping_cart,
-  } = recipe;
+  } = recipe || {};
+
+  if (loading) {
+    return <div className={styles.loading}>Загрузка...</div>;
+  }
 
   return (
     <Main>
@@ -101,7 +109,7 @@ const SingleCard = ({ loadItem, updateOrders }) => {
         </Helmet>
         <div className={styles["single-card"]}>
           <img
-            src={image}
+            src={image || DefaultImage}
             alt={name}
             className={styles["single-card__image"]}
           />
@@ -155,16 +163,21 @@ const SingleCard = ({ loadItem, updateOrders }) => {
                   <div
                     className={styles["single-card__user-avatar"]}
                     style={{
-                      "background-image": `url(${
-                        author.avatar || DefaultImage
-                      })`,
+                      backgroundImage: `url(${author.avatar || DefaultImage})`,
                     }}
                   />
-                  <LinkComponent
-                    title={`${author.first_name} ${author.last_name}`}
-                    href={`/user/${author.id}`}
-                    className={styles["single-card__link"]}
-                  />
+                  {/* не рендерим ссылку если id автора нет */}
+                  {author.id ? (
+                    <LinkComponent
+                      title={`${author.first_name} ${author.last_name}`}
+                      href={`/user/${author.id}`}
+                      className={styles["single-card__link"]}
+                    />
+                  ) : (
+                    <span className={styles["single-card__link"]}>
+                      {author.first_name} {author.last_name}
+                    </span>
+                  )}
                 </div>
               </p>
               {(userContext || {}).id !== author.id && authContext && (

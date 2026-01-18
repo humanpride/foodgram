@@ -14,22 +14,68 @@ class Api {
     });
   }
 
-  checkFileDownloadResponse(res) {
-    return new Promise((resolve, reject) => {
-      if (res.status < 400) {
-        return res.blob().then((blob) => {
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = "shopping-list";
-          document.body.appendChild(a); // we need to append the element to the dom -> otherwise it will not work in firefox
-          a.click();
-          a.remove(); //afterwards we remove the element again
-        });
+checkFileDownloadResponse(res) {
+  return new Promise(async (resolve, reject) => {
+    if (res.status >= 400) {
+      reject(res);
+      return;
+    }
+
+    try {
+      const blob = await res.blob();
+      const cd = res.headers.get('content-disposition') || '';
+      const filename = _getFilenameFromContentDisposition(cd) || 'shopping_list.txt';
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      // required for Firefox
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      // revoke URL shortly after to allow the download to start
+      setTimeout(() => {
+        try { URL.revokeObjectURL(url); } catch (e) { /* ignore */ }
+      }, 1000);
+
+      resolve(filename);
+    } catch (err) {
+      reject(err);
+    }
+  });
+
+  // helper to parse Content-Disposition
+  function _getFilenameFromContentDisposition(cd) {
+    if (!cd) return null;
+
+    // Try filename* (RFC5987) e.g. filename*=UTF-8''%D1%84%D0%B0%D0%B9%D0%BB.txt
+    const starMatch = cd.match(/filename\*\s*=\s*([^;]+)/i);
+    if (starMatch) {
+      let value = starMatch[1].trim();
+      // remove quotes if present
+      if (value.startsWith('"') && value.endsWith('"')) value = value.slice(1, -1);
+      // Extract part after charset''lang' (if present)
+      const m = value.match(/^[^']*'[^']*'(.+)$/);
+      if (m) value = m[1];
+      try {
+        return decodeURIComponent(value);
+      } catch (e) {
+        return value; // best-effort fallback
       }
-      reject();
-    });
+    }
+
+    // Fallback to simple filename="name.ext" or filename=name.ext
+    const fnMatch = cd.match(/filename\s*=\s*("?)([^";]+)\1/i);
+    if (fnMatch) {
+      return fnMatch[2].trim();
+    }
+
+    return null;
   }
+}
+
 
   signin({ email, password }) {
     return fetch("/api/auth/token/login/", {
