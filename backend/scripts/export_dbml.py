@@ -6,7 +6,8 @@ Usage:
   # from project root
   - `python scripts/export_dbml.py  # all non-django contrib apps`
   - `python scripts/export_dbml.py --apps users recipes ingredients`
-  - `DJANGO_SETTINGS_MODULE=your_project.settings python scripts/export_dbml.py`
+  - `DJANGO_SETTINGS_MODULE=your_project.settings
+    python scripts/export_dbml.py`
 """
 
 import argparse
@@ -201,7 +202,8 @@ for model in models:
             src_col = f.column
             tgt_pk = f.related_model._meta.pk.column
             refs.append(
-                f'Ref: {safe_name(src_tbl)}.{safe_name(src_col)} > {safe_name(tgt)}.{safe_name(tgt_pk)}'
+                f'Ref: {safe_name(src_tbl)}.{safe_name(src_col)} > '
+                f'{safe_name(tgt)}.{safe_name(tgt_pk)}'
             )
         elif isinstance(f, ManyToManyField):
             # обработка many-to-many
@@ -229,7 +231,8 @@ for model in models:
                         b_pk,
                     )
             else:
-                # явная through-модель — это одна из моделей в списке, и она будет напечатана отдельно.
+                # явная through-модель — это одна из моделей в списке,
+                # и она будет напечатана отдельно.
                 pass
 
 # печать auto m2m таблиц
@@ -240,18 +243,22 @@ for jt, data in m2m_auto_tables.items():
     written_tables.add(jt)
     lines.append(f'Table {safe_name(jt)} {{')
     lines.append(
-        f'  {safe_name(col_a)} int [ref: > {safe_name(a_tbl)}.{safe_name(a_pk)}]'
+        f'  {safe_name(col_a)} int [ref: > '
+        f'{safe_name(a_tbl)}.{safe_name(a_pk)}]'
     )
     lines.append(
-        f'  {safe_name(col_b)} int [ref: > {safe_name(b_tbl)}.{safe_name(b_pk)}]'
+        f'  {safe_name(col_b)} int [ref: > '
+        f'{safe_name(b_tbl)}.{safe_name(b_pk)}]'
     )
     lines.append('}')
     lines.append('')
     refs.append(
-        f'Ref: {safe_name(jt)}.{safe_name(col_a)} > {safe_name(a_tbl)}.{safe_name(a_pk)}'
+        f'Ref: {safe_name(jt)}.{safe_name(col_a)} > '
+        f'{safe_name(a_tbl)}.{safe_name(a_pk)}'
     )
     refs.append(
-        f'Ref: {safe_name(jt)}.{safe_name(col_b)} > {safe_name(b_tbl)}.{safe_name(b_pk)}'
+        f'Ref: {safe_name(jt)}.{safe_name(col_b)} > '
+        f'{safe_name(b_tbl)}.{safe_name(b_pk)}'
     )
 
 # добавляем собранные отношения
