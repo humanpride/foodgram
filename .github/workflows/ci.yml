@@ -71,9 +71,9 @@ jobs:
       postgres:
         image: postgres:18
         env:
-          POSTGRES_DB: test_db
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: 'test_db'
+          POSTGRES_USER: 'test'
+          POSTGRES_PASSWORD: 'test_password'
         ports:
           - 5432:5432
         options: >-
