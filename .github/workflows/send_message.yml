@@ -15,7 +15,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          Деплой Foodgram успешно выполнен!
+          Деплой **Foodgram** успешно выполнен!
           Автор коммита - ${{ github.actor }}
           Сообщение коммита - ${{ github.event.commits[0].message }}
           Ссылка на коммит - https://github.com/${{github.repository}}/commit/${{github.sha}}
