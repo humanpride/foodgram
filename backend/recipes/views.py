@@ -180,13 +180,13 @@ class RecipeViewSet(viewsets.ModelViewSet):
         url_name='get-link',
         url_path='get-link',
     )
-    def get_link(self, request, id=None):
+    def get_link(self, request):
         """Создаёт или возвращает короткую ссылку на рецепт."""
         short_link, created = RecipeShortLink.objects.get_or_create(
             recipe=self.get_object()
         )
         return Response(
-            {'short-link': request.build_absolute_uri(f'/s/{short_link.uuid}')}
+            {'short-link': request.build_absolute_uri(f'/s/{short_link.code}')}
         )
 
     @action(detail=False, methods=['get'])
