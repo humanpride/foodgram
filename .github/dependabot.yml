@@ -41,11 +41,20 @@ updates:
   # GitHub Actions (CI)
   # =========================
   - package-ecosystem: "github-actions"
-    directory: "/.github/workflows"
+    directory: "/.github/workflows/CI"
     schedule:
       interval: "daily"
     target-branch: "dev"
     open-pull-requests-limit: 5
     labels:
       - "dependencies"
-      - "ci"
+      - "CI"
+  - package-ecosystem: "github-actions"
+    directory: "/.github/workflows/CD"
+    schedule:
+      interval: "daily"
+    target-branch: "dev"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "CD"
