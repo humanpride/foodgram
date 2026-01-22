@@ -28,6 +28,15 @@ jobs:
             frontend:
               - 'frontend/**'
 
+  debug:
+    needs: changes
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "changes result = ${{ needs.changes.result }}"
+          echo "frontend = '${{ needs.changes.outputs.frontend }}'"
+          echo "backend = '${{ needs.changes.outputs.backend }}'"
+
   backend_tests:
     name: Backend tests
     needs: changes
