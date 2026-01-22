@@ -6,6 +6,7 @@ on:
     paths:
       - 'backend/**'
       - '.github/workflows/CI/**'
+# test line
 
 jobs:
   backend_tests:
