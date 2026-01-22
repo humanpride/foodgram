@@ -162,3 +162,7 @@ AUTHENTICATION_BACKENDS = {
     'djoser.auth_backends.LoginFieldBackend',
     'django.contrib.auth.backends.ModelBackend',
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://foodgram-8.ddns.net',
+]
