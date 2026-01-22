@@ -10,7 +10,7 @@ from ingredients.models import Ingredient
 
 class Command(BaseCommand):
     help = (
-        'Import ingredients from a CSV file.'
+        'Import ingredients from a CSV file. '
         'Usage: python manage.py import_ingredient_csv /path/to/file.csv'
     )
 
@@ -19,7 +19,7 @@ class Command(BaseCommand):
             'csv_file',
             type=str,
             help=(
-                'Path to the CSV file to import.'
+                'Path to the CSV file to import. '
                 'Expected columns: name, measurement_unit (header optional).'
             ),
         )
@@ -95,7 +95,7 @@ class Command(BaseCommand):
 
         self.stdout.write(
             self.style.SUCCESS(
-                f'Import finished: created={created}, '
-                f'skipped_existing={skipped_existing}'
+                f'Import finished: created {created}, '
+                f'skipped_existing {skipped_existing}'
             )
         )

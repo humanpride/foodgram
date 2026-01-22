@@ -8,6 +8,7 @@ updates:
     directory: "/frontend"
     schedule:
       interval: "daily"
+    target-branch: "dev"
     versioning-strategy: "increase"
     open-pull-requests-limit: 10
     labels:
@@ -26,6 +27,7 @@ updates:
     directory: "/backend"
     schedule:
       interval: "daily"
+    target-branch: "dev"
     versioning-strategy: "increase"
     open-pull-requests-limit: 5
     labels:
@@ -39,13 +41,11 @@ updates:
   # GitHub Actions (CI)
   # =========================
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directory: "/.github/workflows"
     schedule:
       interval: "daily"
+    target-branch: "dev"
     open-pull-requests-limit: 5
     labels:
       - "dependencies"
       - "ci"
-    ignore:
-      - dependency-name: "*"
-        update-types: ["version-update:semver-major"]

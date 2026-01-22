@@ -1,3 +1,11 @@
+[tool.pytest]
+minversion = "9.0"
+testpaths = ["tests"]
+addopts = ["--strict-markers", "-q"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "foodgram.settings"
+
 [tool.ruff]
 line-length = 79
 target-version = 'py314'

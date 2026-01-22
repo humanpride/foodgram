@@ -2,6 +2,10 @@ frontend/node_modules
 infra/frontend/build
 .env
 *_cache
+dev
+scripts
+static
+media
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -138,6 +142,3 @@ dmypy.json
 # .idea
 .idea
 .vscode
-
-static/
-media/
