@@ -5,7 +5,7 @@ on:
     - dev
     paths:
     - 'frontend/**'
-    - '.github/workflows/frontend_ci.yml'
+    - '.github/workflows/CI/frontend_ci.yml'
 
 jobs:
   frontend_tests:
