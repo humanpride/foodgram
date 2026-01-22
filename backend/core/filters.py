@@ -27,8 +27,8 @@ class RecipeFilter(filters.FilterSet):
     ) -> QuerySet:
         raw = self.data.getlist(field_name)
         if not raw:
-            # если не было повторяющихся params,
-            # попробуем распарсить value (comma-separated)
+            # если не было повторяющихся параметров,
+            # пробуем распарсить value (comma-separated)
             raw = [tag.strip() for tag in value.split(',')]
 
         if not raw:

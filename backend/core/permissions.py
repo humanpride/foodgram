@@ -5,7 +5,6 @@ class IsAuthorOrAdmin(BasePermission):
     """
     Разрешает безопасные методы всем,
     а небезопасные — только автору объекта или admin.
-    Предполагается, что у объекта есть поле `author`.
     """
 
     def has_object_permission(self, request, view, obj):
@@ -13,7 +12,7 @@ class IsAuthorOrAdmin(BasePermission):
             return True
 
         user = request.user
-        if not user or not user.is_authenticated:
+        if not user.is_authenticated:
             return False
 
         if user.is_staff or user.role == 'admin':
@@ -29,8 +28,6 @@ class IsAdmin(BasePermission):
 
     def has_permission(self, request, view):
         user = request.user
-        if not user or not user.is_authenticated:
+        if not user.is_authenticated:
             return False
-        if user.is_staff:
-            return True
-        return user.role == 'admin'
+        return user.is_staff or user.role == 'admin'

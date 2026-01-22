@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from core.filters import RecipeFilter
 from core.pagination import PageLimitPagination
 from core.permissions import IsAuthorOrAdmin
-from recipes.models import Recipe, RecipeIngredient
+from recipes.models import Recipe, RecipeIngredient, RecipeShortLink
 from recipes.serializers import (
     RecipeCreateSerializer,
     RecipeDetailSerializer,
@@ -181,15 +181,13 @@ class RecipeViewSet(viewsets.ModelViewSet):
         url_path='get-link',
     )
     def get_link(self, request, id=None):
-        """
-        Возвращает короткую ссылку на рецепт.
-
-        Здесь простая реализация:
-        `https://<host>/s/<recipe_id>`
-        """
-        recipe = self.get_object()
-        short = request.build_absolute_uri(f'/s/{recipe.id}')
-        return Response({'short-link': short})
+        """Создаёт или возвращает короткую ссылку на рецепт."""
+        short_link, created = RecipeShortLink.objects.get_or_create(
+            recipe=self.get_object()
+        )
+        return Response(
+            {'short-link': request.build_absolute_uri(f'/s/{short_link.uuid}')}
+        )
 
     @action(detail=False, methods=['get'])
     def download_shopping_cart(self, request):
@@ -209,3 +207,15 @@ class RecipeViewSet(viewsets.ModelViewSet):
         if response_format in ('csv', 'text/csv'):
             return utils.build_csv_response(aggregated)
         return utils.build_text_response(aggregated)
+
+
+def recipe_short_redirect(request, uuid):
+    from django.shortcuts import get_object_or_404, redirect
+
+    short_link = get_object_or_404(RecipeShortLink, uuid=uuid)
+
+    frontend_url = (
+        f'https://foodgram-8.ddns.net/recipes/{short_link.recipe.id}/'
+    )
+
+    return redirect(frontend_url)

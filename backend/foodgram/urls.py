@@ -1,10 +1,9 @@
 from django.contrib import admin
 from django.urls import include, path
-from django.views.generic import RedirectView
 from rest_framework.routers import DefaultRouter
 
 from ingredients.views import IngredientViewSet
-from recipes.views import RecipeViewSet
+from recipes.views import RecipeViewSet, recipe_short_redirect
 from tags.views import TagViewSet
 from users.views import UserViewSet
 
@@ -19,8 +18,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('djoser.urls.authtoken')),
     path('api/', include(router.urls)),
-    path(
-        's/<int:pk>/',
-        RedirectView.as_view(pattern_name='recipe-detail', permanent=False),
-    ),
+    path('s/<str:code>/', recipe_short_redirect, name='recipe-short'),
 ]

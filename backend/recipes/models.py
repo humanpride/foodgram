@@ -1,8 +1,15 @@
+import secrets
+import string
+
 from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.db import models
 
 from ingredients.models import Ingredient
+
+
+ALPHABET = string.ascii_letters + string.digits  # a-zA-Z0-9
+CODE_LENGTH = 4
 
 
 class Recipe(models.Model):
@@ -64,3 +71,34 @@ class RecipeIngredient(models.Model):
             f'{self.ingredient.name} — {self.amount} '
             f'{self.ingredient.measurement_unit} (в {self.recipe.name})'
         )
+
+
+class RecipeShortLink(models.Model):
+    recipe = models.OneToOneField(
+        Recipe,
+        on_delete=models.CASCADE,
+        related_name='short_link',
+    )
+    code = models.CharField(
+        max_length=4,
+        unique=True,
+        editable=False,
+        db_index=True,
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.code:
+            self.code = self._generate_unique_code(CODE_LENGTH)
+        super().save(*args, **kwargs)
+
+    def _generate_unique_code(self, length):
+        while True:
+            # ограничение в 62^length
+            # чем ближе к этому значению, тем дольше генерируется код
+            code = ''.join(secrets.choice(ALPHABET) for _ in range(length))
+            if not RecipeShortLink.objects.filter(code=code).exists():
+                return code
+
+    def __str__(self):
+        return f'{self.recipe.id} → {self.code}'

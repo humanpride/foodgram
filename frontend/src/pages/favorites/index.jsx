@@ -6,11 +6,11 @@ import {
   Container,
   Main,
   CheckboxGroup
-} from '../../components';
+} from '../../components/index.js';
 import styles from './styles.module.css';
 import { useRecipes } from '../../utils/index.js';
 import { useEffect } from 'react';
-import api from '../../api';
+import api from '../../api/index.js';
 import { Helmet } from 'react-helmet-async';
 
 const Favorites = ({ updateOrders }) => {

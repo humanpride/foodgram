@@ -4,8 +4,9 @@ venv
 .idea
 .vscode
 .env
+.env.dev
+.env.production
 dev
 scripts
-.pytest_cache
-.ruff_cache
-__pycache__
+node_modules
+dist
