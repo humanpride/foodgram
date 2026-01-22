@@ -3,6 +3,10 @@ on:
   push:
     branches:
       - dev
+    paths:
+      - 'backend/**'
+      - 'frontend/**'
+      - '.github/workflows/**'
 
 jobs:
   backend_tests:
@@ -92,6 +96,8 @@ jobs:
           context: ./backend
           push: True
           tags: ${{ secrets.DOCKER_USERNAME }}/foodgram_backend:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
   build_frontend_and_push_to_docker_hub:
     name: Push frontend image to DockerHub
@@ -115,3 +121,5 @@ jobs:
           context: ./frontend/
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/foodgram_frontend:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
