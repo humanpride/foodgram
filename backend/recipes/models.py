@@ -72,7 +72,7 @@ class RecipeShortLink(models.Model):
     recipe = models.OneToOneField(
         Recipe,
         on_delete=models.CASCADE,
-        related_name='short-link',
+        related_name='short_link',
     )
     uuid = models.UUIDField(
         default=uuid.uuid4,
