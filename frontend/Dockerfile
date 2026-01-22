@@ -1,8 +1,7 @@
-# build env
-FROM node:21.7.1-alpine
+FROM node:24.13.0
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 COPY . ./
 RUN npm run build
-CMD cp -r build/. result_build
+CMD cp -r dist/. result_build
