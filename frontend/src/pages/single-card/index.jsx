@@ -6,19 +6,19 @@ import {
   TagsContainer,
   Icons,
   LinkComponent,
-} from "../../components";
-import { UserContext, AuthContext } from "../../contexts";
+} from "../../components/index.js";
+import { UserContext, AuthContext } from "../../contexts/index.js";
 import { useContext, useState, useEffect } from "react";
 import styles from "./styles.module.css";
-import Ingredients from "./ingredients";
-import Description from "./description";
+import Ingredients from "./ingredients/index.jsx";
+import Description from "./description/index.jsx";
 import cn from "classnames";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import DefaultImage from "../../images/userpic-icon.jpg";
 import { useRecipe } from "../../utils/index.js";
-import api from "../../api";
-import { Notification } from "../../components/notification";
+import api from "../../api/index.js";
+import { Notification } from "../../components/notification/index.jsx";
 
 const SingleCard = ({ loadItem, updateOrders }) => {
   const [loading, setLoading] = useState(true);

@@ -1,0 +1,9 @@
+venv
+.git
+*.sqlite3
+.idea
+.vscode
+.env
+dev
+scripts
+node_modules

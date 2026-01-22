@@ -423,6 +423,9 @@ checkFileDownloadResponse(res) {
   }
 }
 
-export default new Api(process.env.API_URL || "http://localhost", {
-  "content-type": "application/json",
-});
+export default new Api(
+  import.meta.env.VITE_API_URL || "http://localhost",
+  {
+    "content-type": "application/json",
+  }
+);
