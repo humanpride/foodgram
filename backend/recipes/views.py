@@ -180,7 +180,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         url_name='get-link',
         url_path='get-link',
     )
-    def get_link(self, request):
+    def get_link(self, request, id):
         """Создаёт или возвращает короткую ссылку на рецепт."""
         short_link, created = RecipeShortLink.objects.get_or_create(
             recipe=self.get_object()
