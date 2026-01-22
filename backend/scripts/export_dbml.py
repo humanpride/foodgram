@@ -42,7 +42,7 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 project_root = os.path.abspath(os.path.join(script_dir, '..'))
 
 # Гарантируем, что корень проекта в sys.path
-#  тогда импорт foodgram.settings найдётся.
+# тогда импорт foodgram.settings найдётся.
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
@@ -78,7 +78,7 @@ FIELD_TYPE_MAP = {
     'JSONField': 'json',
     'ForeignKey': 'int',
     'OneToOneField': 'int',
-    # fallback will be 'text'
+    # по умолчанию будет 'text'
 }
 
 
@@ -190,7 +190,7 @@ for model in models:
 
 # сбор отношений (FKs/OneToOne)
 refs = []
-# Для неявных таблиц M2M мы создадим синтетические записи и ссылки в таблицах.
+# Для неявных таблиц M2M создадим синтетические записи и ссылки в таблицах.
 m2m_auto_tables = {}
 
 for model in models:
@@ -208,7 +208,7 @@ for model in models:
         elif isinstance(f, ManyToManyField):
             # обработка many-to-many
             through = f.remote_field.through
-            # if through is auto-created by Django, include an auto table
+            # если through-таблица сгенерирована Django, учитываем её
             if getattr(through._meta, 'auto_created', False):
                 jt_name = through._meta.db_table
                 if (

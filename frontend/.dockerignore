@@ -4,6 +4,9 @@ venv
 .idea
 .vscode
 .env
+.env.dev
+.env.production
 dev
 scripts
 node_modules
+dist
