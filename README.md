@@ -1,8 +1,8 @@
 # Foodgram
 
 > Платформа для публикации рецептов: пользователи регистрируются, публикуют свои рецепты, подписываются на других авторов, добавляют рецепты в избранное и формируют список покупок.
+
 Сайт: [https://foodgram-8.ddns.net/](https://foodgram-8.ddns.net/)
->
 
 [![Backend CI](https://github.com/humanpride/foodgram/actions/workflows/backend_ci.yml/badge.svg)](https://github.com/humanpride/foodgram/actions/workflows/backend_ci.yml)
 [![Frontend CI](https://github.com/humanpride/foodgram/actions/workflows/frontend_ci.yml/badge.svg)](https://github.com/humanpride/foodgram/actions/workflows/frontend_ci.yml)
@@ -41,12 +41,10 @@
 
 # Стек технологий
 
-**Бэкенд:** Python, Django, Django REST Framework
-*Дополнительно: djoser, python-dotenv, gunicorn, weasyprint, pre-commit, ruff*
-**Фронтенд:** React, Vite
-*Дополнительно: react-helmet-async*
-**База данных:** PostgreSQL (альтернативно SQLite при `USE_SQLITE=True`)
-**DevOps:** Docker Compose, GitHub Actions (CI/CD)
+* **Бэкенд:** Python, Django, Django REST Framework, djoser, python-dotenv, gunicorn, weasyprint, pre-commit, ruff
+* **Фронтенд:** React, react-helmet-async, Vite
+* **База данных:** PostgreSQL (альтернативно SQLite при `USE_SQLITE=True`)
+* **DevOps:** Docker Compose, GitHub Actions (CI/CD)
 
 ---
 
