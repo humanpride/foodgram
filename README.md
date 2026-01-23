@@ -1,7 +1,8 @@
 # Foodgram
 
 > Платформа для публикации рецептов: пользователи регистрируются, публикуют свои рецепты, подписываются на других авторов, добавляют рецепты в избранное и формируют список покупок.
-> Сайт: [https://foodgram-8.ddns.net/](https://foodgram-8.ddns.net/)
+Сайт: [https://foodgram-8.ddns.net/](https://foodgram-8.ddns.net/)
+>
 
 [![Backend CI](https://github.com/humanpride/foodgram/actions/workflows/backend_ci.yml/badge.svg)](https://github.com/humanpride/foodgram/actions/workflows/backend_ci.yml)
 [![Frontend CI](https://github.com/humanpride/foodgram/actions/workflows/frontend_ci.yml/badge.svg)](https://github.com/humanpride/foodgram/actions/workflows/frontend_ci.yml)
@@ -40,12 +41,12 @@
 
 # Стек технологий
 
-* **Бэкенд:** Python, Django, Django REST Framework
-  *Дополнительно: djoser, python-dotenv, gunicorn, weasyprint, pre-commit, ruff*
-* **Фронтенд:** React, Vite
-  *Дополнительно: react-helmet-async*
-* **База данных:** PostgreSQL (альтернативно SQLite при `USE_SQLITE=True`)
-* **DevOps:** Docker Compose, GitHub Actions (CI/CD)
+**Бэкенд:** Python, Django, Django REST Framework
+*Дополнительно: djoser, python-dotenv, gunicorn, weasyprint, pre-commit, ruff*
+**Фронтенд:** React, Vite
+*Дополнительно: react-helmet-async*
+**База данных:** PostgreSQL (альтернативно SQLite при `USE_SQLITE=True`)
+**DevOps:** Docker Compose, GitHub Actions (CI/CD)
 
 ---
 
@@ -79,16 +80,16 @@ docker compose -f infra/docker-compose-dev.yml up --build -d
 ```
 4. Выполните миграции Django:
 ```bash
-docker compose -f infra/docker-compose-dev.yml exec <backend_service> python manage.py migrate
+docker compose -f infra/docker-compose-dev.yml exec backend python manage.py migrate
 ```
 5. Соберите статику Django:
 ```bash
-docker compose -f infra/docker-compose-dev.yml exec <backend_service> python manage.py collectstatic
-docker compose -f infra/docker-compose-dev.yml exec <backend_service> cp -r /app/collected_static/. /backend_static/static/
+docker compose -f infra/docker-compose-dev.yml exec backend python manage.py collectstatic
+docker compose -f infra/docker-compose-dev.yml exec backend cp -r /app/collected_static/. /backend_static/static/
 ```
 6. (Опционально) Создайте суперпользователя:
 ```bash
-docker compose -f infra/docker-compose-dev.yml exec <backend_service> python manage.py createsuperuser
+docker compose -f infra/docker-compose-dev.yml exec backend python manage.py createsuperuser
 ```
 7. Проверьте логи:
 ```bash
@@ -134,7 +135,7 @@ DB_PORT=5432
 * `USER` — пользователь для SSH
 * `TELEGRAM_TO` — ваш user ID Telegram (см. @userinfobot)
 * `TELEGRAM_TOKEN` — токен вашего Telegram-бота для оповещений
-* `FRONTEND_ENV` — .env файл фронтенда для продакшена (обязательно укажите `VITE_API_URL=http://<backend-service>:<port>`)
+* `FRONTEND_ENV` — .env файл фронтенда для продакшена (обязательно укажите `VITE_API_URL=http://backend:<port>`)
 
 ---
 
