@@ -40,13 +40,18 @@ class Subscription(models.Model):
         User,
         related_name='subscriptions',
         on_delete=models.CASCADE,
+        verbose_name='От пользователя',
     )
     to_user = models.ForeignKey(
         User,
         related_name='subscribers',
         on_delete=models.CASCADE,
+        verbose_name='К пользователю',
     )
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(
+        'Дата подписки',
+        auto_now_add=True,
+    )
 
     class Meta:
         constraints = [
@@ -67,13 +72,15 @@ class Favorite(models.Model):
         User,
         related_name='favorites',
         on_delete=models.CASCADE,
+        verbose_name='Пользователь',
     )
     recipe = models.ForeignKey(
         Recipe,
         related_name='favorited_by',
         on_delete=models.CASCADE,
+        verbose_name='Рецепт',
     )
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField('Добавлено', auto_now_add=True)
 
     class Meta:
         constraints = [
@@ -94,13 +101,18 @@ class ShoppingCartItem(models.Model):
         User,
         related_name='shopping_cart',
         on_delete=models.CASCADE,
+        verbose_name='Пользователь',
     )
     recipe = models.ForeignKey(
         Recipe,
         related_name='in_shopping_carts',
         on_delete=models.CASCADE,
+        verbose_name='Рецепт',
     )
-    added_at = models.DateTimeField(auto_now_add=True)
+    added_at = models.DateTimeField(
+        'Добавлено',
+        auto_now_add=True,
+    )
 
     class Meta:
         constraints = [
