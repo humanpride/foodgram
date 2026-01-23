@@ -13,11 +13,12 @@ CODE_LENGTH = 4
 
 
 class Recipe(models.Model):
-    name = models.CharField(max_length=256)
+    name = models.CharField('Название', max_length=256)
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='recipes',
+        verbose_name='Автор',
     )
     tags = models.ManyToManyField('tags.Tag', related_name='recipes')
     ingredients = models.ManyToManyField(
@@ -31,8 +32,8 @@ class Recipe(models.Model):
     cooking_time = models.PositiveIntegerField(
         validators=[MinValueValidator(1)]
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField('Создан', auto_now_add=True)
+    updated_at = models.DateTimeField('Обновлён', auto_now=True)
 
     class Meta:
         verbose_name = 'Рецепт'
@@ -48,13 +49,18 @@ class RecipeIngredient(models.Model):
         'recipes.Recipe',
         on_delete=models.CASCADE,
         related_name='recipe_ingredients',
+        verbose_name='Рецепт',
     )
     ingredient = models.ForeignKey(
         'ingredients.Ingredient',
         on_delete=models.CASCADE,
         related_name='ingredient_recipes',
+        verbose_name='Ингредиент',
     )
-    amount = models.PositiveIntegerField(validators=[MinValueValidator(1)])
+    amount = models.PositiveIntegerField(
+        'Количество',
+        validators=[MinValueValidator(1)],
+    )
 
     class Meta:
         verbose_name = 'Ингредиент в рецепте'
@@ -78,14 +84,16 @@ class RecipeShortLink(models.Model):
         Recipe,
         on_delete=models.CASCADE,
         related_name='short_link',
+        verbose_name='Рецепт',
     )
     code = models.CharField(
+        'Код для ссылки',
         max_length=4,
         unique=True,
         editable=False,
         db_index=True,
     )
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField('Создана', auto_now_add=True)
 
     def save(self, *args, **kwargs):
         if not self.code:

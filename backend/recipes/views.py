@@ -59,6 +59,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
                     ),
                 ),
             )
+            .order_by('-created_at')
         )
 
         user = self.request.user
@@ -195,11 +196,11 @@ class RecipeViewSet(viewsets.ModelViewSet):
         Собирает все рецепты из корзины пользователя, агрегирует ингредиенты
         и отдаёт в виде text/csv/pdf в зависимости от query_params.
 
-        Query params: ?format=pdf | csv | txt (по умолчанию txt)
+        Query params: ?format=pdf | csv | txt (по умолчанию pdf)
         """
         from export import utils
 
-        response_format = request.query_params.get('format', 'txt').lower()
+        response_format = request.query_params.get('format', 'pdf').lower()
         aggregated = utils.build_aggregated_ingredients(request.user)
 
         if response_format in ('pdf', 'application/pdf'):
