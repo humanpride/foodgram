@@ -69,7 +69,7 @@ def build_pdf_response(
     aggregated: List[Dict[str, Any]],
     request: Optional[Any] = None,
     filename: str = 'shopping_list.pdf',
-    template_name: str = 'templates/export/shopping_list.html',
+    template_name: str = 'export/shopping_list.html',
     css_text: Optional[str] = None,
 ) -> HttpResponse:
     """
