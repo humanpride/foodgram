@@ -59,6 +59,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
                     ),
                 ),
             )
+            .order_by('-created_at')
         )
 
         user = self.request.user
