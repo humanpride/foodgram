@@ -68,13 +68,13 @@ class CookingTimeHistogramFilter(admin.SimpleListFilter):
         if (fast, long) == (None, None):
             return recipes
 
-        choice = self.value()
+        filter_value = self.value()
 
-        if choice == 'fast':
+        if filter_value == 'fast':
             return recipes.filter(cooking_time__lt=fast)
-        if choice == 'mid':
+        if filter_value == 'mid':
             return recipes.filter(cooking_time__lt=long)
-        if choice == 'long':
+        if filter_value == 'long':
             return recipes.filter(cooking_time__gte=long)
         return recipes
 
@@ -155,11 +155,11 @@ class InRecipesFilter(admin.SimpleListFilter):
         )
 
     def queryset(self, request, ingredients: QuerySet):
-        choice = self.value()
+        filter_value = self.value()
 
-        if choice == 'yes':
+        if filter_value == 'yes':
             return ingredients.filter(_recipes_count__gt=0)
-        if choice == 'no':
+        if filter_value == 'no':
             return ingredients.filter(_recipes_count=0)
         return ingredients
 
@@ -207,11 +207,11 @@ class HasRecipesFilter(admin.SimpleListFilter):
         )
 
     def queryset(self, request, users: QuerySet):
-        choice = self.value()
+        filter_value = self.value()
 
-        if choice == 'yes':
+        if filter_value == 'yes':
             return users.filter(_recipes_count__gt=0)
-        if choice == 'no':
+        if filter_value == 'no':
             return users.filter(_recipes_count=0)
         return users
 
@@ -227,11 +227,11 @@ class HasSubscriptionsFilter(admin.SimpleListFilter):
         )
 
     def queryset(self, request, users: QuerySet):
-        choice = self.value()
+        filter_value = self.value()
 
-        if choice == 'yes':
+        if filter_value == 'yes':
             return users.filter(_subscriptions_count__gt=0)
-        if choice == 'no':
+        if filter_value == 'no':
             return users.filter(_subscriptions_count=0)
         return users
 
@@ -247,11 +247,11 @@ class HasSubscribersFilter(admin.SimpleListFilter):
         )
 
     def queryset(self, request, users: QuerySet):
-        choice = self.value()
+        filter_value = self.value()
 
-        if choice == 'yes':
+        if filter_value == 'yes':
             return users.filter(_subscribers_count__gt=0)
-        if choice == 'no':
+        if filter_value == 'no':
             return users.filter(_subscribers_count=0)
         return users
 
