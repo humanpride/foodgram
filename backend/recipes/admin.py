@@ -328,12 +328,13 @@ class UserAdmin(DjangoUserAdmin):
 
     @admin.display(description='Аватар')
     def avatar_html(self, user):
-        return format_html(
-            (
-                '<img src="{}" width="80" height="60" '
-                'style="object-fit: cover;" />'
-            ),
-            user.avatar.url,
+        return (
+            format_html(
+                '<img src="{}" width="50" height="50">',
+                user.avatar.url,
+            )
+            if user.avatar
+            else '—'
         )
 
     @admin.display(description='Число рецептов')
