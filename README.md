@@ -224,6 +224,7 @@ VITE v7.3.1  ready in 2206 ms
   ➜  press h + enter to show help
 ```
 Остановить сервер вы можете сочетанием клавиш `Ctrl+C`
+
 ---
 
 ## GitHub Actions
