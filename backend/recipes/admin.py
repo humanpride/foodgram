@@ -70,15 +70,13 @@ class CookingTimeHistogramFilter(admin.SimpleListFilter):
 
         choice = self.value()
 
-        match choice:
-            case 'fast':
-                return recipes.filter(cooking_time__lt=fast)
-            case 'mid':
-                return recipes.filter(cooking_time__lt=long)
-            case 'long':
-                return recipes.filter(cooking_time__gte=long)
-            case _:
-                return recipes
+        if choice == 'fast':
+            return recipes.filter(cooking_time__lt=fast)
+        if choice == 'mid':
+            return recipes.filter(cooking_time__lt=long)
+        if choice == 'long':
+            return recipes.filter(cooking_time__gte=long)
+        return recipes
 
 
 @admin.register(Recipe)
