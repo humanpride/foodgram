@@ -157,13 +157,11 @@ class InRecipesFilter(admin.SimpleListFilter):
     def queryset(self, request, ingredients: QuerySet):
         choice = self.value()
 
-        match choice:
-            case 'yes':
-                return ingredients.filter(_recipes_count__gt=0)
-            case 'no':
-                return ingredients.filter(_recipes_count=0)
-            case _:
-                return ingredients
+        if choice == 'yes':
+            return ingredients.filter(_recipes_count__gt=0)
+        if choice == 'no':
+            return ingredients.filter(_recipes_count=0)
+        return ingredients
 
 
 @admin.register(Ingredient)
@@ -211,13 +209,11 @@ class HasRecipesFilter(admin.SimpleListFilter):
     def queryset(self, request, users: QuerySet):
         choice = self.value()
 
-        match choice:
-            case 'yes':
-                return users.filter(_recipes_count__gt=0)
-            case 'no':
-                return users.filter(_recipes_count=0)
-            case _:
-                return users
+        if choice == 'yes':
+            return users.filter(_recipes_count__gt=0)
+        if choice == 'no':
+            return users.filter(_recipes_count=0)
+        return users
 
 
 class HasSubscriptionsFilter(admin.SimpleListFilter):
@@ -233,13 +229,11 @@ class HasSubscriptionsFilter(admin.SimpleListFilter):
     def queryset(self, request, users: QuerySet):
         choice = self.value()
 
-        match choice:
-            case 'yes':
-                return users.filter(_subscriptions_count__gt=0)
-            case 'no':
-                return users.filter(_subscriptions_count=0)
-            case _:
-                return users
+        if choice == 'yes':
+            return users.filter(_subscriptions_count__gt=0)
+        if choice == 'no':
+            return users.filter(_subscriptions_count=0)
+        return users
 
 
 class HasSubscribersFilter(admin.SimpleListFilter):
@@ -255,13 +249,11 @@ class HasSubscribersFilter(admin.SimpleListFilter):
     def queryset(self, request, users: QuerySet):
         choice = self.value()
 
-        match choice:
-            case 'yes':
-                return users.filter(_subscribers_count__gt=0)
-            case 'no':
-                return users.filter(_subscribers_count=0)
-            case _:
-                return users
+        if choice == 'yes':
+            return users.filter(_subscribers_count__gt=0)
+        if choice == 'no':
+            return users.filter(_subscribers_count=0)
+        return users
 
 
 @admin.register(User)
