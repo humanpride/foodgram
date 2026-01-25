@@ -1,3 +1,5 @@
+from collections import Counter
+
 from django.db import transaction
 from djoser import serializers as djoser_serializers
 from rest_framework import serializers as django_serializers
@@ -22,15 +24,10 @@ class IngredientSerializer(django_serializers.ModelSerializer):
 
 
 class IngredientInRecipeWriteSerializer(django_serializers.Serializer):
-    id = django_serializers.IntegerField()
+    id = django_serializers.PrimaryKeyRelatedField(
+        queryset=Ingredient.objects.all()
+    )
     amount = django_serializers.IntegerField(min_value=MIN_INGREDIENT_AMOUNT)
-
-    def validate_id(self, id):
-        if not Ingredient.objects.filter(id=id).exists():
-            raise django_serializers.ValidationError(
-                f'Продукта с id = {id} не существует.'
-            )
-        return id
 
 
 class IngredientInRecipeReadSerializer(django_serializers.ModelSerializer):
@@ -56,10 +53,9 @@ class UserSerializer(djoser_serializers.UserSerializer):
     is_subscribed = django_serializers.SerializerMethodField()
 
     class Meta(djoser_serializers.UserSerializer.Meta):
-        fields = djoser_serializers.UserSerializer.Meta.fields + (
+        fields = (
+            *djoser_serializers.UserSerializer.Meta.fields,
             'is_subscribed',
-            'first_name',
-            'last_name',
             'avatar',
         )
         read_only_fields = fields
@@ -79,7 +75,7 @@ class UserWithRecipesSerializer(UserSerializer):
     recipes_count = django_serializers.IntegerField(source='recipes.count')
 
     class Meta(UserSerializer.Meta):
-        fields = UserSerializer.Meta.fields + ('recipes', 'recipes_count')
+        fields = (*UserSerializer.Meta.fields, 'recipes', 'recipes_count')
         read_only_fields = fields
 
     def get_recipes(self, user):
@@ -87,16 +83,17 @@ class UserWithRecipesSerializer(UserSerializer):
         recipes = user.recipes.all()
         if limit:
             recipes = recipes[: int(limit)]
-        serializer = RecipeListSerializer(
+        return RecipeListSerializer(
             recipes, many=True, context=self.context
-        )
-        return serializer.data
+        ).data
 
 
 class RecipeReadSerializer(django_serializers.ModelSerializer):
     tags = TagSerializer(many=True)
     author = UserSerializer()
-    ingredients = django_serializers.SerializerMethodField()
+    ingredients = IngredientInRecipeReadSerializer(
+        many=True, source='recipe_ingredients'
+    )
     is_favorited = django_serializers.SerializerMethodField()
     is_in_shopping_cart = django_serializers.SerializerMethodField()
 
@@ -125,14 +122,6 @@ class RecipeReadSerializer(django_serializers.ModelSerializer):
             ).exists()
         )
 
-    def get_ingredients(self, recipe):
-        return IngredientInRecipeReadSerializer(
-            RecipeIngredient.objects.filter(recipe=recipe).select_related(
-                'ingredient'
-            ),
-            many=True,
-        ).data
-
     def get_is_favorited(self, recipe):
         return self._is_added(recipe, Favorite)
 
@@ -148,9 +137,9 @@ class RecipeCreateUpdateSerializer(django_serializers.ModelSerializer):
         write_only=True,
         required=True,
     )
-    tags = django_serializers.ListField(
-        child=django_serializers.IntegerField(),
-        allow_empty=False,
+    tags = django_serializers.PrimaryKeyRelatedField(
+        queryset=Tag.objects.all(),
+        many=True,
         required=True,
     )
 
@@ -166,29 +155,47 @@ class RecipeCreateUpdateSerializer(django_serializers.ModelSerializer):
             'tags',
         )
 
-    def validate_tags(self, tag_ids):
-        unique_tag_ids = set(tag_ids)
-        if len(tag_ids) != len(unique_tag_ids):
-            raise django_serializers.ValidationError(
-                'Теги не должны повторяться.'
-            )
-        existed_tags = Tag.objects.all().values_list('id', flat=True)
-        if not unique_tag_ids.issubset(existed_tags):
-            raise django_serializers.ValidationError(
-                'Использованы несуществующие теги.'
-            )
-        return tag_ids
+    def _validate_duplicates(
+        self,
+        values,
+        field_name,
+        id_getter,
+        error_message: str,
+    ):
+        ids = [id_getter(value) for value in values]
+        counter = Counter(ids)
+        duplicates = [
+            value_id for value_id, count in counter.items() if count > 1
+        ]
+
+        if not duplicates:
+            return
+
+        raise django_serializers.ValidationError(
+            {field_name: [error_message.format(sorted(duplicates))]}
+        )
+
+    def validate_tags(self, tags):
+        self._validate_duplicates(
+            values=tags,
+            field_name='tags',
+            id_getter=lambda tag: tag.id,
+            error_message='Теги с id {} повторяются.',
+        )
+        return tags
 
     def validate_ingredients(self, ingredients):
         if not ingredients:
             raise django_serializers.ValidationError(
-                'Укажите хотя бы 1 продукт.'
+                {'ingredients': ['Укажите хотя бы 1 продукт.']}
             )
-        ingredient_ids = [ingredient['id'] for ingredient in ingredients]
-        if len(ingredient_ids) != len(set(ingredient_ids)):
-            raise django_serializers.ValidationError(
-                'Продукты не должны повторяться.'
-            )
+
+        self._validate_duplicates(
+            values=ingredients,
+            field_name='ingredients',
+            id_getter=lambda item: item['id'].id,
+            error_message='Продукты с id {} повторяются.',
+        )
         return ingredients
 
     def validate(self, attrs):
@@ -213,7 +220,7 @@ class RecipeCreateUpdateSerializer(django_serializers.ModelSerializer):
         RecipeIngredient.objects.bulk_create(
             RecipeIngredient(
                 recipe=recipe,
-                ingredient=Ingredient.objects.get(id=item['id']),
+                ingredient=item['id'],
                 amount=item['amount'],
             )
             for item in ingredients_data
@@ -223,8 +230,6 @@ class RecipeCreateUpdateSerializer(django_serializers.ModelSerializer):
     def create(self, validated_data):
         ingredients_data = validated_data.pop('ingredients')
         tags_ids = validated_data.pop('tags')
-        author = self.context['request'].user
-        validated_data['author'] = author
         recipe = super().create(validated_data)
         recipe.tags.set(Tag.objects.filter(id__in=tags_ids))
         self._create_recipe_ingredient_rows(recipe, ingredients_data)

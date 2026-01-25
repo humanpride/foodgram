@@ -52,14 +52,8 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
 
 class RecipeViewSet(viewsets.ModelViewSet):
     lookup_field = 'id'
-    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
+    filter_backends = (DjangoFilterBackend,)
     filterset_class = RecipeFilter
-    search_fileds = (
-        '^name',
-        'name',
-        'author__first_name',
-        'author__last_name',
-    )
     pagination_class = PageLimitPagination
     permission_classes = (IsAuthenticated,)
 
