@@ -2,8 +2,7 @@ from django.db.models import Case, IntegerField, Q, QuerySet, Value, When
 from django_filters import BaseInFilter, CharFilter
 from django_filters import rest_framework as filters
 
-from ingredients.models import Ingredient
-from recipes.models import Recipe
+from recipes.models import Ingredient, Recipe
 
 
 class CharInFilter(BaseInFilter, CharFilter):
@@ -23,7 +22,7 @@ class RecipeFilter(filters.FilterSet):
         fields = ('is_favorited', 'is_in_shopping_cart', 'author', 'tags')
 
     def filter_tags(
-        self, queryset: QuerySet, field_name: str, value: str
+        self, recipes: QuerySet, field_name: str, value: str
     ) -> QuerySet:
         raw = self.data.getlist(field_name)
         if not raw:
@@ -32,9 +31,9 @@ class RecipeFilter(filters.FilterSet):
             raw = [tag.strip() for tag in value.split(',')]
 
         if not raw:
-            return queryset
+            return recipes
 
-        return queryset.filter(tags__slug__in=raw)
+        return recipes.filter(tags__slug__in=raw)
 
 
 class IngrediendFilter(filters.FilterSet):
