@@ -50,20 +50,70 @@
 
 # Как развернуть
 
-Для **продакшена** используйте файлы workflow GitHub Actions:
-* `.github/workflows/backend_ci.yml` - тесты и сборка бэкенда
-* `.github/workflows/frontend_ci.yml` - тесты и сборка фронтенда
-* `.github/workflows/cd.yml` - деплой на сервер и оповещения
+## Продакшен (новый сервер)
 
-Для **локального** развёртывания используйте Docker Compose и `infra/docker-compose-dev.yml`. После поднятия контейнеров необходимо выполнить миграции и собрать статику.
+### Требования
+На сервере должны быть установлены:
+- **Docker** (версия 20.10+)
+- **Docker Compose** (v2)
 
-## Предварительные требования
+### Подготовка сервера
+Обновите пакеты и установите Docker:
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y ca-certificates curl gnupg
+curl -fsSL https://get.docker.com | sudo sh
+```
+Установите Docker Compose:
+```bash
+sudo apt install -y docker-compose-plugin
+```
+(Опционально) Добавьте пользователя в группу docker, чтобы не использовать sudo:
+```bash
+sudo usermod -aG docker $USER
+```
+После этого перелогиньтесь.
 
-* Docker
-* Docker Compose (v2 предпочтительно)
-* Доступ к репозиторию
+### Клонирование проекта
+```bash
+git clone https://github.com/humanpride/foodgram.git
+cd foodgram
+```
 
-## Шаги для локального развёртывания
+### Настройка переменных окружения
+Создайте файлы `backend/.env` и `frontend/.env` (см. раздел Environment variables). Внутри `.env` файла фронтенда обязательно укажите `VITE_API_URL=http://backend:<port>`.
+<br>
+
+### Запуск контейнров и инициализация проекта
+Запустите проект с помощью Docker Compose:
+```bash
+cd infra
+sudo docker compose -f docker-compose-prod.yml up -d
+```
+После старта контейнеров выполните миграции:
+```bash
+sudo docker compose -f docker-compose-prod.yml exec backend python manage.py migrate
+```
+Создайте суперпользователя:
+```bash
+sudo docker compose -f docker-compose-prod.yml exec backend python manage.py createsuperuser
+```
+Соберите статику:
+```bash
+sudo docker compose -f docker-compose-prod.ymlexec backend python manage.py collectstatic --noinput
+```
+
+---
+## Локально
+
+Для локального развёртывания используйте Docker Compose и `infra/docker-compose-dev.yml`. После поднятия контейнеров необходимо выполнить миграции и собрать статику.
+
+### Требования
+
+- **Docker** (версия 20.10+)
+- **Docker Compose** (v2)
+
+### Шаги для локального развёртывания
 
 1. Клонируйте репозиторий:
 
@@ -71,35 +121,39 @@
 git clone https://github.com/humanpride/foodgram.git
 cd foodgram
 ```
-2. Создайте файлы `infra/.env` и `frontend/.env` (см. раздел Environment variables).
-3. Поднимите контейнеры:
+2. Создайте файлы `backend/.env` и `frontend/.env` (см. раздел Environment variables).
+<br>
+
+3. Запустите контейнеры:
 ```bash
-docker compose -f infra/docker-compose-dev.yml up --build -d
+cd infra
+docker compose -f docker-compose-dev.yml up --build -d
 ```
+
 4. Выполните миграции Django:
 ```bash
-docker compose -f infra/docker-compose-dev.yml exec backend python manage.py migrate
+docker compose -f docker-compose-dev.yml exec backend python manage.py migrate
 ```
 5. Соберите статику Django:
 ```bash
-docker compose -f infra/docker-compose-dev.yml exec backend python manage.py collectstatic
-docker compose -f infra/docker-compose-dev.yml exec backend cp -r /app/collected_static/. /backend_static/static/
+docker compose -f docker-compose-dev.yml exec backend python manage.py collectstatic
+docker compose -f docker-compose-dev.yml exec backend cp -r /app/collected_static/. /backend_static/static/
 ```
-6. (Опционально) Создайте суперпользователя:
+6. Создайте суперпользователя:
 ```bash
-docker compose -f infra/docker-compose-dev.yml exec backend python manage.py createsuperuser
+docker compose -f docker-compose-dev.yml exec backend python manage.py createsuperuser
 ```
-7. Проверьте логи:
+7. (Опционально) Импортируйте файлы продуктов и тегов:
 ```bash
-docker compose -f infra/docker-compose-dev.yml logs <service>
+docker compose -f docker-compose-dev.yml exec backend python manage.py import_ingredients path/to/file
+docker compose -f docker-compose-dev.yml exec backend python manage.py import_tags path/to/file
 ```
-### Продакшн (GitHub Actions)
-
-Файлы в `.github/workflows/` содержат основной workflow CI/CD. Работают при наличии соответствующих секретов (см. ниже).
+Поддерживаются 2 типа файлов: CSV и JSON
+Подробнее в подсказке `--help`
 
 ## Environment variables — как заполнить `.env`
 
-Файл: `.env` в папке `infra`. Пример:
+Файл: `.env` в папке `backend`. Пример:
 ```ini
 # Django settings
 DJANGO_SECRET_KEY='your-secret'
@@ -114,15 +168,69 @@ POSTGRES_PASSWORD='db_pass'
 DB_HOST=db
 DB_PORT=5432
 ```
-Пояснения:
 
+Пояснения:
 * `DJANGO_SECRET_KEY` — секретный ключ Django.
 * `DJANGO_DEBUG` — включение/отключение режима отладки.
 * `DJANGO_ALLOWED_HOSTS` — список хостов для доступа.
 * `USE_SQLITE` — выбор базы данных: SQLite или PostgreSQL.
 * `POSTGRES_*` и `DB_HOST/DB_PORT` — настройки для PostgreSQL.
 
-## Секреты для GitHub Actions
+---
+## Локальное развёртывание без Docker
+Вы можете весьма быстро и просто запустить локальный сервер разработки.
+
+#### Для запуска бекэнда
+Вам нужно установить Python v3.9+
+Можете скачать дистрибутив с официального сайта [python.org](https://www.python.org/downloads/), установить через пакетный менеджер вашей системы или найти в магазине приложений.
+После установки python откройте терминал в директории проекта.
+Разверните виртуальное окружение:
+```bash
+cd backend
+python -m venv venv
+```
+Активируйте окружение и установите зависимости:
+```bash
+source venv/Scripts/activate # для Windows
+source venv/bin/activate # для Linux и macOS
+python -m pip install --upgrade pip setuptools wheels
+pip install -r requirements.txt
+```
+Выполните миграции:
+```bash
+python manage.py migrate
+```
+Запустите сервер:
+```bash
+python manage.py runserver
+```
+#### Для фронтенда
+Установите node v24+ (вместе с ним установится менеджер пакетов npm v10+). Можете [скачать](https://nodejs.org/en/download) с официального сайта, установить через менеджер пакетов или магазин приложений.
+Перейдите в папку с файлами фронтенда и запустите установку пакетов:
+```bash
+cd frontend
+npm install
+```
+По завершении установки можете запустить веб-сервер:
+```bash
+npm run dev
+```
+Если всё в порядке, то вас встретит сообщение:
+```bash
+VITE v7.3.1  ready in 2206 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+```
+Остановить сервер вы можете сочетанием клавиш `Ctrl+C`
+---
+
+## GitHub Actions
+
+В директории `.github/workflows/` лежат файлы workflow CI/CD. Можете брать их за основу для создания своего workflow. Работают при наличии соответствующих секретов (см. ниже).
+
+### Секреты для GitHub Actions
 
 Добавьте в **Settings** → **Secrets and variables** → **Actions**:
 * `DOCKER_USERNAME` — DockerHub
@@ -134,30 +242,13 @@ DB_PORT=5432
 * `TELEGRAM_TO` — ваш user ID Telegram (см. @userinfobot)
 * `TELEGRAM_TOKEN` — токен вашего Telegram-бота для оповещений
 * `FRONTEND_ENV` — .env файл фронтенда для продакшена (обязательно укажите `VITE_API_URL=http://backend:<port>`)
-
 ---
-
-## Полезные команды / отладка
-
-* Поднять стек:
-```bash
-docker compose -f docker-compose-prod.yml up --build -d
-```
-* Остановить и удалить контейнеры:
-```bash
-docker compose -f docker-compose-prod.yml down
-```
-* Посмотреть логи сервиса:
-```bash
-docker compose -f docker-compose-prod.yml logs <service>
-```
-* Выполнить команду внутри контейнера:
-```bash
-docker compose -f docker-compose-prod.yml exec <service> bash
-```
+## Полезные ссылки
+* [Документация API](https://foodgram-8.ddns.net/api/docs/)
+* [Посмотреть проект вживую](https://foodgram-8.ddns.net)
 
 ---
 
 ## Автор
 
-Sergei Pashkovskii · [@humanpride](https://github.com/humanpride)
+Сергей Пашковский · [@humanpride](https://github.com/humanpride)
