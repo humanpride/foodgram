@@ -2,13 +2,10 @@
 
 Продукты
 {% for product in aggregated %}
-    {{ forloop.counter }}.
-    {% for name, amount in product.items %}
-        {{ name|capfirst }}{{ amount }}
-    {% endfor %}
+{{ forloop.counter }}.{% for name, amount in product.items %} {{ name|capfirst }}{{ amount }}{% endfor %}
 {% endfor %}
 
 Для следующих рецептов
 {% for recipe in recipes %}
-    {{ recipe.name|slice:':10' }} [{{ recipe.tags|join:', ' }}] от {{ recipe.author.first_name }} {{ recipe.author.last_name }}
+  * {{ recipe.name|slice:':10' }} [{{ recipe.tags|join:', ' }}] от {{ recipe.author }}
 {% endfor %}
