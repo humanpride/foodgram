@@ -102,6 +102,7 @@ sudo docker compose -f docker-compose-prod.yml exec backend python manage.py cre
 ```bash
 sudo docker compose -f docker-compose-prod.ymlexec backend python manage.py collectstatic --noinput
 ```
+После успешного запуска вы можете ознакомиться с документацией по API. Будет лежать по адресу `<ваш домен>/api/docs/`
 
 ---
 ## Локально
