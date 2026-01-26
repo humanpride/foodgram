@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
+from django.contrib.auth.models import Group
 from django.db.models import Count, QuerySet
 from django.utils.safestring import mark_safe
 
@@ -13,6 +14,9 @@ from recipes.models import (
     Tag,
     User,
 )
+
+
+admin.site.unregister(Group)
 
 
 class RecipeIngredientInline(admin.TabularInline):
@@ -265,7 +269,7 @@ class UserAdmin(RecipesCountMixin, DjangoUserAdmin):
     def get_queryset(self, request):
         users = super().get_queryset(request)
         return users.annotate(
-            _subscribtions_count=Count(
+            _subscriptions_count=Count(
                 'from_user_subscriptions',
                 distinct=True,
             ),
@@ -290,7 +294,7 @@ class UserAdmin(RecipesCountMixin, DjangoUserAdmin):
 
     @admin.display(description='Число подписок')
     def subscribtions_count(self, user):
-        return user._subscribtions_count
+        return user._subscriptions_count
 
     @admin.display(description='Число подписчиков')
     def subscribers_count(self, user):
