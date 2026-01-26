@@ -119,7 +119,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         )
 
     def _remove_from_collection(self, id, model):
-        get_object_or_404(model, id=id).delete()
+        get_object_or_404(model, recipe__id=id).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     @action(detail=True, methods=['post'])
