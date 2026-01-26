@@ -9,18 +9,18 @@ services:
   db:
     container_name: PostgreSQL
     image: postgres:18
-    env_file: .env
+    env_file: ./../backend/.env
     volumes:
       - pg_data:/var/lib/postgresql/18/docker
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
+      test: ["CMD-SHELL", "pg_isready"]
       interval: 5s
       timeout: 5s
       retries: 5
   backend:
     container_name: backend
     build: ../backend/
-    env_file: .env
+    env_file: ./../backend/.env
     volumes:
       - media:/app/media
       - static:/backend_static
