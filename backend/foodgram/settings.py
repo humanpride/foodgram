@@ -11,7 +11,7 @@ load_dotenv()
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', get_random_secret_key())
 
-DEBUG = os.getenv('DJANGO_DEBUG', False)
+DEBUG = True if os.getenv('DJANGO_DEBUG') == 'True' else False
 
 ALLOWED_HOSTS = os.getenv('DJANGO_ALLOWED_HOSTS', '*').split(', ')
 
@@ -84,7 +84,7 @@ POSTGRES_SETTINGS = {
 }
 
 DATABASES = (
-    SQLITE_SETTINGS if os.getenv('USE_SQLITE', False) else POSTGRES_SETTINGS
+    SQLITE_SETTINGS if os.getenv('USE_SQLITE') == 'True' else POSTGRES_SETTINGS
 )
 
 
@@ -153,6 +153,10 @@ DJOSER = {
     'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
     'ACTIVATION_URL': '#/activate/{uid}/{token}',
     'LOGIN_FIELD': 'email',
+    'SERIALIZERS': {
+        'user': 'api.serializers.UserSerializer',
+        'current_user': 'api.serializers.UserSerializer',
+    },
 }
 
 AUTHENTICATION_BACKENDS = {
