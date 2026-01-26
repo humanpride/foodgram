@@ -44,7 +44,7 @@ class CookingTimeHistogramFilter(admin.SimpleListFilter):
         self.thresholds = {
             'fast': (1, fast - 1),
             'mid': (fast, long - 1),
-            'long': (long, values[-1]),
+            'long': (long, values.last()),
         }
 
         fast_count = recipes.filter(
