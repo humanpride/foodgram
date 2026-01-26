@@ -125,8 +125,56 @@ class HasSubscribersFilter(HasRelatedObjectsFilter):
     relation_field = '_subscribers_count'
 
 
+class ImagePreviewAdminMixin:
+    """
+    Миксин для Django Admin:
+    добавляет fieldset с полем изображения и его превью
+    """
+
+    image_field = 'image'
+    image_preview_field = 'image_preview'
+    image_fieldset_title = 'Изображение'
+    image_preview_description = 'Превью'
+
+    # --- PREVIEW ---
+    @admin.display(description=image_preview_description)
+    @mark_safe
+    def image_preview(self, obj):
+        image = getattr(obj, self.image_field, None)
+        if image:
+            return (
+                f'<img src="{image.url}" '
+                'style="max-width: 200px; max-height: 200px;" />'
+            )
+        return 'Нет изображения'
+
+    def get_readonly_fields(self, request, obj=None):
+        return (
+            *super().get_readonly_fields(request, obj),
+            self.image_preview_field,
+        )
+
+    def get_fieldsets(self, request, obj=None):
+        return (
+            *super().get_fieldsets(request, obj),
+            (
+                self.image_fieldset_title,
+                {
+                    'fields': (
+                        self.image_field,
+                        self.image_preview_field,
+                    )
+                },
+            ),
+        )
+
+
 @admin.register(Recipe)
-class RecipeAdmin(admin.ModelAdmin):
+class RecipeAdmin(ImagePreviewAdminMixin, admin.ModelAdmin):
+    image_field = 'image'
+    image_fieldset_title = 'Фото рецепта'
+    image_preview_description = 'Превью фото'
+
     list_display = (
         'id',
         'name',
@@ -148,6 +196,13 @@ class RecipeAdmin(admin.ModelAdmin):
     )
     list_filter = (CookingTimeHistogramFilter, 'author', 'tags')
     inlines = (RecipeIngredientInline,)
+
+    fieldsets = fieldsets = (
+        (
+            None,
+            {'fields': ('name', 'author', 'tags', 'cooking_time', 'text')},
+        ),
+    )
 
     def get_queryset(self, request):
         recipes = super().get_queryset(request)
@@ -227,10 +282,10 @@ class TagAdmin(RecipesCountMixin, admin.ModelAdmin):
 
 
 @admin.register(User)
-class UserAdmin(RecipesCountMixin, DjangoUserAdmin):
-    """
-    Кастомная админка пользователя
-    """
+class UserAdmin(RecipesCountMixin, ImagePreviewAdminMixin, DjangoUserAdmin):
+    image_field = 'avatar'
+    image_fieldset_title = 'Аватар'
+    image_preview_description = 'Превью аватарки'
 
     list_display = (
         'id',
@@ -264,8 +319,6 @@ class UserAdmin(RecipesCountMixin, DjangoUserAdmin):
                     'email',
                     'first_name',
                     'last_name',
-                    'avatar',
-                    'avatar_preview',
                 )
             },
         ),
