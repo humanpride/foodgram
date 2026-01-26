@@ -178,11 +178,8 @@ class RecipeAdmin(admin.ModelAdmin):
     @mark_safe
     def image_html(self, recipe):
         return (
-            (
-                '<img src="{}" width="80" height="60" '
-                'style="object-fit: cover;" />'
-            ),
-            recipe.image.url,
+            f'<img src="{recipe.image.url}" width="80" '
+            'height="60" style="object-fit: cover;"/>'
         )
 
 
