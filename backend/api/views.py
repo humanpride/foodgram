@@ -112,11 +112,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         _, created = model.objects.get_or_create(user=user, recipe=recipe)
         if not created:
             raise ValidationError(
-                {
-                    'detail': (
-                        f'{recipe} уже добавлен в {model._meta.verbose_name}'
-                    )
-                }
+                f'{recipe} уже добавлен в {model._meta.verbose_name}'
             )
 
         return Response(
