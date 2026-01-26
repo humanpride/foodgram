@@ -243,6 +243,8 @@ class UserAdmin(RecipesCountMixin, DjangoUserAdmin):
         *RecipesCountMixin.list_display,
     )
 
+    readonly_fields = ('avatar_preview',)
+
     search_fields = ('email', 'username')
     list_filter = (
         'is_active',
@@ -257,7 +259,15 @@ class UserAdmin(RecipesCountMixin, DjangoUserAdmin):
         (None, {'fields': ('username', 'password')}),
         (
             'Персональная информация',
-            {'fields': ('email', 'first_name', 'last_name', 'avatar')},
+            {
+                'fields': (
+                    'email',
+                    'first_name',
+                    'last_name',
+                    'avatar',
+                    'avatar_preview',
+                )
+            },
         ),
         (
             'Права доступа',
@@ -278,6 +288,16 @@ class UserAdmin(RecipesCountMixin, DjangoUserAdmin):
                 distinct=True,
             ),
         )
+
+    @admin.display(description='Превью аватарки')
+    @mark_safe
+    def avatar_preview(self, user):
+        if user.avatar:
+            return (
+                f'<img src="{user.avatar.url}" '
+                f'style="max-height: 200px; max-width: 200px;" />'
+            )
+        return 'Нет аватарки'
 
     @admin.display(description='ФИО')
     def full_name(self, user):
