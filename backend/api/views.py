@@ -96,22 +96,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
         return qs
 
-    # def get_permissions(self):
-    #     if self.action in ('partial_update', 'update', 'destroy'):
-    #         permission_classes = [IsAuthorOrAdmin]
-    #     elif self.action in (
-    #         'create',
-    #         'download_shopping_cart',
-    #         'favorite',
-    #         'unfavorite',
-    #         'add_to_shopping_cart',
-    #         'remove_from_shopping_cart',
-    #     ):
-    #         permission_classes = [IsAuthenticated]
-    #     else:
-    #         permission_classes = [AllowAny]
-    #     return [p() for p in permission_classes]
-
     def get_serializer_class(self):
         if self.action in ('create', 'partial_update', 'update'):
             return RecipeCreateUpdateSerializer
@@ -120,31 +104,31 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
 
-    def _add(self, request, id, model):
+    def _add_to_collection(self, request, id, model):
+        """Добавляет рецепт в коллекцию (избранное или корзину)."""
         recipe = self.get_object()
         user = request.user
-        if model.objects.filter(recipe__id=id).exists():
-            raise ValidationError(
-                {'detail': f'{recipe} уже в добавлен.'},
-                status.HTTP_400_BAD_REQUEST,
-            )
-        model.objects.create(user=user, recipe=recipe)
+
+        obj, created = model.objects.get_or_create(user=user, recipe=recipe)
+        if not created:
+            raise ValidationError({'detail': f'{recipe} уже добавлен.'})
+
         return Response(
             RecipeListSerializer(recipe, context={'request': request}).data,
             status=status.HTTP_201_CREATED,
         )
 
-    def _remove(self, id, model):
+    def _remove_from_collection(self, id, model):
         get_object_or_404(model, id=id).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
     @action(detail=True, methods=['post'])
     def favorite(self, request, id):
-        return self._add(request, id, Favorite)
+        return self._add_to_collection(request, id, Favorite)
 
     @favorite.mapping.delete
     def unfavorite(self, request, id=None):
-        return self._remove(id, Favorite)
+        return self._remove_from_collection(id, Favorite)
 
     @action(
         detail=True,
@@ -153,11 +137,11 @@ class RecipeViewSet(viewsets.ModelViewSet):
         url_name='shopping_cart',
     )
     def add_to_shopping_cart(self, request, id):
-        return self._add(request, id, ShoppingCartItem)
+        return self._add_to_collection(request, id, ShoppingCartItem)
 
     @add_to_shopping_cart.mapping.delete
     def remove_from_shopping_cart(self, request, id):
-        return self._remove(id, ShoppingCartItem)
+        return self._remove_from_collection(id, ShoppingCartItem)
 
     @action(
         detail=True,
@@ -175,7 +159,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         return Response(
             {
                 'short-link': request.build_absolute_uri(
-                    reverse('recipe-short', kwargs={'recipe_id': id})
+                    reverse('recipe-short', args=(id,))
                 )
             }
         )
@@ -198,9 +182,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
                                 f' — {product["total_amount"]} '
                                 f'{product["ingredient__measurement_unit"]}'
                             )
-                            if product['ingredient__measurement_unit']
-                            in ('г', 'мл', 'шт.', 'шт')
-                            else ''
                         }
                         for product in utils.aggregate_ingredients(recipes)
                     ],
@@ -246,17 +227,13 @@ class UserViewSet(DjoserUserViewSet):
         target_user = get_object_or_404(User, id=id)
         current_user = request.user
         if target_user == current_user:
-            raise ValidationError(
-                {'detail': 'Нельзя подписаться на себя.'},
-                status.HTTP_400_BAD_REQUEST,
-            )
+            raise ValidationError({'detail': 'Нельзя подписаться на себя.'})
         _, created = Subscription.objects.get_or_create(
             from_user=current_user, to_user=target_user
         )
         if not created:
             raise ValidationError(
                 {'detail': f'Вы уже подписаны на пользователя {target_user}.'},
-                status.HTTP_400_BAD_REQUEST,
             )
 
         return Response(
@@ -280,15 +257,15 @@ class UserViewSet(DjoserUserViewSet):
         detail=False, methods=['get'], permission_classes=[IsAuthenticated]
     )
     def subscriptions(self, request):
-        users = User.objects.filter(
-            id__in=Subscription.objects.filter(
-                from_user=request.user
-            ).values_list('to_user__id', flat=True)
-        )
-        page = self.paginate_queryset(users)
         return self.get_paginated_response(
             UserWithRecipesSerializer(
-                page,
+                self.paginate_queryset(
+                    User.objects.filter(
+                        id__in=Subscription.objects.filter(
+                            from_user=request.user
+                        ).values_list('to_user__id', flat=True)
+                    )
+                ),
                 many=True,
                 context={'request': request},
             ).data

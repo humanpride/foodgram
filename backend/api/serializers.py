@@ -229,23 +229,25 @@ class RecipeCreateUpdateSerializer(django_serializers.ModelSerializer):
     @transaction.atomic
     def create(self, validated_data):
         ingredients_data = validated_data.pop('ingredients')
-        tags_ids = validated_data.pop('tags')
+        tags = validated_data.pop('tags')
+
         recipe = super().create(validated_data)
-        recipe.tags.set(Tag.objects.filter(id__in=tags_ids))
+        recipe.tags.set(tags)
         self._create_recipe_ingredient_rows(recipe, ingredients_data)
+
         return recipe
 
     @transaction.atomic
-    def update(self, instance, validated_data):
+    def update(self, recipe, validated_data):
         ingredients_data = validated_data.pop('ingredients', None)
-        tags_ids = validated_data.pop('tags', None)
+        tags = validated_data.pop('tags', None)
 
-        instance.tags.set(Tag.objects.filter(id__in=tags_ids))
+        recipe.tags.set(tags)
 
-        RecipeIngredient.objects.filter(recipe=instance).delete()
-        self._create_recipe_ingredient_rows(instance, ingredients_data)
+        RecipeIngredient.objects.filter(recipe=recipe).delete()
+        self._create_recipe_ingredient_rows(recipe, ingredients_data)
 
-        return super().update(instance, validated_data)
+        return super().update(recipe, validated_data)
 
     def to_representation(self, instance):
         return RecipeReadSerializer(instance, context=self.context).data
