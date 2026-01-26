@@ -162,9 +162,11 @@ class RecipeAdmin(admin.ModelAdmin):
     @mark_safe
     def ingredients_html(self, recipe):
         return '<br>'.join(
-            f'{ingredient.name} - {ingredient.amount} '
-            f'{ingredient.measurement_unit}'
-            for ingredient in recipe.ingredients.all()
+            f'{relation.ingredient.name} - {relation.amount} '
+            f'{relation.ingredient.measurement_unit}'
+            for relation in (
+                recipe.recipe_ingredients.select_related('ingredient')
+            )
         )
 
     @admin.display(description='Теги')
