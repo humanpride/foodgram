@@ -117,7 +117,9 @@ def username_validator(username: str):
     invalid_chars = REGEX_INVALID_USERNAME.findall(username)
     if invalid_chars:
         raise ValidationError(
-            f'Некорректные символы в никнейме: {"".join(invalid_chars)}'
+            'Некорректные символы в никнейме: {}'.format(
+                ''.join(invalid_chars)
+            )
         )
 
 
@@ -142,7 +144,7 @@ class User(AbstractUser):
         null=True,
     )
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ('username', 'password', 'first_name', 'last_name')
+    REQUIRED_FIELDS = ('username', 'first_name', 'last_name')
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

@@ -44,7 +44,7 @@ class CookingTimeHistogramFilter(admin.SimpleListFilter):
         self.thresholds = {
             'fast': (1, fast - 1),
             'mid': (fast, long - 1),
-            'long': (long, max(values)),
+            'long': (long, values[-1]),
         }
 
         fast_count = recipes.filter(
@@ -64,12 +64,11 @@ class CookingTimeHistogramFilter(admin.SimpleListFilter):
         )
 
     def queryset(self, request, recipes):
-        if not hasattr(self, 'thresholds') or not self.thresholds:
+        selected = self.value()
+        if selected not in self.thresholds:
             return recipes
 
-        return recipes.filter(
-            cooking_time__range=self.thresholds[self.value()]
-        )
+        return recipes.filter(cooking_time__range=self.thresholds[selected])
 
 
 class HasRelatedObjectsFilter(admin.SimpleListFilter):
@@ -191,66 +190,44 @@ class RecipeIngredientAdmin(admin.ModelAdmin):
     search_fields = ('recipe__name', 'ingredient__name')
 
 
-class RelatedCountMixin(admin.ModelAdmin):
-    """
-    Миксин для добавления полей с количеством связанных объектов.
-    Наследник должен определить словарь `related_fields` вида:
-        `{
-            'field_name': 'related_name',
-        }`
-    """
+class RecipesCountMixin(admin.ModelAdmin):
+    """Миксин для админок, где нужна колонка с количеством рецептов."""
 
-    related_fields: dict = {}
+    list_display = ('recipes_count',)
 
-    def get_queryset(self, request) -> QuerySet:
-        queryset = super().get_queryset(request)
-        if self.related_fields:
-            annotations = {
-                f'_{field}': Count(relation, distinct=True)
-                for field, relation in self.related_fields.items()
-            }
-            queryset = queryset.annotate(**annotations)
-        return queryset
+    def get_queryset(self, request):
+        return (
+            super()
+            .get_queryset(request)
+            .annotate(_recipes_count=Count('recipes', distinct=True))
+        )
 
-    @classmethod
-    def _make_display_method(cls, field_name: str, description: str = ''):
-        """
-        Возвращает метод для отображения аннотированного поля в list_display.
-        """
-
-        def _display(obj):
-            return getattr(obj, f'_{field_name}', 0)
-
-        _display.short_description = description or field_name
-        return _display
+    @admin.display(description='Число рецептов')
+    def recipes_count(self, obj):
+        return getattr(obj, '_recipes_count', 0)
 
 
 @admin.register(Ingredient)
-class IngredientAdmin(RelatedCountMixin, admin.ModelAdmin):
-    list_display = ('id', 'name', 'measurement_unit', 'recipes_count')
+class IngredientAdmin(RecipesCountMixin, admin.ModelAdmin):
+    list_display = (
+        'id',
+        'name',
+        'measurement_unit',
+        *RecipesCountMixin.list_display,
+    )
     search_fields = ('name', 'measurement_unit')
     ordering = ('name',)
     list_filter = (InRecipesFilter, 'measurement_unit')
-    related_fields = {'recipes_count': 'recipes'}
-
-    recipes_count = RelatedCountMixin._make_display_method(
-        'recipes_count', 'Число рецептов'
-    )
 
 
 @admin.register(Tag)
-class TagAdmin(RelatedCountMixin, admin.ModelAdmin):
-    list_display = ('id', 'name', 'slug', 'recipes_count')
+class TagAdmin(RecipesCountMixin, admin.ModelAdmin):
+    list_display = ('id', 'name', 'slug', *RecipesCountMixin.list_display)
     search_fields = ('name', 'slug')
-    related_fields = {'recipes_count': 'recipes'}
-
-    recipes_count = RelatedCountMixin._make_display_method(
-        'recipes_count', 'Число рецептов'
-    )
 
 
 @admin.register(User)
-class UserAdmin(RelatedCountMixin, DjangoUserAdmin):
+class UserAdmin(RecipesCountMixin, DjangoUserAdmin):
     """
     Кастомная админка пользователя
     """
@@ -261,16 +238,10 @@ class UserAdmin(RelatedCountMixin, DjangoUserAdmin):
         'full_name',
         'email',
         'avatar_html',
-        'recipes_count',
         'subscribtions_count',
         'subscribers_count',
+        *RecipesCountMixin.list_display,
     )
-
-    related_fields = {
-        'recipes_count': 'recipes',
-        'subscribtions_count': 'from_user_subscriptions',
-        'subscribers_count': 'to_user_subscriptions',
-    }
 
     search_fields = ('email', 'username')
     list_filter = (
@@ -295,6 +266,19 @@ class UserAdmin(RelatedCountMixin, DjangoUserAdmin):
         ('Даты', {'fields': ('last_login', 'date_joined')}),
     )
 
+    def get_queryset(self, request):
+        users = super().get_queryset(request)
+        return users.annotate(
+            _subscribtions_count=Count(
+                'from_user_subscriptions',
+                distinct=True,
+            ),
+            _subscribers_count=Count(
+                'to_user_subscriptions',
+                distinct=True,
+            ),
+        )
+
     @admin.display(description='ФИО')
     def full_name(self, user):
         return f'{user.first_name} {user.last_name}'
@@ -308,15 +292,13 @@ class UserAdmin(RelatedCountMixin, DjangoUserAdmin):
             else '—'
         )
 
-    recipes_count = RelatedCountMixin._make_display_method(
-        'recipes_count', 'Число рецептов'
-    )
-    subscribtions_count = RelatedCountMixin._make_display_method(
-        'subscribtions_count', 'Число подписок'
-    )
-    subscribers_count = RelatedCountMixin._make_display_method(
-        'subscribers_count', 'Число подписчиков'
-    )
+    @admin.display(description='Число подписок')
+    def subscribtions_count(self, user):
+        return user._subscribtions_count
+
+    @admin.display(description='Число подписчиков')
+    def subscribers_count(self, user):
+        return user._subscribers_count
 
 
 @admin.register(Subscription)

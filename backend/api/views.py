@@ -24,8 +24,8 @@ from api.pagination import PageLimitPagination
 from api.serializers import (
     IngredientSerializer,
     RecipeCreateUpdateSerializer,
-    RecipeListSerializer,
     RecipeReadSerializer,
+    RecipeShortSerializer,
     SetAvatarSerializer,
     TagSerializer,
     UserSerializer,
@@ -109,12 +109,18 @@ class RecipeViewSet(viewsets.ModelViewSet):
         recipe = self.get_object()
         user = request.user
 
-        obj, created = model.objects.get_or_create(user=user, recipe=recipe)
+        _, created = model.objects.get_or_create(user=user, recipe=recipe)
         if not created:
-            raise ValidationError({'detail': f'{recipe} уже добавлен.'})
+            raise ValidationError(
+                {
+                    'detail': (
+                        f'{recipe} уже добавлен в {model._meta.verbose_name}'
+                    )
+                }
+            )
 
         return Response(
-            RecipeListSerializer(recipe, context={'request': request}).data,
+            RecipeShortSerializer(recipe, context={'request': request}).data,
             status=status.HTTP_201_CREATED,
         )
 
@@ -261,9 +267,7 @@ class UserViewSet(DjoserUserViewSet):
             UserWithRecipesSerializer(
                 self.paginate_queryset(
                     User.objects.filter(
-                        id__in=Subscription.objects.filter(
-                            from_user=request.user
-                        ).values_list('to_user__id', flat=True)
+                        to_user_subscriptions__from_user=request.user
                     )
                 ),
                 many=True,

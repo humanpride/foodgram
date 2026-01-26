@@ -83,7 +83,7 @@ class UserWithRecipesSerializer(UserSerializer):
         recipes = user.recipes.all()
         if limit:
             recipes = recipes[: int(limit)]
-        return RecipeListSerializer(
+        return RecipeShortSerializer(
             recipes, many=True, context=self.context
         ).data
 
@@ -163,16 +163,15 @@ class RecipeCreateUpdateSerializer(django_serializers.ModelSerializer):
         error_message: str,
     ):
         ids = [id_getter(value) for value in values]
-        counter = Counter(ids)
         duplicates = [
-            value_id for value_id, count in counter.items() if count > 1
+            value_id for value_id, count in Counter(ids).items() if count > 1
         ]
 
         if not duplicates:
             return
 
         raise django_serializers.ValidationError(
-            {field_name: [error_message.format(sorted(duplicates))]}
+            error_message.format(sorted(duplicates))
         )
 
     def validate_tags(self, tags):
@@ -253,7 +252,7 @@ class RecipeCreateUpdateSerializer(django_serializers.ModelSerializer):
         return RecipeReadSerializer(instance, context=self.context).data
 
 
-class RecipeListSerializer(RecipeReadSerializer):
+class RecipeShortSerializer(RecipeReadSerializer):
     class Meta:
         model = Recipe
         fields = ('id', 'name', 'image', 'cooking_time')
@@ -261,7 +260,7 @@ class RecipeListSerializer(RecipeReadSerializer):
 
 
 class SetAvatarSerializer(django_serializers.Serializer):
-    avatar = django_serializers.CharField()  # base64 string
+    avatar = django_serializers.CharField()
 
     def validate_avatar(self, base64_string):
         return Base64ImageField().to_internal_value(base64_string)
