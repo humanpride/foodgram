@@ -19,7 +19,8 @@ DEFAULT_CHARSET = 'utf-8'
 
 # Application definition
 
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL = 'recipes.User'
+INVALID_USERNAME_PATTERN = r'[^\w.@+-]'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -32,12 +33,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'django_filters',
-    'core',
-    'users',
-    'tags',
-    'ingredients',
     'recipes',
-    'export',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +52,7 @@ ROOT_URLCONF = 'foodgram.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
