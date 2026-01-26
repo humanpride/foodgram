@@ -54,16 +54,16 @@ class Recipe(models.Model):
         on_delete=models.CASCADE,
         verbose_name='Автор',
     )
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, verbose_name='Теги')
     ingredients = models.ManyToManyField(
         Ingredient,
         through='RecipeIngredient',
         verbose_name='Продукты',
     )
-    image = models.ImageField(upload_to='recipes/images/')
-    text = models.TextField()
+    image = models.ImageField('Фото', upload_to='recipes/images/')
+    text = models.TextField('Текст')
     cooking_time = models.PositiveIntegerField(
-        validators=(MinValueValidator(MIN_COOCKING_TIME),)
+        'Время (мин)', validators=(MinValueValidator(MIN_COOCKING_TIME),)
     )
     created_at = models.DateTimeField('Создан', auto_now_add=True)
 
@@ -147,7 +147,7 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ('username', 'first_name', 'last_name')
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        return f'{self.username}'
 
 
 class Subscription(models.Model):
