@@ -132,10 +132,10 @@ docker compose -f docker-compose-dev.yml exec backend cp -r /app/collected_stati
 ```bash
 docker compose -f docker-compose-dev.yml exec backend python manage.py createsuperuser
 ```
-7. (Опционально) Импортируйте файлы продуктов и тегов:
+7. Импортируйте фикстуры:
 ```bash
-docker compose -f docker-compose-dev.yml exec backend python manage.py import_ingredients path/to/file
-docker compose -f docker-compose-dev.yml exec backend python manage.py import_tags path/to/file
+docker compose -f docker-compose-dev.yml exec backend python manage.py import_ingredients
+docker compose -f docker-compose-dev.yml exec backend python manage.py import_tags
 ```
 Поддерживаются 2 типа файлов: CSV и JSON
 Подробнее в подсказке `--help`
