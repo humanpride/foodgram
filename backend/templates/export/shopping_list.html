@@ -7,5 +7,5 @@
 
 Для следующих рецептов
 {% for recipe in recipes %}
-  * {{ recipe.name|slice:':10' }} [{{ recipe.tags.name|join:', ' }}] от {{ recipe.author }}
+  * {{ recipe.name|slice:':10' }} от {{ recipe.author }}
 {% endfor %}
