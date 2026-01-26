@@ -199,7 +199,7 @@ class RecipesCountMixin(admin.ModelAdmin):
         return (
             super()
             .get_queryset(request)
-            .annotate(_recipes_count=Count(self.recipes, distinct=True))
+            .annotate(_recipes_count=Count('recipes', distinct=True))
         )
 
     @admin.display(description='Число рецептов')
