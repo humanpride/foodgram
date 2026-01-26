@@ -202,7 +202,7 @@ class RecipesCountMixin(admin.ModelAdmin):
             .annotate(_recipes_count=Count('recipes', distinct=True))
         )
 
-    @admin.display(description='Число рецептов')
+    @admin.display(description='Рецептов')
     def recipes_count(self, obj):
         return getattr(obj, '_recipes_count', 0)
 
@@ -292,11 +292,11 @@ class UserAdmin(RecipesCountMixin, DjangoUserAdmin):
             else '—'
         )
 
-    @admin.display(description='Число подписок')
+    @admin.display(description='Подписок')
     def subscribtions_count(self, user):
         return user._subscriptions_count
 
-    @admin.display(description='Число подписчиков')
+    @admin.display(description='Подписчиков')
     def subscribers_count(self, user):
         return user._subscribers_count
 
