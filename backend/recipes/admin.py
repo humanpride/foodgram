@@ -35,7 +35,6 @@ class CookingTimeHistogramFilter(admin.SimpleListFilter):
         )
 
         if len(values) < 3:
-            self.thresholds = {}
             return []
 
         fast = values[len(values) // 3]
@@ -85,8 +84,6 @@ class HasRelatedObjectsFilter(admin.SimpleListFilter):
         ('yes', 'Да'),
         ('no', 'Нет'),
     )
-
-    relation_field: str = None
 
     def lookups(self, request, model_admin):
         return self.OPTIONS
