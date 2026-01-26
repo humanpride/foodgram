@@ -171,7 +171,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         и отдаёт в виде .txt файла.
         """
 
-        recipes = Recipe.objects.filter(cart_items__user=request.user)
+        recipes = Recipe.objects.filter(shoppingcartitems__user=request.user)
         return FileResponse(
             render_to_string(
                 '../templates/export/shopping_list.html',

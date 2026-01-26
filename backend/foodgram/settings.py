@@ -20,6 +20,7 @@ DEFAULT_CHARSET = 'utf-8'
 # Application definition
 
 AUTH_USER_MODEL = 'recipes.User'
+INVALID_USERNAME_PATTERN = r'[^\w.@+-]'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
