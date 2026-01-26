@@ -57,23 +57,6 @@
 - **Docker** (версия 20.10+)
 - **Docker Compose** (v2)
 
-### Подготовка сервера
-Обновите пакеты и установите Docker:
-```bash
-sudo apt update && sudo apt upgrade -y
-sudo apt install -y ca-certificates curl gnupg
-curl -fsSL https://get.docker.com | sudo sh
-```
-Установите Docker Compose:
-```bash
-sudo apt install -y docker-compose-plugin
-```
-(Опционально) Добавьте пользователя в группу docker, чтобы не использовать sudo:
-```bash
-sudo usermod -aG docker $USER
-```
-После этого перелогиньтесь.
-
 ### Клонирование проекта
 ```bash
 git clone https://github.com/humanpride/foodgram.git
@@ -101,6 +84,11 @@ sudo docker compose -f docker-compose-prod.yml exec backend python manage.py cre
 Соберите статику:
 ```bash
 sudo docker compose -f docker-compose-prod.ymlexec backend python manage.py collectstatic --noinput
+```
+Импортируйте фикстуры
+```bash
+sudo docker compose -f docker-compose-prod.ymlexec backend python manage.py import_ingredients
+sudo docker compose -f docker-compose-prod.ymlexec backend python manage.py import_tags
 ```
 После успешного запуска вы можете ознакомиться с документацией по API. Будет лежать по адресу `<ваш домен>/api/docs/`
 
@@ -144,10 +132,10 @@ docker compose -f docker-compose-dev.yml exec backend cp -r /app/collected_stati
 ```bash
 docker compose -f docker-compose-dev.yml exec backend python manage.py createsuperuser
 ```
-7. (Опционально) Импортируйте файлы продуктов и тегов:
+7. Импортируйте фикстуры:
 ```bash
-docker compose -f docker-compose-dev.yml exec backend python manage.py import_ingredients path/to/file
-docker compose -f docker-compose-dev.yml exec backend python manage.py import_tags path/to/file
+docker compose -f docker-compose-dev.yml exec backend python manage.py import_ingredients
+docker compose -f docker-compose-dev.yml exec backend python manage.py import_tags
 ```
 Поддерживаются 2 типа файлов: CSV и JSON
 Подробнее в подсказке `--help`
@@ -201,6 +189,15 @@ pip install -r requirements.txt
 ```bash
 python manage.py migrate
 ```
+Создайте суперпользователя
+```bash
+python manage.py createsuperuser
+```
+Импортируйте фикстуры
+```bash
+python manage.py import_ingredients
+python manage.py import_tags
+```
 Запустите сервер:
 ```bash
 python manage.py runserver
@@ -227,30 +224,15 @@ VITE v7.3.1  ready in 2206 ms
 Остановить сервер вы можете сочетанием клавиш `Ctrl+C`
 
 ---
-
-## GitHub Actions
-
-В директории `.github/workflows/` лежат файлы workflow CI/CD. Можете брать их за основу для создания своего workflow. Работают при наличии соответствующих секретов (см. ниже).
-
-### Секреты для GitHub Actions
-
-Добавьте в **Settings** → **Secrets and variables** → **Actions**:
-* `DOCKER_USERNAME` — DockerHub
-* `DOCKER_PASSWORD` — DockerHub
-* `HOST` — IP сервера
-* `SSH_KEY` — приватный SSH-ключ
-* `SSH_PASSPHRASE` — пароль к ключу (если есть)
-* `USER` — пользователь для SSH
-* `TELEGRAM_TO` — ваш user ID Telegram (см. @userinfobot)
-* `TELEGRAM_TOKEN` — токен вашего Telegram-бота для оповещений
-* `FRONTEND_ENV` — .env файл фронтенда для продакшена (обязательно укажите `VITE_API_URL=http://backend:<port>`)
----
 ## Полезные ссылки
-* [Документация API](https://foodgram-8.ddns.net/api/docs/)
 * [Посмотреть проект вживую](https://foodgram-8.ddns.net)
-
+* [Админ панель проекта](https://foodgram-8.ddns.net/admin)
+* [Документация API](https://foodgram-8.ddns.net/api/docs/)
 ---
 
 ## Автор
 
-Сергей Пашковский · [@humanpride](https://github.com/humanpride)
+Сергей Пашковский
+
+[![GitHub](https://img.shields.io/badge/GitHub-humanpride-181717?logo=github&logoColor=white)](https://github.com/humanpride)
+[![Telegram](https://img.shields.io/badge/Telegram-@spashk-2CA5E0?logo=telegram&logoColor=white)](https://t.me/spashk)

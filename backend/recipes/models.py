@@ -7,7 +7,7 @@ from django.core.validators import MinValueValidator
 from django.db import models
 
 
-INVALID_USERNAME_PATTERN = r'[^\w.@+-]'
+REGEX_INVALID_USERNAME = re.compile(settings.INVALID_USERNAME_PATTERN)
 MIN_COOCKING_TIME = 1
 MIN_INGREDIENT_AMOUNT = 1
 
@@ -22,13 +22,13 @@ class Ingredient(models.Model):
     class Meta:
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
-        ordering = ['name']
-        constraints = [
+        ordering = ('name',)
+        constraints = (
             models.UniqueConstraint(
                 fields=['name', 'measurement_unit'],
                 name='unique_ingredient_entry',
-            )
-        ]
+            ),
+        )
 
     def __str__(self):
         return f'{self.name} ({self.measurement_unit})'
@@ -41,7 +41,7 @@ class Tag(models.Model):
     class Meta:
         verbose_name = 'Тег'
         verbose_name_plural = 'Теги'
-        ordering = ['name']
+        ordering = ('name',)
 
     def __str__(self):
         return self.name
@@ -63,7 +63,7 @@ class Recipe(models.Model):
     image = models.ImageField(upload_to='recipes/images/')
     text = models.TextField()
     cooking_time = models.PositiveIntegerField(
-        validators=[MinValueValidator(MIN_COOCKING_TIME)]
+        validators=(MinValueValidator(MIN_COOCKING_TIME),)
     )
     created_at = models.DateTimeField('Создан', auto_now_add=True)
 
@@ -90,18 +90,18 @@ class RecipeIngredient(models.Model):
     )
     amount = models.PositiveIntegerField(
         'Количество',
-        validators=[MinValueValidator(MIN_INGREDIENT_AMOUNT)],
+        validators=(MinValueValidator(MIN_INGREDIENT_AMOUNT),),
     )
 
     class Meta:
         verbose_name = 'Продукт в рецепте'
         verbose_name_plural = 'Продукты в рецепте'
-        constraints = [
+        constraints = (
             models.UniqueConstraint(
-                fields=['recipe', 'ingredient'],
+                fields=('recipe', 'ingredient'),
                 name='unique_recipe_ingredient',
-            )
-        ]
+            ),
+        )
         default_related_name = 'recipe_ingredients'
 
     def __str__(self):
@@ -114,11 +114,10 @@ class RecipeIngredient(models.Model):
 def username_validator(username: str):
     """Валидирует никнейм.
     Выбрасывает ошибку со списком некорректных символов."""
-    invalid_chars = re.compile(INVALID_USERNAME_PATTERN).findall(username)
+    invalid_chars = REGEX_INVALID_USERNAME.findall(username)
     if invalid_chars:
         raise ValidationError(
-            f'Некорректные символы в никнейме: '
-            f'{", ".join(map(repr, invalid_chars))}'
+            f'Некорректные символы в никнейме: {"".join(invalid_chars)}'
         )
 
 
@@ -143,7 +142,7 @@ class User(AbstractUser):
         null=True,
     )
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ('username', 'password', 'first_name', 'last_name')
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
@@ -164,12 +163,12 @@ class Subscription(models.Model):
     )
 
     class Meta:
-        constraints = [
+        constraints = (
             models.UniqueConstraint(
-                fields=['from_user', 'to_user'],
+                fields=('from_user', 'to_user'),
                 name='unique_subscription',
             ),
-        ]
+        )
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
 
@@ -177,7 +176,7 @@ class Subscription(models.Model):
         return f'{self.from_user} → {self.to_user}'
 
 
-class SaveRecipe(models.Model):
+class UserRecipeRelation(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -191,26 +190,25 @@ class SaveRecipe(models.Model):
 
     class Meta:
         abstract = True
-        constraints = [
+        constraints = (
             models.UniqueConstraint(
-                fields=['user', 'recipe'],
+                fields=('user', 'recipe'),
                 name='unique_%(class)s_user_recipe',
             ),
-        ]
+        )
+        default_related_name = '%(class)ss'
 
     def __str__(self) -> str:
         return f"Рецепт '{self.recipe.name[:10]}' сохранён у {self.user}"
 
 
-class Favorite(SaveRecipe):
-    class Meta(SaveRecipe.Meta):
+class Favorite(UserRecipeRelation):
+    class Meta(UserRecipeRelation.Meta):
         verbose_name = 'Избранное'
         verbose_name_plural = 'Избранное'
-        default_related_name = 'favorites'
 
 
-class ShoppingCartItem(SaveRecipe):
-    class Meta(SaveRecipe.Meta):
+class ShoppingCartItem(UserRecipeRelation):
+    class Meta(UserRecipeRelation.Meta):
         verbose_name = 'Рецепт в корзине'
         verbose_name_plural = 'Рецепты в корзине'
-        default_related_name = 'cart_items'

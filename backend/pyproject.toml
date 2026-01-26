@@ -34,6 +34,7 @@ extend-select = [
     "E",    # pycodestyle
     "W",    # pycodestyle warnings
 ]
+ignore = ["S308"]
 
 [tool.ruff.lint.per-file-ignores]
 "**/settings.py" = ["E501"]
