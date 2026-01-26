@@ -24,8 +24,8 @@ from api.pagination import PageLimitPagination
 from api.serializers import (
     IngredientSerializer,
     RecipeCreateUpdateSerializer,
-    RecipeListSerializer,
     RecipeReadSerializer,
+    RecipeShortSerializer,
     SetAvatarSerializer,
     TagSerializer,
     UserSerializer,
@@ -114,7 +114,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
             raise ValidationError({'detail': f'{recipe} уже добавлен.'})
 
         return Response(
-            RecipeListSerializer(recipe, context={'request': request}).data,
+            RecipeShortSerializer(recipe, context={'request': request}).data,
             status=status.HTTP_201_CREATED,
         )
 
