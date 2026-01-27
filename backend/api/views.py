@@ -181,12 +181,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
                     'aggregated': [
                         {
                             f'{product["ingredient__name"]}': (
-                                f' — {product["total_amount"]} '
-                                f'{product["ingredient__measurement_unit"]}'
+                                f' ({product["ingredient__measurement_unit"]})'
+                                f' — {product["total_amount"]}'
                             )
-                            if product['ingredient__measurement_unit']
-                            in ('г', 'кг', 'мл', 'л', 'шт.')
-                            else ''  # убираем шок-текст
                         }
                         for product in utils.aggregate_ingredients(recipes)
                     ],
