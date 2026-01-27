@@ -197,7 +197,7 @@ class RecipeAdmin(ImagePreviewAdminMixin, admin.ModelAdmin):
     list_filter = (CookingTimeHistogramFilter, 'author', 'tags')
     inlines = (RecipeIngredientInline,)
 
-    fieldsets = fieldsets = (
+    fieldsets = (
         (
             None,
             {'fields': ('name', 'author', 'tags', 'cooking_time', 'text')},
@@ -220,8 +220,8 @@ class RecipeAdmin(ImagePreviewAdminMixin, admin.ModelAdmin):
         return '<br>'.join(
             f'{relation.ingredient.name} - {relation.amount} '
             f'{relation.ingredient.measurement_unit}'
-            for relation in (
-                recipe.recipe_ingredients.select_related('ingredient')
+            for relation in recipe.recipe_ingredients.select_related(
+                'ingredient'
             )
         )
 
