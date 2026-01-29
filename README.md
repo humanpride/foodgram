@@ -41,7 +41,7 @@
 
 # Стек технологий
 
-* **Бэкенд:** Python, Django, Django REST Framework, djoser, python-dotenv, gunicorn, weasyprint, pre-commit, ruff
+* **Бэкенд:** Python, Django, Django REST Framework, djoser, python-dotenv, gunicorn
 * **Фронтенд:** React, react-helmet-async, Vite
 * **База данных:** PostgreSQL (альтернативно SQLite при `USE_SQLITE=True`)
 * **DevOps:** Docker Compose, GitHub Actions (CI/CD)
@@ -69,26 +69,31 @@ cd foodgram
 
 ### Запуск контейнров и инициализация проекта
 Запустите проект с помощью Docker Compose:
+1. Образы на DockerHub
 ```bash
 cd infra
-sudo docker compose -f docker-compose-prod.yml up -d
+sudo docker compose -p foodgram -f docker-compose-prod.yml up -d
+```
+2. Сборка своих образов на сервере
+```bash
+cd infra
+sudo docker compose -p foodgram -f docker-compose-dev.yml up -d --build
 ```
 После старта контейнеров выполните миграции:
 ```bash
-sudo docker compose -f docker-compose-prod.yml exec backend python manage.py migrate
+sudo docker compose -p foodgram exec backend python manage.py migrate
 ```
 Создайте суперпользователя:
 ```bash
-sudo docker compose -f docker-compose-prod.yml exec backend python manage.py createsuperuser
+sudo docker compose -p foodgram exec backend python manage.py createsuperuser
 ```
 Соберите статику:
 ```bash
-sudo docker compose -f docker-compose-prod.ymlexec backend python manage.py collectstatic --noinput
+sudo docker compose -p foodgram exec backend python manage.py collectstatic --noinput
 ```
 Импортируйте фикстуры
 ```bash
-sudo docker compose -f docker-compose-prod.ymlexec backend python manage.py import_ingredients
-sudo docker compose -f docker-compose-prod.ymlexec backend python manage.py import_tags
+sudo docker compose -p foodgram exec backend python manage.py import_ingredients
 ```
 После успешного запуска вы можете ознакомиться с документацией по API. Будет лежать по адресу `<ваш домен>/api/docs/`
 
@@ -116,28 +121,27 @@ cd foodgram
 3. Запустите контейнеры:
 ```bash
 cd infra
-docker compose -f docker-compose-dev.yml up --build -d
+docker compose -p foodgram -f docker-compose-dev.yml up -d --build
 ```
 
 4. Выполните миграции Django:
 ```bash
-docker compose -f docker-compose-dev.yml exec backend python manage.py migrate
+docker compose -p foodgram exec backend python manage.py migrate
 ```
 5. Соберите статику Django:
 ```bash
-docker compose -f docker-compose-dev.yml exec backend python manage.py collectstatic
-docker compose -f docker-compose-dev.yml exec backend cp -r /app/collected_static/. /backend_static/static/
+docker compose -p foodgram exec backend python manage.py collectstatic
+docker compose -p foodgram exec backend cp -r /app/collected_static/. /backend_static/static/
 ```
 6. Создайте суперпользователя:
 ```bash
-docker compose -f docker-compose-dev.yml exec backend python manage.py createsuperuser
+docker compose -p foodgram exec backend python manage.py createsuperuser
 ```
 7. Импортируйте фикстуры:
 ```bash
-docker compose -f docker-compose-dev.yml exec backend python manage.py import_ingredients
-docker compose -f docker-compose-dev.yml exec backend python manage.py import_tags
+docker compose -p foodgram exec backend python manage.py import_ingredients
 ```
-Поддерживаются 2 типа файлов: CSV и JSON
+Поддерживаются файлы JSON
 Подробнее в подсказке `--help`
 
 ## Environment variables — как заполнить `.env`
@@ -182,7 +186,7 @@ python -m venv venv
 ```bash
 source venv/Scripts/activate # для Windows
 source venv/bin/activate # для Linux и macOS
-python -m pip install --upgrade pip setuptools wheels
+python -m pip install --upgrade pip setuptools
 pip install -r requirements.txt
 ```
 Выполните миграции:
@@ -196,7 +200,6 @@ python manage.py createsuperuser
 Импортируйте фикстуры
 ```bash
 python manage.py import_ingredients
-python manage.py import_tags
 ```
 Запустите сервер:
 ```bash
@@ -226,7 +229,6 @@ VITE v7.3.1  ready in 2206 ms
 ---
 ## Полезные ссылки
 * [Посмотреть проект вживую](https://foodgram-8.ddns.net)
-* [Админ панель проекта](https://foodgram-8.ddns.net/admin)
 * [Документация API](https://foodgram-8.ddns.net/api/docs/)
 ---
 
