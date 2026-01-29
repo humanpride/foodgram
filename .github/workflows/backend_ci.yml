@@ -19,7 +19,7 @@ jobs:
       DJANGO_DEBUG: True
     services:
       postgres:
-        image: postgres:18
+        image: postgres:18.1-alpine3.23
         env:
           POSTGRES_DB: 'test_db'
           POSTGRES_USER: 'test'
