@@ -55,7 +55,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend,)
     filterset_class = RecipeFilter
     pagination_class = PageLimitPagination
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         qs = (
@@ -100,6 +100,11 @@ class RecipeViewSet(viewsets.ModelViewSet):
         if self.action in ('create', 'partial_update', 'update'):
             return RecipeCreateUpdateSerializer
         return RecipeReadSerializer
+
+    def get_permissions(self):
+        if self.action in ('retrieve', 'list'):
+            return (AllowAny(),)
+        return (IsAuthenticated(),)
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
