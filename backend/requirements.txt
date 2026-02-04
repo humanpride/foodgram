@@ -5,7 +5,7 @@ djoser==2.3.3
 pillow==12.1.0
 python-dotenv==1.2.1
 gunicorn==23.0.0
-ruff==0.14.14
+ruff==0.15.0
 pre-commit==4.5.1
 pillow==12.1.0
 weasyprint==68.0
