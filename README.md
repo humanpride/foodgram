@@ -2,7 +2,7 @@
 
 > Платформа для публикации рецептов: пользователи регистрируются, публикуют свои рецепты, подписываются на других авторов, добавляют рецепты в избранное и формируют список покупок.
 
-Сайт: [https://foodgram-8.ddns.net/](https://foodgram-8.ddns.net/)
+<!-- Сайт: [https://foodgram-8.ddns.net/](https://foodgram-8.ddns.net/) -->
 
 [![Backend CI](https://github.com/humanpride/foodgram/actions/workflows/backend_ci.yml/badge.svg)](https://github.com/humanpride/foodgram/actions/workflows/backend_ci.yml)
 [![Frontend CI](https://github.com/humanpride/foodgram/actions/workflows/frontend_ci.yml/badge.svg)](https://github.com/humanpride/foodgram/actions/workflows/frontend_ci.yml)
@@ -228,10 +228,10 @@ VITE v7.3.1  ready in 2206 ms
 Остановить сервер вы можете сочетанием клавиш `Ctrl+C`
 
 ---
-## Полезные ссылки
+<!-- ## Полезные ссылки
 * [Посмотреть проект вживую](https://foodgram-8.ddns.net)
 * [Документация API](https://foodgram-8.ddns.net/api/docs/)
----
+--- -->
 
 ## Автор
 
