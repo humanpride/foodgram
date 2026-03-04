@@ -9,4 +9,4 @@ ruff==0.14.14
 pre-commit==4.5.1
 pillow==12.1.0
 weasyprint==68.0
-psycopg==3.3.2
+psycopg==3.3.3
