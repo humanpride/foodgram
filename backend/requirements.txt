@@ -3,7 +3,7 @@ djangorestframework==3.16.1
 django-filter==25.2
 djoser==2.3.3
 pillow==12.1.0
-python-dotenv==1.2.1
+python-dotenv==1.2.2
 gunicorn==23.0.0
 ruff==0.14.14
 pre-commit==4.5.1
