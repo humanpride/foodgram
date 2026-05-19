@@ -1,4 +1,4 @@
-django==5.2.10
+django==5.2.11
 djangorestframework==3.16.1
 django-filter==25.2
 djoser==2.3.3
@@ -8,5 +8,7 @@ gunicorn==23.0.0
 ruff==0.14.14
 pre-commit==4.5.1
 pillow==12.1.1
-weasyprint==68.0
+weasyprint==68.1
+pillow==12.1.0
+weasyprint==68.1
 psycopg==3.3.2
