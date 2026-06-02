@@ -4,7 +4,7 @@ djangorestframework==3.17.1
 djoser==2.3.3
 gunicorn==23.0.0
 pillow==12.1.1
-pre-commit==4.5.1
+pre-commit==4.6.0
 psycopg==3.3.4
 python-dotenv==1.2.2
 ruff==0.15.13
