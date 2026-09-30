@@ -1,5 +1,5 @@
 django==5.2.10
-djangorestframework==3.16.1
+djangorestframework==3.17.2
 django-filter==25.2
 djoser==2.3.3
 pillow==12.1.0
