@@ -20,9 +20,8 @@ jobs:
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          username: ${{ secrets.HOST_USER }}
+          password: ${{ secrets.HOST_PASS }}
           source: "infra/docker-compose-prod.yml"
           target: "foodgram"
 
