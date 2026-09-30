@@ -10,7 +10,7 @@
 
 ---
 
-# О проекте
+## О проекте
 
 **Foodgram** — веб-приложение для публикации и поиска рецептов. Пользователи могут создавать свои рецепты, добавлять чужие в избранное, формировать список покупок и подписываться на других авторов.
 
@@ -27,7 +27,7 @@
 
 ---
 
-# Функции
+## Функции
 
 * **Пользователи:** регистрация, аутентификация, смена пароля, загрузка и смена аватара.
 * **Рецепты:** создание, редактирование, удаление, просмотр полной информации.
@@ -40,7 +40,7 @@
 
 ---
 
-# Стек технологий
+## Стек технологий
 
 * **Бэкенд:** Python, Django, Django REST Framework, djoser, python-dotenv, gunicorn
 * **Фронтенд:** React, react-helmet-async, Vite
@@ -49,66 +49,84 @@
 
 ---
 
-# Как развернуть
+## Как развернуть
 
-## Продакшен (новый сервер)
+### Продакшен (новый сервер)
 
-### Требования
+#### Требования
+
 На сервере должны быть установлены:
-- **Docker** (версия 20.10+)
-- **Docker Compose** (v2)
 
-### Клонирование проекта
+* **Docker** (версия 20.10+)
+* **Docker Compose** (v2)
+
+#### Клонирование проекта
+
 ```bash
 git clone https://github.com/humanpride/foodgram.git
 cd foodgram
 ```
 
-### Настройка переменных окружения
-Создайте файлы `backend/.env` и `frontend/.env` (см. раздел Environment variables). Внутри `.env` файла фронтенда обязательно укажите `VITE_API_URL=http://backend:<port>`.
-<br>
+#### Настройка переменных окружения
 
-### Запуск контейнров и инициализация проекта
+Создайте файлы `backend/.env` и `frontend/.env` (см. раздел Environment variables). Внутри `.env` файла фронтенда обязательно укажите `VITE_API_URL=http://backend:<port>`.
+
+#### Запуск контейнров и инициализация проекта
+
 Запустите проект с помощью Docker Compose:
+
 1. Образы на DockerHub
+
 ```bash
 cd infra
 sudo docker compose -p foodgram -f docker-compose-prod.yml up -d
 ```
-2. Сборка своих образов на сервере
+
+1. Сборка своих образов на сервере
+
 ```bash
 cd infra
 sudo docker compose -p foodgram -f docker-compose-dev.yml up -d --build
 ```
+
 После старта контейнеров выполните миграции:
+
 ```bash
 sudo docker compose -p foodgram exec backend python manage.py migrate
 ```
+
 Создайте суперпользователя:
+
 ```bash
 sudo docker compose -p foodgram exec backend python manage.py createsuperuser
 ```
+
 Соберите статику:
+
 ```bash
 sudo docker compose -p foodgram exec backend python manage.py collectstatic --noinput
 ```
+
 Импортируйте фикстуры
+
 ```bash
 sudo docker compose -p foodgram exec backend python manage.py import_ingredients
 ```
+
 После успешного запуска вы можете ознакомиться с документацией по API. Будет лежать по адресу `<ваш домен>/api/docs/`
 
 ---
-## Локально
+
+### Локально
 
 Для локального развёртывания используйте Docker Compose и `infra/docker-compose-dev.yml`. После поднятия контейнеров необходимо выполнить миграции и собрать статику.
 
-### Требования
+#### Установите ПО
 
-- **Docker** (версия 20.10+)
-- **Docker Compose** (v2)
+* **Docker** (версия 20.10+)
+* **Docker Compose** (v2)
 
-### Шаги для локального развёртывания
+#### Выполните пошагово
 
 1. Клонируйте репозиторий:
 
@@ -116,38 +134,48 @@ sudo docker compose -p foodgram exec backend python manage.py import_ingredients
 git clone https://github.com/humanpride/foodgram.git
 cd foodgram
 ```
-2. Создайте файлы `backend/.env` и `frontend/.env` (см. раздел Environment variables).
-<br>
 
-3. Запустите контейнеры:
+1. Создайте файлы `backend/.env` и `frontend/.env` (см. раздел Environment variables).
+
+1. Запустите контейнеры:
+
 ```bash
 cd infra
 docker compose -p foodgram -f docker-compose-dev.yml up -d --build
 ```
 
-4. Выполните миграции Django:
+1. Выполните миграции Django:
+
 ```bash
 docker compose -p foodgram exec backend python manage.py migrate
 ```
-5. Соберите статику Django:
+
+1. Соберите статику Django:
+
 ```bash
 docker compose -p foodgram exec backend python manage.py collectstatic
 docker compose -p foodgram exec backend cp -r /app/collected_static/. /backend_static/static/
 ```
-6. Создайте суперпользователя:
+
+1. Создайте суперпользователя:
+
 ```bash
 docker compose -p foodgram exec backend python manage.py createsuperuser
 ```
-7. Импортируйте фикстуры:
+
+1. Импортируйте фикстуры:
+
 ```bash
 docker compose -p foodgram exec backend python manage.py import_ingredients
 ```
+
 Поддерживаются файлы JSON
 Подробнее в подсказке `--help`
 
 ## Environment variables — как заполнить `.env`
 
 Файл: `.env` в папке `backend`. Пример:
+
 ```ini
 # Django settings
 DJANGO_SECRET_KEY='your-secret'
@@ -164,6 +192,7 @@ DB_PORT=5432
 ```
 
 Пояснения:
+
 * `DJANGO_SECRET_KEY` — секретный ключ Django.
 * `DJANGO_DEBUG` — включение/отключение режима отладки.
 * `DJANGO_ALLOWED_HOSTS` — список хостов для доступа.
@@ -171,53 +200,74 @@ DB_PORT=5432
 * `POSTGRES_*` и `DB_HOST/DB_PORT` — настройки для PostgreSQL.
 
 ---
+
 ## Локальное развёртывание без Docker
+
 Вы можете весьма быстро и просто запустить локальный сервер разработки.
 
-#### Для запуска бекэнда
+### Для запуска бекэнда
+
 Вам нужно установить Python v3.9+
 Можете скачать дистрибутив с официального сайта [python.org](https://www.python.org/downloads/), установить через пакетный менеджер вашей системы или найти в магазине приложений.
 После установки python откройте терминал в директории проекта.
 Разверните виртуальное окружение:
+
 ```bash
 cd backend
 python -m venv venv
 ```
+
 Активируйте окружение и установите зависимости:
+
 ```bash
 source venv/Scripts/activate # для Windows
 source venv/bin/activate # для Linux и macOS
 python -m pip install --upgrade pip setuptools
 pip install -r requirements.txt
 ```
+
 Выполните миграции:
+
 ```bash
 python manage.py migrate
 ```
+
 Создайте суперпользователя
+
 ```bash
 python manage.py createsuperuser
 ```
+
 Импортируйте фикстуры
+
 ```bash
 python manage.py import_ingredients
 ```
+
 Запустите сервер:
+
 ```bash
 python manage.py runserver
 ```
-#### Для фронтенда
+
+### Для фронтенда
+
 Установите node v24+ (вместе с ним установится менеджер пакетов npm v10+). Можете [скачать](https://nodejs.org/en/download) с официального сайта, установить через менеджер пакетов или магазин приложений.
 Перейдите в папку с файлами фронтенда и запустите установку пакетов:
+
 ```bash
 cd frontend
 npm install
 ```
+
 По завершении установки можете запустить веб-сервер:
+
 ```bash
 npm run dev
 ```
+
 Если всё в порядке, то вас встретит сообщение:
+
 ```bash
 VITE v7.3.1  ready in 2206 ms
 
@@ -225,9 +275,11 @@ VITE v7.3.1  ready in 2206 ms
   ➜  Network: use --host to expose
   ➜  press h + enter to show help
 ```
+
 Остановить сервер вы можете сочетанием клавиш `Ctrl+C`
 
 ---
+
 <!-- ## Полезные ссылки
 * [Посмотреть проект вживую](https://foodgram-8.ddns.net)
 * [Документация API](https://foodgram-8.ddns.net/api/docs/)
@@ -238,4 +290,4 @@ VITE v7.3.1  ready in 2206 ms
 Сергей Пашковский
 
 [![GitHub](https://img.shields.io/badge/GitHub-humanpride-181717?logo=github&logoColor=white)](https://github.com/humanpride)
-[![Telegram](https://img.shields.io/badge/Telegram-@spashk-2CA5E0?logo=telegram&logoColor=white)](https://t.me/spashk)
+[![Telegram](https://img.shields.io/badge/Telegram-@bronze_beard8-2CA5E0?logo=telegram&logoColor=white)](https://t.me/bronze_beard8)
