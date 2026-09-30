@@ -1,3 +1,36 @@
+[project]
+name = "foodgram"
+version = "1.0.0"
+description = "A platform for publishing recipes with photos."
+readme = "README.md"
+authors = [
+    { name = "humanpride", email = "sergei.pashkovskii@outlook.com" }
+]
+requires-python = "==3.14.*"
+dependencies = [
+    "django>=5.2.14,<5.3",
+    "django-filter>=25.2,<26",
+    "djangorestframework>=3.17.1,<3.18",
+    "djoser>=2.3.3,<2.4",
+    "gunicorn>=23.0.0,<24",
+    "pillow>=12.1.1,<12.2",
+    "psycopg>=3.3.4,<3.4",
+    "python-dotenv>=1.2.2,<1.3",
+    "weasyprint>=68.1,<69",
+]
+[dependency-groups]
+dev = [
+    "pre-commit>=4.5.1,<4.6",
+    "ruff>=0.15.13,<0.16",
+]
+
+[project.scripts]
+backend = "manage:main"
+
+[build-system]
+requires = ["uv_build>=0.12.18,<0.13.0"]
+build-backend = "uv_build"
+
 [tool.pytest]
 minversion = "9.0"
 testpaths = ["tests"]
