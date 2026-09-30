@@ -47,8 +47,8 @@ jobs:
 
       - name: 'Lint: ruff (check)'
         run: |
-          uv run ruff check .
-          uv run ruff format --check .
+          uv run --no-install-project ruff check .
+          uv run --no-install-project ruff format --check .
 
       - name: 'Django: makemigrations check'
         env:
@@ -58,7 +58,7 @@ jobs:
           DB_HOST: 127.0.0.1
           DB_PORT: 5432
         run: |
-          uv run python manage.py makemigrations --check --dry-run
+          uv run --no-install-project python manage.py makemigrations --check --dry-run
 
       - name: 'Django: migrate'
         env:
@@ -68,8 +68,8 @@ jobs:
           DB_HOST: 127.0.0.1
           DB_PORT: 5432
         run: |
-          uv run python manage.py makemigrations
-          uv run python manage.py migrate --noinput
+          uv run --no-install-project python manage.py makemigrations
+          uv run --no-install-project python manage.py migrate --noinput
 
   build_backend_and_push_to_docker_hub:
     name: Push backend image to DockerHub
