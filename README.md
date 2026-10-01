@@ -6,7 +6,6 @@
 
 [![Backend CI](https://github.com/humanpride/foodgram/actions/workflows/backend_ci.yml/badge.svg)](https://github.com/humanpride/foodgram/actions/workflows/backend_ci.yml)
 [![Frontend CI](https://github.com/humanpride/foodgram/actions/workflows/frontend_ci.yml/badge.svg)](https://github.com/humanpride/foodgram/actions/workflows/frontend_ci.yml)
-[![Deploy](https://github.com/humanpride/foodgram/actions/workflows/cd.yml/badge.svg)](https://github.com/humanpride/foodgram/actions/workflows/cd.yml)
 
 ---
 
@@ -75,14 +74,14 @@ cd foodgram
 
 Запустите проект с помощью Docker Compose:
 
-1. Образы на DockerHub
+##### Образы на DockerHub
 
 ```bash
 cd infra
 sudo docker compose -p foodgram -f docker-compose-prod.yml up -d
 ```
 
-1. Сборка своих образов на сервере
+##### Сборка своих образов на сервере
 
 ```bash
 cd infra
@@ -130,47 +129,49 @@ sudo docker compose -p foodgram exec backend python manage.py import_ingredients
 
 1. Клонируйте репозиторий:
 
-```bash
-git clone https://github.com/humanpride/foodgram.git
-cd foodgram
-```
+    ```bash
+    git clone https://github.com/humanpride/foodgram.git
+    cd foodgram
+    ```
 
-1. Создайте файлы `backend/.env` и `frontend/.env` (см. раздел Environment variables).
+2. Создайте файлы `backend/.env` и `frontend/.env` (см. раздел Environment variables).
 
-1. Запустите контейнеры:
+3. Запустите контейнеры:
 
-```bash
-cd infra
-docker compose -p foodgram -f docker-compose-dev.yml up -d --build
-```
+    ```bash
+    cd infra
+    docker compose -p foodgram -f docker-compose-dev.yml up -d --build
+    ```
 
-1. Выполните миграции Django:
+4. Выполните миграции Django:
 
-```bash
-docker compose -p foodgram exec backend python manage.py migrate
-```
+    ```bash
+    docker compose -p foodgram exec backend python manage.py migrate
+    ```
 
-1. Соберите статику Django:
+5. Соберите статику Django:
 
-```bash
-docker compose -p foodgram exec backend python manage.py collectstatic
-docker compose -p foodgram exec backend cp -r /app/collected_static/. /backend_static/static/
-```
+    ```bash
+    docker compose -p foodgram exec backend python manage.py collectstatic
+    docker compose -p foodgram exec backend cp -r /app/collected_static/. /backend_static/static/
+    ```
 
-1. Создайте суперпользователя:
+6. Создайте суперпользователя:
 
-```bash
-docker compose -p foodgram exec backend python manage.py createsuperuser
-```
+    ```bash
+    docker compose -p foodgram exec backend python manage.py createsuperuser
+    ```
 
-1. Импортируйте фикстуры:
+7. Импортируйте фикстуры:
 
-```bash
-docker compose -p foodgram exec backend python manage.py import_ingredients
-```
+    ```bash
+    docker compose -p foodgram exec backend python manage.py import_ingredients
+    ```
 
 Поддерживаются файлы JSON
 Подробнее в подсказке `--help`
+
+---
 
 ## Environment variables — как заполнить `.env`
 
@@ -207,23 +208,31 @@ DB_PORT=5432
 
 ### Для запуска бекэнда
 
-Вам нужно установить Python v3.9+
-Можете скачать дистрибутив с официального сайта [python.org](https://www.python.org/downloads/), установить через пакетный менеджер вашей системы или найти в магазине приложений.
-После установки python откройте терминал в директории проекта.
-Разверните виртуальное окружение:
+Установите менеджер пакетов uv:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh  # для macOS и Linux
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"  # для Windows
+```
+
+Далее установите Python v3.14:
+
+```bash
+uv python install 3.14
+```
+
+Установите зависимости:
 
 ```bash
 cd backend
-python -m venv venv
+uv sync
 ```
 
-Активируйте окружение и установите зависимости:
+Активируйте окружение:
 
 ```bash
-source venv/Scripts/activate # для Windows
 source venv/bin/activate # для Linux и macOS
-python -m pip install --upgrade pip setuptools
-pip install -r requirements.txt
+source venv/Scripts/activate # для Windows
 ```
 
 Выполните миграции:
@@ -252,11 +261,30 @@ python manage.py runserver
 
 ### Для фронтенда
 
-Установите node v24+ (вместе с ним установится менеджер пакетов npm v10+). Можете [скачать](https://nodejs.org/en/download) с официального сайта, установить через менеджер пакетов или магазин приложений.
+Установите node v24+ (вместе с ним установится менеджер пакетов npm v10+). Воспользуйтесь nvm:
+
+curl
+
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
+```
+
+wget
+
+```bash
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
+```
+
+И далее:
+
+```bash
+nvm install 24
+```
+
 Перейдите в папку с файлами фронтенда и запустите установку пакетов:
 
 ```bash
-cd frontend
+cd ../frontend
 npm install
 ```
 
@@ -266,7 +294,7 @@ npm install
 npm run dev
 ```
 
-Если всё в порядке, то вас встретит сообщение:
+Если всё в порядке, то вас встретит примерно такое сообщение:
 
 ```bash
 VITE v7.3.1  ready in 2206 ms
