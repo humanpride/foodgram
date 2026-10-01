@@ -6,6 +6,7 @@
 
 [![Backend CI](https://github.com/humanpride/foodgram/actions/workflows/backend_ci.yml/badge.svg)](https://github.com/humanpride/foodgram/actions/workflows/backend_ci.yml)
 [![Frontend CI](https://github.com/humanpride/foodgram/actions/workflows/frontend_ci.yml/badge.svg)](https://github.com/humanpride/foodgram/actions/workflows/frontend_ci.yml)
+[![Deploy](https://github.com/humanpride/foodgram/actions/workflows/deploy.yml/badge.svg)](https://github.com/humanpride/foodgram/actions/workflows/deploy.yml)
 
 ---
 
