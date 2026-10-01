@@ -22,7 +22,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.HOST_USER }}
           password: ${{ secrets.HOST_PASS }}
-          source: "infra/docker-compose-prod.yml"
+          source: "infra/docker-compose-prod.yml,infra/nginx.conf"
           target: "${{ secrets.HOST_APP_PATH }}/foodgram"
 
       - name: Executing remote ssh commands to deploy
