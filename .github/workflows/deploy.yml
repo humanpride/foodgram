@@ -23,17 +23,16 @@ jobs:
           username: ${{ secrets.HOST_USER }}
           password: ${{ secrets.HOST_PASS }}
           source: "infra/docker-compose-prod.yml"
-          target: "foodgram"
+          target: "${{ secrets.HOST_APP_PATH }}/foodgram"
 
       - name: Executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          username: ${{ secrets.HOST_USER }}
+          password: ${{ secrets.HOST_PASS }}
           script: |
-            cd foodgram/infra
+            cd ${{ secrets.HOST_APP_PATH }}/foodgram/infra
             sudo docker compose -p foodgram -f docker-compose-prod.yml pull
             sudo docker compose -p foodgram down
             sudo docker compose -p foodgram -f docker-compose-prod.yml up -d
