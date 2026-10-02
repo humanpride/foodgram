@@ -218,7 +218,7 @@ class UserViewSet(DjoserUserViewSet):
     lookup_field = 'id'
     pagination_class = PageLimitPagination
     serializer_class = UserSerializer
-    permission_classes = [AllowAny]
+    permission_classes = (AllowAny,)
 
     @action(
         detail=False, methods=['get'], permission_classes=[IsAuthenticated]

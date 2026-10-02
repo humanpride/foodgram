@@ -53,13 +53,13 @@ const Favorites = ({ updateOrders }) => {
     <Main>
       <Container>
         <Helmet>
-          <title>Избранное</title>
-          <meta name="description" content="Фудграм - Избранное" />
-          <meta property="og:title" content="Избранное" />
+          <title>Favorites</title>
+          <meta name="description" content="Foodgram - Favorites" />
+          <meta property="og:title" content="Favorites" />
         </Helmet>
 
         <div className={styles.title}>
-          <Title title="Избранное" />
+          <Title title="Favorites" />
           <CheckboxGroup
             values={tagsValue}
             handleChange={value => {
