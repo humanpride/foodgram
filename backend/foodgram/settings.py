@@ -166,6 +166,6 @@ AUTHENTICATION_BACKENDS = {
 
 CSRF_TRUSTED_ORIGINS = os.getenv(
     'CSRF_TRUSTED_ORIGINS',
-    '127.0.0.1',
+    'http://127.0.0.1',
 ).split(', ')
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
