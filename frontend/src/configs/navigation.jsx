@@ -34,11 +34,11 @@ export const UserMenu = [
 
 export const NotLoggedInMenu = [
   {
-    title: 'SignIn',
+    title: 'Sign In',
     href: '/signin',
     auth: false
   }, {
-    title: 'SignUp',
+    title: 'Sign Up',
     href: '/signup',
     auth: false
   }

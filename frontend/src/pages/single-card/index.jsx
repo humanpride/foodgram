@@ -33,7 +33,7 @@ const SingleCard = ({ loadItem, updateOrders }) => {
   const userContext = useContext(UserContext);
   const { id } = useParams();
   const navigate = useNavigate();
-  const location = useLocation(); // <-- используем для получения текущего пути
+  const location = useLocation(); // <-- used to get the current path
 
   const handleCopyLink = () => {
     api
@@ -50,7 +50,7 @@ const SingleCard = ({ loadItem, updateOrders }) => {
           .catch(() => {
             // Safari fallback
             setNotificationError({
-              text: `Ваша ссылка: ${shortLink}`,
+              text: `Your link: ${shortLink}`,
               position: "40px",
             });
           });
@@ -63,7 +63,7 @@ const SingleCard = ({ loadItem, updateOrders }) => {
   };
 
   useEffect(() => {
-    if (!id) return; // защитимся, если id вдруг не задан
+    if (!id) return; // prevent issues if id is somehow not provided
     setLoading(true);
     api
       .getRecipe({
@@ -76,11 +76,11 @@ const SingleCard = ({ loadItem, updateOrders }) => {
       .catch((err) => {
         navigate("/not-found");
       });
-    // обновлять при смене id
+    // update when id changes
   }, [id, setRecipe, navigate]);
 
-  // Получаем текущий путь — безопасно и корректно в v6
-  // Используем location.pathname вместо useMatch()
+  // Get the current path — safely and correctly in v6
+  // Use location.pathname instead of useMatch()
   const url = location.pathname; // example: "/recipes/1"
 
   const {
@@ -96,7 +96,7 @@ const SingleCard = ({ loadItem, updateOrders }) => {
   } = recipe || {};
 
   if (loading) {
-    return <div className={styles.loading}>Загрузка...</div>;
+    return <div className={styles.loading}>Loading...</div>;
   }
 
   return (
@@ -104,7 +104,7 @@ const SingleCard = ({ loadItem, updateOrders }) => {
       <Container>
         <Helmet>
           <title>{name}</title>
-          <meta name="description" content={`Фудграм - ${name}`} />
+          <meta name="description" content={`Foodgram - ${name}`} />
           <meta property="og:title" content={name} />
         </Helmet>
         <div className={styles["single-card"]}>
@@ -122,7 +122,7 @@ const SingleCard = ({ loadItem, updateOrders }) => {
                   clickHandler={handleCopyLink}
                   className={cn(styles["single-card__save-button"])}
                   data-tooltip-id="tooltip-copy"
-                  data-tooltip-content="Скопировать прямую ссылку на рецепт"
+                  data-tooltip-content="Copy direct recipe link"
                   data-tooltip-place="top"
                 >
                   <Icons.CopyLinkIcon />
@@ -142,8 +142,8 @@ const SingleCard = ({ loadItem, updateOrders }) => {
                       data-tooltip-id="tooltip-save"
                       data-tooltip-content={
                         is_favorited
-                          ? "Удалить из избранного"
-                          : "Добавить в избранное"
+                          ? "Remove from favorites"
+                          : "Add to favorites"
                       }
                       data-tooltip-place="bottom"
                     >
@@ -157,7 +157,7 @@ const SingleCard = ({ loadItem, updateOrders }) => {
 
             <div className={styles["single-card__extra-info"]}>
               <TagsContainer tags={tags} />
-              <p className={styles["single-card__text"]}>{cooking_time} мин.</p>
+              <p className={styles["single-card__text"]}>{cooking_time} min.</p>
               <p className={styles["single-card__text_with_link"]}>
                 <div className={styles["single-card__text"]}>
                   <div
@@ -166,7 +166,7 @@ const SingleCard = ({ loadItem, updateOrders }) => {
                       backgroundImage: `url(${author.avatar || DefaultImage})`,
                     }}
                   />
-                  {/* не рендерим ссылку если id автора нет */}
+                  {/* do not render the link if the author's id is missing */}
                   {author.id ? (
                     <LinkComponent
                       title={`${author.first_name} ${author.last_name}`}
@@ -203,8 +203,8 @@ const SingleCard = ({ loadItem, updateOrders }) => {
                     data-tooltip-id="tooltip-subscribe"
                     data-tooltip-content={
                       author.is_subscribed
-                        ? "Отписаться от автора"
-                        : "Подписаться на автора"
+                        ? "Unsubscribe from author"
+                        : "Subscribe to author"
                     }
                     data-tooltip-place="bottom"
                   >
@@ -233,11 +233,11 @@ const SingleCard = ({ loadItem, updateOrders }) => {
                   {is_in_shopping_cart ? (
                     <>
                       <Icons.CheckIcon />
-                      Рецепт добавлен
+                      Recipe added
                     </>
                   ) : (
                     <>
-                      <Icons.PlusIcon /> Добавить в покупки
+                      <Icons.PlusIcon /> Add to shopping list
                     </>
                   )}
                 </Button>
@@ -247,7 +247,7 @@ const SingleCard = ({ loadItem, updateOrders }) => {
                   href={`${url}/edit`}
                   className={styles["single-card__edit"]}
                 >
-                  Редактировать рецепт
+                  Edit recipe
                 </Button>
               )}
             </div>
@@ -256,7 +256,7 @@ const SingleCard = ({ loadItem, updateOrders }) => {
           </div>
         </div>
         <Notification
-          text="Ссылка скопирована"
+          text="Link copied"
           style={{ right: notificationPosition }}
         />
         <Notification
