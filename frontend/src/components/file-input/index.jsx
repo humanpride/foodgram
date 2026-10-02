@@ -26,10 +26,10 @@ const FileInput = ({
     const reader = new FileReader()
 
     if (fileSize && ((file.size / 1000) > fileSize)) {
-      return alert(`Загрузите файл размером не более ${fileSize / 1000}Мб`)
+      return alert(`Upload a file no larger than ${fileSize / 1000}MB`)
     }
     if (fileTypes && !fileTypes.includes(file.type)) {
-      return alert(`Загрузите файл одного из типов: ${fileTypes.join(', ')}`)
+      return alert(`Upload a file of one of these types: ${fileTypes.join(', ')}`)
     }
     reader.readAsDataURL(file);
     reader.onload = function () {
@@ -61,7 +61,7 @@ const FileInput = ({
       className={styles.button}
       type='button'
     >
-      Выбрать файл
+      Choose file
     </Button>
     {currentFile && <div
       className={styles.image}

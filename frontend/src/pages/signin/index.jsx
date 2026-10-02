@@ -27,12 +27,12 @@ const SignIn = ({ onSignIn, submitError, setSubmitError }) => {
       {authContext && <Navigate to="/recipes" />}
       <Container className={styles.center}>
         <Helmet>
-          <title>Войти на сайт</title>
+          <title>Sign In</title>
           <meta
             name="description"
-            content="Фудграм - Войти на сайт"
+            content="Foodgram - Sign In"
           />
-          <meta property="og:title" content="Войти на сайт" />
+          <meta property="og:title" content="Sign In" />
         </Helmet>
         <Form
           className={styles.form}
@@ -41,7 +41,7 @@ const SignIn = ({ onSignIn, submitError, setSubmitError }) => {
             onSignIn(values);
           }}
         >
-          <FormTitle>Войти</FormTitle>
+          <FormTitle>Sign In</FormTitle>
 
           <Input
             required
@@ -56,7 +56,7 @@ const SignIn = ({ onSignIn, submitError, setSubmitError }) => {
             isAuth={true}
             type="password"
             name="password"
-            placeholder="Пароль"
+            placeholder="Password"
             error={errors}
             submitError={submitError}
             onChange={onChange}
@@ -64,10 +64,10 @@ const SignIn = ({ onSignIn, submitError, setSubmitError }) => {
           {/* <LinkComponent
             className={styles.link}
             href="/reset-password"
-            title="Забыли пароль?"
+            title="Forgot your password?"
           /> */}
           <Button modifier="style_dark" type="submit" className={styles.button}>
-            Войти
+            Sign In
           </Button>
         </Form>
       </Container>
