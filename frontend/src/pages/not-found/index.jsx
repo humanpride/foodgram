@@ -12,13 +12,13 @@ const Favorites = () => {
     <Main className={styles.root}>
       <Container>
         <img src={image} className={styles.img} alt="логотип." />
-        <p className={styles.text}>Страница не найдена</p>
+        <p className={styles.text}>Page not found</p>
         <Button
           modifier="style_dark"
           className={styles.button}
           onClick={handleClick}
         >
-          На главную
+          Home page
         </Button>
       </Container>
     </Main>
