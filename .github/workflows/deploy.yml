@@ -1,4 +1,4 @@
-name: CD
+name: Deploy
 on:
   push:
     branches:
@@ -8,33 +8,32 @@ on:
       - 'backend/**'
       - 'frontend/**'
       - 'infra/**'
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Copy docker-compose.yml via ssh
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          source: "infra/docker-compose-prod.yml"
-          target: "foodgram"
+          username: ${{ secrets.HOST_USER }}
+          password: ${{ secrets.HOST_PASS }}
+          source: "infra/docker-compose-prod.yml,infra/nginx.conf"
+          target: "${{ secrets.HOST_APP_PATH }}/foodgram"
 
       - name: Executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          username: ${{ secrets.HOST_USER }}
+          password: ${{ secrets.HOST_PASS }}
           script: |
-            cd foodgram/infra
+            cd ${{ secrets.HOST_APP_PATH }}/foodgram/infra
             sudo docker compose -p foodgram -f docker-compose-prod.yml pull
             sudo docker compose -p foodgram down
             sudo docker compose -p foodgram -f docker-compose-prod.yml up -d

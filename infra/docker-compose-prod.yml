@@ -8,7 +8,7 @@ volumes:
 services:
   db:
     container_name: PostgreSQL
-    image: postgres:18.1
+    image: postgres:18
     env_file: .env
     volumes:
       - pg_data:/var/lib/postgresql
@@ -37,9 +37,9 @@ services:
     depends_on:
       - frontend
       - backend
-    image: nginx:1.25.4-alpine
+    image: nginx:stable-alpine
     ports:
-      - "7000:80"
+      - "127.0.0.1:7000:80"
     env_file: .env
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf

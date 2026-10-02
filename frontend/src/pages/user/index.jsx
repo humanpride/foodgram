@@ -75,14 +75,14 @@ const UserPage = ({ updateOrders }) => {
     });
   }, []);
 
-  const pageTitle = user ? `${user.first_name} ${user.last_name}` : "Страница пользователя";
+  const pageTitle = user ? `${user.first_name} ${user.last_name}` : "User Page";
 
   return (
     <Main>
       <Container className={styles.container}>
         <Helmet>
           <title>{pageTitle}</title>
-          <meta name="description" content={`Фудграм - ${pageTitle}`} />
+          <meta name="description" content={`Foodgram - ${pageTitle}`} />
           <meta property="og:title" content={pageTitle} />
         </Helmet>
 
@@ -107,7 +107,7 @@ const UserPage = ({ updateOrders }) => {
                   method({ author_id: id }).then(() => setSubscribed(!subscribed));
                 }}
               >
-                <Icons.AddUser /> {subscribed ? "Отписаться от автора" : "Подписаться на автора"}
+                <Icons.AddUser /> {subscribed ? "Unsubscribe from author" : "Subscribe to author"}
               </Button>
             )}
           </div>

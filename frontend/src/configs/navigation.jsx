@@ -2,11 +2,11 @@ import Icons from "../components/icons"
 
 export default [
   {
-    title: 'Рецепты',
+    title: 'Recipes',
     href: '/recipes',
     auth: false
   }, {
-    title: 'Создать рецепт',
+    title: 'Create a recipe',
     href: '/recipes/create',
     auth: true
   }
@@ -14,18 +14,18 @@ export default [
 
 export const UserMenu = [
   {
-    title: 'Мои подписки',
+    title: 'My subscriptions',
     href: '/subscriptions',
     auth: true,
     icon: <Icons.SubscriptionsMenu />
   }, {
-    title: 'Избранное',
+    title: 'Favorites',
     href: '/favorites',
     auth: true,
     icon: <Icons.SavedMenu />
   }, {
 
-    title: 'Сменить пароль',
+    title: 'Change password',
     href: '/change-password',
     auth: true,
     icon: <Icons.ResetPasswordMenu />
@@ -34,11 +34,11 @@ export const UserMenu = [
 
 export const NotLoggedInMenu = [
   {
-    title: 'Войти',
+    title: 'Sign In',
     href: '/signin',
     auth: false
   }, {
-    title: 'Создать аккаунт',
+    title: 'Sign Up',
     href: '/signup',
     auth: false
   }

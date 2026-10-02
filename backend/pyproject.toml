@@ -1,24 +1,44 @@
+[project]
+name = "foodgram"
+version = "1.0.0"
+description = "A platform for publishing recipes with photos."
+authors = [
+    { name = "humanpride", email = "sergei.pashkovskii@outlook.com" }
+]
+requires-python = "==3.14.*"
+dependencies = [
+    "django==5.2.17",
+    "django-filter==25.2",
+    "djangorestframework==3.17.2",
+    "djoser==2.3.4",
+    "gunicorn==23.0.0",
+    "pillow==12.3.0",
+    "psycopg==3.3.6",
+    "python-dotenv==1.2.3",
+    "weasyprint==70.0",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit==4.6.2",
+    "pytest>=9.0",
+    "pytest-django",
+    "ruff==0.16.9",
+]
+
+[tool.uv]
+package = false
+
 [tool.pytest]
 minversion = "9.0"
 testpaths = ["tests"]
 addopts = ["--strict-markers", "-q"]
-
-[tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "foodgram.settings"
 
 [tool.ruff]
 line-length = 79
 target-version = 'py314'
-exclude = [
-    "tests",
-    "*/migrations",
-    "data",
-    "venv",
-    "env",
-    "docs",
-    "frontend",
-    "infra"
-]
+extend-exclude = ["tests", "*/migrations", "data", ".venv"]
 
 [tool.ruff.format]
 quote-style = 'single'
