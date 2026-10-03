@@ -11,7 +11,7 @@ const Footer = () => {
         title={<img src={LogoFooter} className={styles.footer__logo} />}
       />
 
-      <div className={styles['footer__menu']}>
+      {/* <div className={styles['footer__menu']}>
         <ul className={styles['footer__menu-list']}>
           <li className={styles['footer__menu-item']}>
             <LinkComponent
@@ -28,7 +28,7 @@ const Footer = () => {
             />
           </li>
         </ul>
-      </div>
+      </div> */}
 
       <div className={styles.footer__copyright}>
       © {(new Date()).getFullYear()}
