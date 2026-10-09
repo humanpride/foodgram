@@ -7,7 +7,7 @@ authors = [
 ]
 requires-python = "==3.14.*"
 dependencies = [
-    "django==5.2.17",
+    "django==5.2.18",
     "django-filter==25.2",
     "djangorestframework==3.17.2",
     "djoser==2.3.4",
