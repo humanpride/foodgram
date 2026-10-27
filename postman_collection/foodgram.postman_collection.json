@@ -33,17 +33,17 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 201\", function () {",
+											"pm.test(\"The response status code must be 201\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Убедитесь, что запроc на регистрацию нового пользователя, содержащий корректные данные, возвращает ответ со статус-кодом 201\"",
+											"        \"Make sure a registration request containing valid data returns a response with status code 201\"",
 											"    ).to.be.eql(\"Created\");",
 											"    const userId = _.get(responseData, \"id\");",
 											"    if (userId) {",
 											"        pm.collectionVariables.set(\"userId\", userId);",
 											"    }",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -59,7 +59,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\": {{email}},\n    \"username\": {{username}},\n    \"first_name\": \"Вася\",\n    \"last_name\": \"Иванов\",\n    \"password\": {{password}}\n}",
+									"raw": "{\n    \"email\": {{email}},\n    \"username\": {{username}},\n    \"first_name\": \"Vasya\",\n    \"last_name\": \"Ivanov\",\n    \"password\": {{password}}\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -101,17 +101,17 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 201\", function () {",
+											"pm.test(\"The response status code must be 201\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Убедитесь, что запроc на регистрацию нового пользователя, содержащий корректные данные, возвращает ответ со статус-кодом 201\"",
+											"        \"Make sure a registration request containing valid data returns a response with status code 201\"",
 											"    ).to.be.eql(\"Created\");",
 											"    const userId = _.get(responseData, \"id\");",
 											"    if (userId) {",
 											"        pm.collectionVariables.set(\"secondUserId\", userId);",
 											"    }",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -127,7 +127,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\": {{secondUserEmail}},\n    \"username\": {{secondUserUsername}},\n    \"first_name\": \"Андрей\",\n    \"last_name\": \"Макаревский\",\n    \"password\": {{password}}\n}",
+									"raw": "{\n    \"email\": {{secondUserEmail}},\n    \"username\": {{secondUserUsername}},\n    \"first_name\": \"Andrey\",\n    \"last_name\": \"Makarevsky\",\n    \"password\": {{password}}\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -169,17 +169,17 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 201\", function () {",
+											"pm.test(\"The response status code must be 201\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Убедитесь, что запроc на регистрацию нового пользователя, содержащий корректные данные, возвращает ответ со статус-кодом 201\"",
+											"        \"Make sure a registration request containing valid data returns a response with status code 201\"",
 											"    ).to.be.eql(\"Created\");",
 											"    const userId = _.get(responseData, \"id\");",
 											"    if (userId) {",
 											"        pm.collectionVariables.set(\"thirdUserId\", userId);",
 											"    }",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -195,7 +195,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\": {{thirdUserEmail}},\n    \"username\": {{thirdUserUsername}},\n    \"first_name\": \"Гордон\",\n    \"last_name\": \"Рамзиков\",\n    \"password\": {{password}}\n}",
+									"raw": "{\n    \"email\": {{thirdUserEmail}},\n    \"username\": {{thirdUserUsername}},\n    \"first_name\": \"Gordon\",\n    \"last_name\": \"Ramzikov\",\n    \"password\": {{password}}\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -238,13 +238,13 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Убедитесь, что корректный запроc на получение токена возвращает ответ со статус-кодом 200\"",
+											"        \"Make sure a valid token request returns a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа соответствует ожидаемой', function () {",
+											"pm.test('The response structure matches the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"    const auth_token = _.get(responseData, \"auth_token\");",
 											"    if (auth_token) {",
@@ -304,13 +304,13 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Убедитесь, что корректный запроc на получение токена возвращает ответ со статус-кодом 200\"",
+											"        \"Make sure a valid token request returns a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа соответствует ожидаемой', function () {",
+											"pm.test('The response structure matches the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"    const auth_token = _.get(responseData, \"auth_token\");",
 											"    if (auth_token) {",
@@ -365,10 +365,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Убедитесь, что если в запросе на регистрацию нового пользователя не передан `email` - возвращается ответ со статус-кодом 400\"",
+											"        \"Make sure a registration request without `email` returns a response with status code 400\"",
 											"    ).to.be.eql(\"Bad Request\");",
 											"});",
 											""
@@ -413,10 +413,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Убедитесь, что если в запросе на регистрацию нового пользователя не передан `username`- возвращается ответ со статус-кодом 400\"",
+											"        \"Make sure a registration request without `username` returns a response with status code 400\"",
 											"    ).to.be.eql(\"Bad Request\");",
 											"});",
 											""
@@ -461,10 +461,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Убедитесь, что если в запросе на регистрацию нового пользователя не передан `first_name` - возвращается ответ со статус-кодом 400\"",
+											"        \"Make sure a registration request without `first_name` returns a response with status code 400\"",
 											"    ).to.be.eql(\"Bad Request\");",
 											"});",
 											""
@@ -509,10 +509,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Убедитесь, что если в запросе на регистрацию нового пользователя не передан `last_name` - возвращается ответ со статус-кодом 400\"",
+											"        \"Make sure a registration request without `last_name` returns a response with status code 400\"",
 											"    ).to.be.eql(\"Bad Request\");",
 											"});",
 											""
@@ -557,10 +557,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Убедитесь, что если в запросе на регистрацию нового пользователя не передан `password` - возвращается ответ со статус-кодом 400\"",
+											"        \"Make sure a registration request without `password` returns a response with status code 400\"",
 											"    ).to.be.eql(\"Bad Request\");",
 											"});",
 											""
@@ -605,10 +605,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Максимальная длина поля `email` должна иметь ограничение в 254 символа\"",
+											"        \"The `email` field must be limited to 254 characters\"",
 											"    ).to.be.eql(\"Bad Request\")",
 											"});"
 										],
@@ -652,10 +652,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Максимальная длина поля`username` должна иметь ограничение в 150 символов\"",
+											"        \"The `username` field must be limited to 150 characters\"",
 											"    ).to.be.eql(\"Bad Request\")",
 											"});"
 										],
@@ -699,10 +699,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Максимальная длина поля`first_name` должна иметь ограничение в 150 символов\"",
+											"        \"The `first_name` field must be limited to 150 characters\"",
 											"    ).to.be.eql(\"Bad Request\")",
 											"});"
 										],
@@ -746,10 +746,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Максимальная длина поля`last_name` должна иметь ограничение в 150 символов\"",
+											"        \"The `last_name` field must be limited to 150 characters\"",
 											"    ).to.be.eql(\"Bad Request\")",
 											"});"
 										],
@@ -793,10 +793,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Для поля `username` не должны приниматься значения, не соответствующие регулярному выражению `^[\\w.@+-]+\\Z`\"",
+											"        \"The `username` field must reject values that do not match the regular expression `^[\\w.@+-]+\\Z`\"",
 											"    ).to.be.eql(\"Bad Request\")",
 											"});"
 										],
@@ -840,10 +840,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Если при регистрации нового пользователя в запрос передан `email` зарегистрированного пользователя - должен вернуться ответ со статусом 400\"",
+											"        \"A registration request using an existing user's `email` must return a response with status code 400\"",
 											"    ).to.be.eql(\"Bad Request\")",
 											"});"
 										],
@@ -887,10 +887,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Если при регистрации нового пользователя в запросе передан `username` зарегистрированного пользователя - должен вернуться ответ со статусом 400\"",
+											"        \"A registration request using an existing user's `username` must return a response with status code 400\"",
 											"    ).to.be.eql(\"Bad Request\")",
 											"});"
 										],
@@ -939,10 +939,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Если запрос содержит некорректный пароль должен вернуться ответ со статусом 400\"",
+											"        \"A request containing an incorrect password must return a response with status code 400\"",
 											"    ).to.be.eql(\"Bad Request\")",
 											"});"
 										],
@@ -985,10 +985,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Если если в запросе отсутствует `email` должен вернуться ответ со статусом 400\"",
+											"        \"A request without `email` must return a response with status code 400\"",
 											"    ).to.be.eql(\"Bad Request\")",
 											"});"
 										],
@@ -1031,10 +1031,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Если если в запросе отсутствует пароль должен вернуться ответ со статусом 400\"",
+											"        \"A request without a password must return a response with status code 400\"",
 											"    ).to.be.eql(\"Bad Request\")",
 											"});"
 										],
@@ -1082,10 +1082,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 204\", function () {",
+											"pm.test(\"The response status code must be 204\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Убедитесь, что запрос зарегистрированного пользователя на удаление токена возвращает статус 204\"",
+											"        \"Make sure a registered user's request to delete their token returns status code 204\"",
 											"    ).to.be.eql(\"No Content\");",
 											"});",
 											""
@@ -1145,13 +1145,13 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Убедитесь, что корректный запроc на получение токена возвращает ответ со статус-кодом 200\"",
+											"        \"Make sure a valid token request returns a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа соответствует ожидаемой', function () {",
+											"pm.test('The response structure matches the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"    const auth_token = _.get(responseData, \"auth_token\");",
 											"    if (auth_token) {",
@@ -1262,16 +1262,16 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос незарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from an unregistered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.expect(",
 											"        pm.response,",
-											"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+											"        \"Make sure pagination is configured correctly for the requested endpoint\"",
 											"    ).to.have.jsonSchema({\"type\": \"object\"});",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
@@ -1335,16 +1335,16 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.expect(",
 											"        pm.response,",
-											"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+											"        \"Make sure pagination is configured correctly for the requested endpoint\"",
 											"    ).to.have.jsonSchema({\"type\": \"object\"});",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
@@ -1420,27 +1420,27 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.expect(",
 											"        pm.response,",
-											"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+											"        \"Make sure pagination is configured correctly for the requested endpoint\"",
 											"    ).to.have.jsonSchema({\"type\": \"object\"});",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});",
 											"pm.test(",
-											"    \"Убедитесь, что можно изменить количество объектов на странице через параметр `limit`\",",
+											"    \"Make sure the `limit` parameter can change the number of items per page\",",
 											"    function () {",
 											"        const limit = Number(pm.request.url.query.get(\"limit\"));",
 											"        const responseData = pm.response.json();",
 											"        pm.expect(",
 											"            responseData.results.length,",
-											"            \"Убедитесь, что с помощью параметра запроса `limit` можно изменять количество объектов на странице пагинатора\"    ",
+											"            \"Make sure the `limit` query parameter can change the number of items on each page of paginated results\"    ",
 											"        ).to.be.eql(limit)",
 											"    }",
 											");",
@@ -1510,13 +1510,13 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос незарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from an unregistered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -1567,13 +1567,13 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -1637,19 +1637,19 @@
 											"    \"additionalProperties\": false,",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});",
-											"pm.test(\"Поле `is_subscribed` в ответе должно иметь значение `false`\", function () {",
+											"pm.test(\"The `is_subscribed` field in the response must be `false`\", function () {",
 											"    pm.expect(",
 											"        responseData.is_subscribed,",
-											"        \"Значение поля `is_subscribed` должно иметь значение `false`\"",
+											"        \"The `is_subscribed` field must be `false`\"",
 											"    ).to.have.false",
 											"});"
 										],
@@ -1718,13 +1718,13 @@
 											"    \"additionalProperties\": false,",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});",
 											""
@@ -1799,19 +1799,19 @@
 											"    \"additionalProperties\": false,",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});",
-											"pm.test(\"Поле `avatar` должно содержать ссылку на аватар\", function () {",
+											"pm.test(\"The `avatar` field must contain the avatar URL\", function () {",
 											"    pm.expect(",
 											"        typeof responseData.avatar, ",
-											"        \"Убедитесь, что если аватар добавлен корректно, то  в ответе на запрос к данным пользователя в поле `avatar` содержится ссылка на аватар\"",
+											"        \"Make sure that after an avatar is added successfully, the user details response contains its URL in the `avatar` field\"",
 											"    ).to.equal(\"string\");",
 											"});"
 										],
@@ -1864,10 +1864,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 204\", function () {",
+											"pm.test(\"The response status code must be 204\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Убедитесь, что запрос пользователя с корректными данными возвращает ответ со статусом 204\"",
+											"        \"Make sure a user request containing valid data returns a response with status code 204\"",
 											"    ).to.be.eql(\"No Content\");",
 											"});",
 											""
@@ -1935,13 +1935,13 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Убедитесь, что после изменения пароля через запрос к `api/users/set_password/`, запроc на получение токена с новым паролем возвращает ответ со статусом 200\"",
+											"        \"Make sure that after changing the password through `api/users/set_password/`, a token request using the new password returns a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа соответствует ожидаемой', function () {",
+											"pm.test('The response structure matches the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"    const auth_token = _.get(responseData, \"auth_token\");",
 											"    if (auth_token) {",
@@ -1991,10 +1991,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 204\", function () {",
+											"pm.test(\"The response status code must be 204\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Убедитесь, что запрос пользователя с корректными данными возвращает ответ со статусом 204\"",
+											"        \"Make sure a user request containing valid data returns a response with status code 204\"",
 											"    ).to.be.eql(\"No Content\");",
 											"});",
 											""
@@ -2062,13 +2062,13 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Убедитесь, что запроc на получение токена, содержащий корректные данные, возвращает ответ со статус-кодом 200\"",
+											"        \"Make sure a token request containing valid data returns a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа соответствует ожидаемой', function () {",
+											"pm.test('The response structure matches the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"    const auth_token = _.get(responseData, \"auth_token\");",
 											"    if (auth_token) {",
@@ -2123,10 +2123,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 401\", function () {",
+											"pm.test(\"The response status code must be 401\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос незарегистрированного пользователя должен вернуть ответ со статус-кодом 401\"",
+											"        \"A request from an unregistered user must return a response with status code 401\"",
 											"    ).to.be.eql(\"Unauthorized\");",
 											"});",
 											""
@@ -2170,10 +2170,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 404\", function () {",
+											"pm.test(\"The response status code must be 404\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос к `/api/users/{userId}/` с `id` несуществующего пользователя должен вернуть ответ со статус-кодом 404\"",
+											"        \"A request to `/api/users/{userId}/` with the `id` of a nonexistent user must return a response with status code 404\"",
 											"    ).to.be.eql(\"Not Found\");",
 											"});",
 											""
@@ -2222,10 +2222,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Если поле `current_password` содержит неправильный пароль - должен вернуться ответ со статусом 400\"",
+											"        \"A request with an incorrect password in `current_password` must return a response with status code 400\"",
 											"    ).to.be.eql(\"Bad Request\");",
 											"});"
 										],
@@ -2282,10 +2282,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 401\", function () {",
+											"pm.test(\"The response status code must be 401\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос незарегистрированного пользователя должен вернуть ответ со статус-кодом 401\"",
+											"        \"A request from an unregistered user must return a response with status code 401\"",
 											"    ).to.be.eql(\"Unauthorized\");",
 											"});",
 											""
@@ -2323,10 +2323,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 401\", function () {",
+											"pm.test(\"The response status code must be 401\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос незарегистрированного пользователя должен вернуть ответ со статус-кодом 401\"",
+											"        \"A request from an unregistered user must return a response with status code 401\"",
 											"    ).to.be.eql(\"Unauthorized\");",
 											"});",
 											""
@@ -2373,10 +2373,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Если в запросе на добавление аватара отсутствует поле `avatar` - должен вернуться ответ со статусом 400\"",
+											"        \"A request to add an avatar without the `avatar` field must return a response with status code 400\"",
 											"    ).to.be.eql(\"Bad Request\");",
 											"});"
 										],
@@ -2439,10 +2439,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 204\", function () {",
+											"pm.test(\"The response status code must be 204\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 204\"",
+											"        \"A request from a registered user must return a response with status code 204\"",
 											"    ).to.be.eql(\"No Content\");",
 											"});",
 											""
@@ -2508,19 +2508,19 @@
 											"    \"additionalProperties\": false,",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});",
-											"pm.test(\"Поле `avatar` должно быть пустым\", function () {",
+											"pm.test(\"The `avatar` field must be empty\", function () {",
 											"    pm.expect(",
 											"        (responseData[\"avatar\"] === null || responseData[\"avatar\"] === \"\"), ",
-											"        \"Убедитесь, что после корректного запроса на удаление аватара в ответе на запрос к данным пользователя в поле `avatar` вернётся `null` или пустая строка\"",
+											"        \"Make sure that after a successful avatar deletion request, the user details response contains `null` or an empty string in the `avatar` field\"",
 											"    ).to.be.true;",
 											"});"
 										],
@@ -2616,13 +2616,13 @@
 											"    }",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос незарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from an unregistered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -2673,17 +2673,17 @@
 											"    }",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"    pm.expect(",
 											"        responseData.length >= 3,",
-											"        \"Создайте как минимум 3 тега для корректной работы коллекции запросов\"",
+											"        \"Create at least 3 tags for the request collection to work correctly\"",
 											"    ).to.be.true;",
 											"    pm.collectionVariables.set(\"firstTagId\", responseData[0].id);",
 											"    pm.collectionVariables.set('firstTagSlug', responseData[0].slug);",
@@ -2748,13 +2748,13 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос незарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from an unregistered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -2802,13 +2802,13 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос незарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from an unregistered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -2861,10 +2861,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 404\", function () {",
+											"pm.test(\"The response status code must be 404\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос запрос к `/api/tags/{tagId}/`, содержащий `id` несуществующего тега, должен вернуть ответ со статус-кодом 404\"",
+											"        \"A request to `/api/tags/{tagId}/` with the `id` of a nonexistent tag must return a response with status code 404\"",
 											"    ).to.be.eql(\"Not Found\");",
 											"});",
 											""
@@ -2913,10 +2913,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 405\", function () {",
+											"pm.test(\"The response status code must be 405\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос на создание тега должен вернуть ответ со статус-кодом 405\"",
+											"        \"A request to create a tag must return a response with status code 405\"",
 											"    ).to.be.eql(\"Method Not Allowed\");",
 											"});",
 											""
@@ -2946,7 +2946,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"Завтрак\",\n    \"slug\": \"breakfast\"\n}",
+									"raw": "{\n    \"name\": \"Breakfast\",\n    \"slug\": \"breakfast\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2974,10 +2974,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 405\", function () {",
+											"pm.test(\"The response status code must be 405\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос на обновление тега должен вернуть ответ со статус-кодом 405\"",
+											"        \"A request to update a tag must return a response with status code 405\"",
 											"    ).to.be.eql(\"Method Not Allowed\");",
 											"});",
 											""
@@ -3007,7 +3007,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"Завтрак\",\n    \"slug\": \"breakfast\"\n}",
+									"raw": "{\n    \"name\": \"Breakfast\",\n    \"slug\": \"breakfast\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3036,10 +3036,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 405\", function () {",
+											"pm.test(\"The response status code must be 405\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос на обновление тега должен вернуть ответ со статус-кодом 405\"",
+											"        \"A request to update a tag must return a response with status code 405\"",
 											"    ).to.be.eql(\"Method Not Allowed\");",
 											"});",
 											""
@@ -3069,7 +3069,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"Завтрак\",\n    \"slug\": \"breakfast\"\n}",
+									"raw": "{\n    \"name\": \"Breakfast\",\n    \"slug\": \"breakfast\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3098,10 +3098,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 405\", function () {",
+											"pm.test(\"The response status code must be 405\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос на удаление тега должен вернуть ответ со статус-кодом 405\"",
+											"        \"A request to delete a tag must return a response with status code 405\"",
 											"    ).to.be.eql(\"Method Not Allowed\");",
 											"});",
 											""
@@ -3198,13 +3198,13 @@
 											"    }",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос незарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from an unregistered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -3228,7 +3228,7 @@
 									"query": [
 										{
 											"key": "name",
-											"value": "Паниф",
+											"value": "Panif",
 											"disabled": true
 										}
 									]
@@ -3258,17 +3258,17 @@
 											"    }",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"    pm.expect(",
 											"        responseData.length >= 2,",
-											"        \"Создайте в БД как минимум два ингредиента для корректной работы коллекции запросов\"",
+											"        \"Create at least two ingredients in the database for the request collection to work correctly\"",
 											"    )",
 											"    pm.collectionVariables.set(\"firstIndredientId\", responseData[0].id);",
 											"    pm.collectionVariables.set('ingredientNameFirstLatter', responseData[0].name.slice(0,1))",
@@ -3333,19 +3333,19 @@
 											"    }",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});",
 											"pm.test(",
-											"    \"Ответ должен содержать данные, удовлетворяющие условиям поиска\",",
+											"    \"The response must contain data that matches the search criteria\",",
 											"    function () {",
-											"        const assert_msg = \"Ответ должен содержать ингредиенты, начало названия которых совпадает со значением квери-параметра `name`\"",
+											"        const assert_msg = \"The response must contain ingredients whose names start with the value of the `name` query parameter\"",
 											"        pm.expect(responseData.length > 0, assert_msg);",
 											"        const expectedingredientNameStart = decodeURIComponent(pm.request.url.query.get(\"name\"));",
 											"        for (elem of responseData) {",
@@ -3414,13 +3414,13 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос незарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from an unregistered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -3467,13 +3467,13 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -3526,10 +3526,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 404\", function () {",
+											"pm.test(\"The response status code must be 404\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос запрос к `/api/ingredients/{ingredientId}/`, содержащий `id` несуществующего ингредиента, должен вернуть ответ со статус-кодом 404\"",
+											"        \"A request to `/api/ingredients/{ingredientId}/` with the `id` of a nonexistent ingredient must return a response with status code 404\"",
 											"    ).to.be.eql(\"Not Found\");",
 											"});",
 											""
@@ -3578,10 +3578,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 405\", function () {",
+											"pm.test(\"The response status code must be 405\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос на создание ингредиента должен вернуть ответ со статус-кодом 405\"",
+											"        \"A request to create an ingredient must return a response with status code 405\"",
 											"    ).to.be.eql(\"Method Not Allowed\");",
 											"});",
 											""
@@ -3610,7 +3610,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"Капуста квашеная\",\n    \"measurement_unit\": \"кг\"\n}",
+									"raw": "{\n    \"name\": \"Sauerkraut\",\n    \"measurement_unit\": \"kg\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3638,10 +3638,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 405\", function () {",
+											"pm.test(\"The response status code must be 405\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос на обновление ингредиента должен вернуть ответ со статус-кодом 405\"",
+											"        \"A request to update an ingredient must return a response with status code 405\"",
 											"    ).to.be.eql(\"Method Not Allowed\");",
 											"});",
 											""
@@ -3670,7 +3670,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"Капуста\",\n    \"measurement_unit\": \"кг\"\n}",
+									"raw": "{\n    \"name\": \"Cabbage\",\n    \"measurement_unit\": \"kg\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3699,10 +3699,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 405\", function () {",
+											"pm.test(\"The response status code must be 405\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос на обновление ингредиента должен вернуть ответ со статус-кодом 405\"",
+											"        \"A request to update an ingredient must return a response with status code 405\"",
 											"    ).to.be.eql(\"Method Not Allowed\");",
 											"});",
 											""
@@ -3731,7 +3731,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"Капуста\",\n    \"measurement_unit\": \"кг\"\n}",
+									"raw": "{\n    \"name\": \"Cabbage\",\n    \"measurement_unit\": \"kg\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3760,10 +3760,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 405\", function () {",
+											"pm.test(\"The response status code must be 405\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос на удаление ингредиента должен вернуть ответ со статус-кодом 405\"",
+											"        \"A request to delete an ingredient must return a response with status code 405\"",
 											"    ).to.be.eql(\"Method Not Allowed\");",
 											"});",
 											""
@@ -3905,17 +3905,17 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 201\", function () {",
+											"pm.test(\"The response status code must be 201\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя на создание рецепта, содержащий корректные данные, должен вернуть ответ со статус-кодом 201\"",
+											"        \"A registered user's request to create a recipe with valid data must return a response with status code 201\"",
 											"    ).to.be.eql(\"Created\");",
 											"    const recipeId = _.get(responseData, \"id\");",
 											"    if (recipeId) {",
 											"        pm.collectionVariables.set(\"firstRecipeId\", recipeId);",
 											"    }",
 											"});",
-											"pm.test('Структура ответа должна соответстовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -3928,7 +3928,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    },\n    {\n      \"id\": {{secondIndredientId}},\n      \"amount\": {{secondIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Нечто съедобное (это не точно)\",\n  \"text\": \"Приготовьте как нибудь эти ингредиеты\",\n  \"cooking_time\": 5\n}",
+									"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    },\n    {\n      \"id\": {{secondIndredientId}},\n      \"amount\": {{secondIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Something edible (probably)\",\n  \"text\": \"Cook these ingredients somehow\",\n  \"cooking_time\": 5\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4016,17 +4016,17 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 201\", function () {",
+											"pm.test(\"The response status code must be 201\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос на создание рецепта, содержащий корректные данные и отправленный зарегистрированным пользователем, должен вернуть ответ со статус-кодом 201\"",
+											"        \"A recipe creation request containing valid data and sent by a registered user must return a response with status code 201\"",
 											"    ).to.be.eql(\"Created\");",
 											"    const recipeId = _.get(responseData, \"id\");",
 											"    if (recipeId) {",
 											"        pm.collectionVariables.set(\"secondRecipeId\", recipeId);",
 											"    }",
 											"});",
-											"pm.test('Структура ответа должна соответстовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -4039,7 +4039,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    },\n    {\n      \"id\": {{secondIndredientId}},\n      \"amount\": {{secondIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Еще одна попытка приготовить еду\",\n  \"text\": \"Вероятно стоит это смешать.\",\n  \"cooking_time\": 10\n}",
+									"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    },\n    {\n      \"id\": {{secondIndredientId}},\n      \"amount\": {{secondIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Another attempt at cooking\",\n  \"text\": \"Probably best to mix this together.\",\n  \"cooking_time\": 10\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4127,17 +4127,17 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 201\", function () {",
+											"pm.test(\"The response status code must be 201\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос на создание рецепта, содержащий корректные данные и отправленный зарегистрированным пользователем, должен вернуть ответ со статус-кодом 201\"",
+											"        \"A recipe creation request containing valid data and sent by a registered user must return a response with status code 201\"",
 											"    ).to.be.eql(\"Created\");",
 											"    const recipeId = _.get(responseData, \"id\");",
 											"    if (recipeId) {",
 											"        pm.collectionVariables.set(\"thirdRecipeId\", recipeId);",
 											"    }",
 											"});",
-											"pm.test('Структура ответа должна соответстовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -4150,7 +4150,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{thirdTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Еда без дополнительной обработки\",\n  \"text\": \"Просто съесть\",\n  \"cooking_time\": 1\n}",
+									"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{thirdTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Food that needs no further preparation\",\n  \"text\": \"Just eat it\",\n  \"cooking_time\": 1\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4238,17 +4238,17 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 201\", function () {",
+											"pm.test(\"The response status code must be 201\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос на создание рецепта, содержащий корректные данные и отправленный зарегистрированным пользователем, должен вернуть ответ со статус-кодом 201\"",
+											"        \"A recipe creation request containing valid data and sent by a registered user must return a response with status code 201\"",
 											"    ).to.be.eql(\"Created\");",
 											"    const recipeId = _.get(responseData, \"id\");",
 											"    if (recipeId) {",
 											"        pm.collectionVariables.set(\"fourthRecipeId\", recipeId);",
 											"    }",
 											"});",
-											"pm.test('Структура ответа должна соответстовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -4261,7 +4261,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{secondIndredientId}},\n      \"amount\": {{secondIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Нечто жареное\",\n  \"text\": \"Жарить 10 минут\",\n  \"cooking_time\": 10\n}",
+									"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{secondIndredientId}},\n      \"amount\": {{secondIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Something fried\",\n  \"text\": \"Fry for 10 minutes\",\n  \"cooking_time\": 10\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4349,17 +4349,17 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 201\", function () {",
+											"pm.test(\"The response status code must be 201\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос на создание рецепта, содержащий корректные данные и отправленный зарегистрированным пользователем, должен вернуть ответ со статус-кодом 201\"",
+											"        \"A recipe creation request containing valid data and sent by a registered user must return a response with status code 201\"",
 											"    ).to.be.eql(\"Created\");",
 											"    const recipeId = _.get(responseData, \"id\");",
 											"    if (recipeId) {",
 											"        pm.collectionVariables.set(\"fifthRecipeId\", recipeId);",
 											"    }",
 											"});",
-											"pm.test('Структура ответа должна соответстовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -4387,7 +4387,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{secondIndredientId}},\n      \"amount\": {{secondIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Варёное нечто\",\n  \"text\": \"Варить 20 минут\",\n  \"cooking_time\": 25\n}",
+									"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{secondIndredientId}},\n      \"amount\": {{secondIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Something boiled\",\n  \"text\": \"Boil for 20 minutes\",\n  \"cooking_time\": 25\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4528,16 +4528,16 @@
 											"    }",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос незарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from an unregistered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.expect(",
 											"        pm.response,",
-											"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+											"        \"Make sure pagination is configured correctly for the requested endpoint\"",
 											"    ).to.have.jsonSchema({\"type\": \"object\"});",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
@@ -4646,16 +4646,16 @@
 											"    }",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.expect(",
 											"        pm.response,",
-											"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+											"        \"Make sure pagination is configured correctly for the requested endpoint\"",
 											"    ).to.have.jsonSchema({\"type\": \"object\"});",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
@@ -4776,27 +4776,27 @@
 											"    }",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.expect(",
 											"        pm.response,",
-											"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+											"        \"Make sure pagination is configured correctly for the requested endpoint\"",
 											"    ).to.have.jsonSchema({\"type\": \"object\"});",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});",
 											"pm.test(",
-											"    \"Должна быть возможность изменить количество объектов на странице через параметр `limit`\",",
+											"    \"The `limit` parameter must allow changing the number of items per page\",",
 											"    function () {",
 											"        const limit = Number(pm.request.url.query.get(\"limit\"));",
 											"        const responseData = pm.response.json();",
 											"        pm.expect(",
 											"            responseData.results.length,",
-											"            \"Убедитесь, что с помощью параметра запроса `limit` можно изменять количество объектов на странице пагинатора\"    ",
+											"            \"Make sure the `limit` query parameter can change the number of items on each page of paginated results\"    ",
 											"        ).to.be.eql(limit)",
 											"    }",
 											");"
@@ -4923,23 +4923,23 @@
 											"    }",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.expect(",
 											"        pm.response,",
-											"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+											"        \"Make sure pagination is configured correctly for the requested endpoint\"",
 											"    ).to.have.jsonSchema({\"type\": \"object\"});",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});",
 											"pm.test(",
-											"    \"Должна быть возможность фильтрации рецептов через параметр запроса `author`\",",
+											"    \"The `author` query parameter must allow filtering recipes\",",
 											"    function () {",
-											"        assert_msg = \"Убедитесь, что с помощью параметра запроса `author` можно отфильтровать рецепты по их автору\" ",
+											"        assert_msg = \"Make sure the `author` query parameter can filter recipes by author\" ",
 											"        const authorId = Number(pm.request.url.query.get(\"author\"));",
 											"        const responseData = pm.response.json();",
 											"        pm.expect(",
@@ -5077,24 +5077,24 @@
 											"    }",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.expect(",
 											"        pm.response,",
-											"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+											"        \"Make sure pagination is configured correctly for the requested endpoint\"",
 											"    ).to.have.jsonSchema({\"type\": \"object\"});",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});",
 											"pm.test(",
-											"    \"Должна быть возможность фильтрации рецептов через параметр запроса `tags`\",",
+											"    \"The `tags` query parameter must allow filtering recipes\",",
 											"    function () {",
 											"        const responseData = pm.response.json();",
-											"        const assert_msg = \"Убедитесь, что ответ на запрос содержит данные, удовлетворяющие условию поиска\"",
+											"        const assert_msg = \"Make sure the response contains data that matches the search criteria\"",
 											"        pm.expect(responseData.length > 0, assert_msg);",
 											"",
 											"        let expectedTags = new Set();",
@@ -5124,7 +5124,7 @@
 											"        }",
 											"        pm.expect(",
 											"            expectedTags.size == 0,",
-											"            \"Убедитесь, что в ответе содержатся рецепты, у которых есть хотя бы один из тегов, указанных в параметрах запроса\"",
+											"            \"Make sure the response contains recipes with at least one of the tags specified in the query parameters\"",
 											"        ).to.be.true;",
 											"});"
 										],
@@ -5240,13 +5240,13 @@
 											"    \"additionalProperties\": false",
 											"}",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос незарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from an unregistered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -5353,13 +5353,13 @@
 											"    \"additionalProperties\": false",
 											"}",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -5421,13 +5421,13 @@
 											"    \"additionalProperties\": false,",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});",
 											""
@@ -5486,13 +5486,13 @@
 											"    \"additionalProperties\": false,",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос незарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"        \"A request from an unregistered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});",
 											""
@@ -5594,13 +5594,13 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос на редактирование рецепта, содержащий  корректные данные и отправленный зарегистрированным пользователем, должен вернуть ответ со статус-кодом 200\"",
+											"        \"A recipe update request containing valid data and sent by a registered user must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа соответствует ожидаемой', function () {",
+											"pm.test('The response structure matches the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -5628,7 +5628,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 25\n    }\n  ],\n  \"tags\": [\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Нечто съедобное (пробовать на свой страх и риск)\",\n  \"text\": \"Приготовьте как нибудь эти ингредиеты, не забудьте посолить.\",\n  \"cooking_time\": 12\n}",
+									"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 25\n    }\n  ],\n  \"tags\": [\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Something edible (taste at your own risk)\",\n  \"text\": \"Cook these ingredients somehow, and remember to add salt.\",\n  \"cooking_time\": 12\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5665,10 +5665,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе на создание рецепта отсутствует поле `ingredients` - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request without the `ingredients` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -5696,7 +5696,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Рецепт без ингредиентов\",\n  \"text\": \"Не знаю как такое готовить\",\n  \"cooking_time\": 90\n}",
+											"raw": "{\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"A recipe without ingredients\",\n  \"text\": \"I have no idea how to cook this\",\n  \"cooking_time\": 90\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5724,10 +5724,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если запрос на создание рецепта содержит пустое поле `ingredients` - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request with an empty `ingredients` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -5755,7 +5755,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Неправильный рецепт\",\n  \"text\": \"А ингредиенты я не скажу!\",\n  \"cooking_time\": 15\n}",
+											"raw": "{\n  \"ingredients\": [],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"An invalid recipe\",\n  \"text\": \"The ingredients are a secret!\",\n  \"cooking_time\": 15\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5783,10 +5783,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе на создание рецепта указан несуществующий ингредиент - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request specifying a nonexistent ingredient must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -5814,7 +5814,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n  {\n    \"id\": 99999,\n    \"amount\": 25\n  }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Рецепт с несуществующим ингредиентом\",\n  \"text\": \"Админ, добавь ингредиент!\",\n  \"cooking_time\": 15\n}",
+											"raw": "{\n  \"ingredients\": [\n  {\n    \"id\": 99999,\n    \"amount\": 25\n  }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"A recipe with a nonexistent ingredient\",\n  \"text\": \"Admin, please add this ingredient!\",\n  \"cooking_time\": 15\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5842,10 +5842,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе на создание рецепта указано количество ингредиента меньше 1 - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request specifying an ingredient amount less than 1 must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -5873,7 +5873,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n  {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 0\n  }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Некорректное количество ингредиента\",\n  \"text\": \"Возьмите ноль ингредиента...\",\n  \"cooking_time\": 15\n}",
+											"raw": "{\n  \"ingredients\": [\n  {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 0\n  }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Invalid ingredient amount\",\n  \"text\": \"Take zero of this ingredient...\",\n  \"cooking_time\": 15\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5901,10 +5901,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если запрос на создание рецепта содержит повторяющиеся ингредиенты - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request containing duplicate ingredients must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -5932,7 +5932,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n        \"id\": {{firstIndredientId}},\n        \"amount\": 10\n    },\n    {\n        \"id\": {{firstIndredientId}},\n        \"amount\": 10\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Повторяющиеся ингредиенты\",\n  \"text\": \"Двойная порция\",\n  \"cooking_time\": 15\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n        \"id\": {{firstIndredientId}},\n        \"amount\": 10\n    },\n    {\n        \"id\": {{firstIndredientId}},\n        \"amount\": 10\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Duplicate ingredients\",\n  \"text\": \"A double portion\",\n  \"cooking_time\": 15\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -5960,10 +5960,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе на создание рецепта отсутствует поле `tags` - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request without the `tags` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -5991,7 +5991,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    },\n    {\n      \"id\": {{secondIndredientId}},\n      \"amount\": {{secondIngredientAmount}}\n    }\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Дичь (возможно, летающая)\",\n  \"text\": \"Сперва поймайте, потом готовьте\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    },\n    {\n      \"id\": {{secondIndredientId}},\n      \"amount\": {{secondIngredientAmount}}\n    }\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Wild game (possibly airborne)\",\n  \"text\": \"Catch it first, then cook it\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6019,10 +6019,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если запрос на создание рецепта содержит пустое поле `tags` - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request with an empty `tags` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -6050,7 +6050,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    },\n    {\n      \"id\": {{secondIndredientId}},\n      \"amount\": {{secondIngredientAmount}}\n    }\n  ],\n  \"tags\": [],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Попробуй съесть\",\n  \"text\": \"Но будь аккуратен\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    },\n    {\n      \"id\": {{secondIndredientId}},\n      \"amount\": {{secondIngredientAmount}}\n    }\n  ],\n  \"tags\": [],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Try eating this\",\n  \"text\": \"But be careful\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6078,10 +6078,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе на создание рецепта содержит повторяющиеся теги - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request containing duplicate tags must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -6109,7 +6109,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Повторяющиеся теги\",\n  \"text\": \"Проверка валидации\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Duplicate tags\",\n  \"text\": \"Validation check\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6137,10 +6137,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе на создание рецепта указан несуществующий тег - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request specifying a nonexistent tag must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -6168,7 +6168,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    },\n    {\n      \"id\": {{secondIndredientId}},\n      \"amount\": {{secondIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n      9876\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Рецепт с несуществующим тегом\",\n  \"text\": \"Тега нет, а хотелось бы\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    },\n    {\n      \"id\": {{secondIndredientId}},\n      \"amount\": {{secondIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n      9876\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"A recipe with a nonexistent tag\",\n  \"text\": \"This tag does not exist, but I wish it did\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6196,10 +6196,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе на создание рецепта отсутствует поле `image` - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request without the `image` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -6227,7 +6227,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"name\": \"Надеюсь, это еда\",\n  \"text\": \"Съесть сырым\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"name\": \"I hope this is food\",\n  \"text\": \"Eat it raw\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6255,10 +6255,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе на создание рецепта содержится пустое поле `image` - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request with an empty `image` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -6286,7 +6286,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"\",\n  \"name\": \"А фотку я не покажу\",\n  \"text\": \"Приготовить любым способом\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"\",\n  \"name\": \"You are not getting a photo\",\n  \"text\": \"Cook it any way you like\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6314,10 +6314,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе на создание рецепта отсутствует поле `name` - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request without the `name` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -6345,7 +6345,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"text\": \"Безымянный рецепт\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"text\": \"An unnamed recipe\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6373,10 +6373,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе на создание рецепта содержится пустое поле `name` - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request with an empty `name` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -6404,7 +6404,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"\",\n  \"text\": \"Название не укажу\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"\",\n  \"text\": \"I am not giving it a name\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6432,10 +6432,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если длина поля `name` превышает 256 символов - должен вернуться ответ со статусом 400\"",
+													"        \"A request with a `name` longer than 256 characters must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -6463,7 +6463,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"{{tooLongName}}\",\n  \"text\": \"Рецепт с очень длинным названием\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"{{tooLongName}}\",\n  \"text\": \"A recipe with a very long name\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6491,10 +6491,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе на создание рецепта отсутствует поле `text` - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request without the `text` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -6522,7 +6522,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Некая еда\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Some kind of food\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6550,10 +6550,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе на создание рецепта содержится пустое поле `text` - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request with an empty `text` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -6581,7 +6581,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Неописуемый рецепт\",\n  \"text\": \"\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"An indescribable recipe\",\n  \"text\": \"\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6609,10 +6609,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе на создание рецепта отсутствует поле `cooking_time` - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request without the `cooking_time` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -6640,7 +6640,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Не ограниченный по времени рецепт\",\n  \"text\": \"Готовить от 1 минуты до бесконечности\"\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"A recipe with no time limit\",\n  \"text\": \"Cook for anywhere from 1 minute to forever\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6668,10 +6668,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе на создание рецепта поле `cooking_time` содержит пустую строку - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request with an empty string in `cooking_time` must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -6699,7 +6699,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Сколько готовить - не помню\",\n  \"text\": \"Готовить до готовности\",\n  \"cooking_time\": \"\"\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"I cannot remember how long to cook it\",\n  \"text\": \"Cook until done\",\n  \"cooking_time\": \"\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6727,10 +6727,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе на создание рецепта в поле `cooking_time` содержится значение меньше единицы - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request with `cooking_time` less than 1 must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -6758,7 +6758,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Очень быстрый рецепт\",\n  \"text\": \"Можно не готовить\",\n  \"cooking_time\": 0\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"A very quick recipe\",\n  \"text\": \"No cooking required\",\n  \"cooking_time\": 0\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6786,10 +6786,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 401\", function () {",
+													"pm.test(\"The response status code must be 401\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Запрос незарегистрированного пользователя на создание рецепта должен вернуть ответ со статусом 401\"",
+													"        \"An unregistered user's request to create a recipe must return a response with status code 401\"",
 													"    ).to.be.eql(\"Unauthorized\");",
 													"});"
 												],
@@ -6805,7 +6805,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    },\n    {\n      \"id\": {{secondIndredientId}},\n      \"amount\": {{secondIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Рецепт неавторизованного пользователя\",\n  \"text\": \"Рецепт неавторизованного пользователя\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    },\n    {\n      \"id\": {{secondIndredientId}},\n      \"amount\": {{secondIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"An unauthenticated user's recipe\",\n  \"text\": \"An unauthenticated user's recipe\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6838,10 +6838,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 403\", function () {",
+													"pm.test(\"The response status code must be 403\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Запрос пользователя на обновление чужого рецепта должен вернуть ответ со статусом 403\"",
+													"        \"A user's request to update someone else's recipe must return a response with status code 403\"",
 													"    ).to.be.eql(\"Forbidden\");",
 													"});"
 												],
@@ -6869,7 +6869,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 25\n    }\n  ],\n  \"tags\": [\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Обновление чужого рецепта\",\n  \"text\": \"Проверка прав доступа.\",\n  \"cooking_time\": 12\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 25\n    }\n  ],\n  \"tags\": [\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Updating someone else's recipe\",\n  \"text\": \"Permission check.\",\n  \"cooking_time\": 12\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6898,10 +6898,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 401\", function () {",
+													"pm.test(\"The response status code must be 401\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Запрос незарегистрированного пользователя на обновление рецепта должен вернуть ответ со статусом 401\"",
+													"        \"An unregistered user's request to update a recipe must return a response with status code 401\"",
 													"    ).to.be.eql(\"Unauthorized\");",
 													"});"
 												],
@@ -6917,7 +6917,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 25\n    }\n  ],\n  \"tags\": [\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Обновление рецепта\",\n  \"text\": \"Проверка прав доступа.\",\n  \"cooking_time\": 12\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 25\n    }\n  ],\n  \"tags\": [\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Update a recipe\",\n  \"text\": \"Permission check.\",\n  \"cooking_time\": 12\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6946,10 +6946,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Запрос автора на обновление рецепта без поля `ingredients` - должен вернуть ответ со статусом 400\"",
+													"        \"The author's request to update a recipe without the `ingredients` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -6977,7 +6977,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"tags\": [\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Нет поля с ингредиентами\",\n  \"text\": \"Ингредиенты не указаны\",\n  \"cooking_time\": 12\n}",
+											"raw": "{\n  \"tags\": [\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Missing ingredients field\",\n  \"text\": \"No ingredients specified\",\n  \"cooking_time\": 12\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7006,10 +7006,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Запрос автора на обновление рецепта с пустым полем `ingredients` - должен вернуть ответ со статусом 400\"",
+													"        \"The author's request to update a recipe with an empty `ingredients` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -7037,7 +7037,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [],\n  \"tags\": [\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Пустое поле ингредиентов\",\n  \"text\": \"Ингредиенты не указаны\",\n  \"cooking_time\": 12\n}",
+											"raw": "{\n  \"ingredients\": [],\n  \"tags\": [\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Empty ingredients field\",\n  \"text\": \"No ingredients specified\",\n  \"cooking_time\": 12\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7066,10 +7066,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе автора на обновление рецепта указан несуществующий ингредиент - должен вернуться ответ со статусом 400\"",
+													"        \"The author's request to update a recipe specifying a nonexistent ingredient must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -7097,7 +7097,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n        \"id\": 99999,\n        \"amount\": 20\n    }\n  ],\n  \"tags\": [\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Пустое поле ингредиентов\",\n  \"text\": \"Ингредиенты не указаны\",\n  \"cooking_time\": 12\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n        \"id\": 99999,\n        \"amount\": 20\n    }\n  ],\n  \"tags\": [\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Empty ingredients field\",\n  \"text\": \"No ingredients specified\",\n  \"cooking_time\": 12\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7126,10 +7126,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе автора на обновление рецепта количество ингредиентов меньше 1 - должен вернуться ответ со статусом 400\"",
+													"        \"The author's request to update a recipe with an ingredient amount less than 1 must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});",
 													""
@@ -7158,7 +7158,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n  {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 0\n  }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Рецепт с некорректным количеством ингридиента\",\n  \"text\": \"Проверка валидации количества ингредиента\",\n  \"cooking_time\": 15\n}",
+											"raw": "{\n  \"ingredients\": [\n  {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 0\n  }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"A recipe with an invalid ingredient amount\",\n  \"text\": \"Ingredient amount validation check\",\n  \"cooking_time\": 15\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7187,10 +7187,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если запрос автора на обновление рецепта содержит повторяющиеся ингредиенты - должен вернуться ответ со статусом 400\"",
+													"        \"The author's request to update a recipe containing duplicate ingredients must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -7218,7 +7218,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n        \"id\": {{firstIndredientId}},\n        \"amount\": 10\n    },\n    {\n        \"id\": {{firstIndredientId}},\n        \"amount\": 10\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Повторяющиеся ингредиенты (обновление)\",\n  \"text\": \"Двойная порция\",\n  \"cooking_time\": 15\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n        \"id\": {{firstIndredientId}},\n        \"amount\": 10\n    },\n    {\n        \"id\": {{firstIndredientId}},\n        \"amount\": 10\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Duplicate ingredients (update)\",\n  \"text\": \"A double portion\",\n  \"cooking_time\": 15\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7247,10 +7247,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе автора на обновление рецепта нет поля `tags` - должен вернуться ответ со статусом 400\"",
+													"        \"The author's request to update a recipe without the `tags` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -7278,7 +7278,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 25\n    }\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Нет поля с тегами\",\n  \"text\": \"Теги не указаны\",\n  \"cooking_time\": 12\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 25\n    }\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Missing tags field\",\n  \"text\": \"No tags specified\",\n  \"cooking_time\": 12\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7307,10 +7307,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе автора на обновление рецепта передано пустое поле `tags` - должен вернуться ответ со статусом 400\"",
+													"        \"The author's request to update a recipe with an empty `tags` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -7338,7 +7338,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 25\n    }\n  ],\n  \"tags\": [],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Пустое поле с тегами\",\n  \"text\": \"Теги не указаны\",\n  \"cooking_time\": 12\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 25\n    }\n  ],\n  \"tags\": [],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Empty tags field\",\n  \"text\": \"No tags specified\",\n  \"cooking_time\": 12\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7367,10 +7367,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе автора на обновление рецепта указан несуществующий тег - должен вернуться ответ со статусом 400\"",
+													"        \"The author's request to update a recipe specifying a nonexistent tag must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -7398,7 +7398,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 25\n    }\n  ],\n  \"tags\": [\n      9876\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Несуществующий тег\",\n  \"text\": \"Несуществующие тег\",\n  \"cooking_time\": 12\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 25\n    }\n  ],\n  \"tags\": [\n      9876\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Nonexistent tag\",\n  \"text\": \"Nonexistent tag\",\n  \"cooking_time\": 12\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7427,10 +7427,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если запрос автора на обновление рецепта содержит повторяющиеся теги - должен вернуться ответ со статусом 400\"",
+													"        \"The author's request to update a recipe containing duplicate tags must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -7458,7 +7458,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Повторяющиеся теги (обновление)\",\n  \"text\": \"Проверка валидации\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}},\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Duplicate tags (update)\",\n  \"text\": \"Validation check\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7487,10 +7487,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе автора на обновление рецепта содержится пустое поле `image` - должен вернуться ответ со статусом 400\"",
+													"        \"The author's request to update a recipe with an empty `image` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -7518,7 +7518,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"\",\n  \"name\": \"Рецепт без картинки\",\n  \"text\": \"Картина не приложена\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"\",\n  \"name\": \"A recipe without an image\",\n  \"text\": \"No image attached\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7547,10 +7547,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе автора на обновление рецепта содержится пустое поле `name` - должен вернуться ответ со статусом 400\"",
+													"        \"The author's request to update a recipe with an empty `name` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -7578,7 +7578,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"\",\n  \"text\": \"Без названия\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"\",\n  \"text\": \"Untitled\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7607,10 +7607,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если длина поля `name` превышает 256 символов - должен вернуться ответ со статусом 400\"",
+													"        \"A request with a `name` longer than 256 characters must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -7638,7 +7638,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"{{tooLongName}}\",\n  \"text\": \"Рецепт с очень длинным названием\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"{{tooLongName}}\",\n  \"text\": \"A recipe with a very long name\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7667,10 +7667,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе автора на обновление рецепта содержится пустое поле `text` - должен вернуться ответ со статусом 400\"",
+													"        \"The author's request to update a recipe with an empty `text` field must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -7698,7 +7698,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Без описания\",\n  \"text\": \"\",\n  \"cooking_time\": 5\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"No description\",\n  \"text\": \"\",\n  \"cooking_time\": 5\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7727,10 +7727,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе на создание рецепта поле `cooking_time` содержит пустую строку - должен вернуться ответ со статусом 400\"",
+													"        \"A recipe creation request with an empty string in `cooking_time` must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -7758,7 +7758,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Некорректное время готовки (пустая строка)\",\n  \"text\": \"Некорректное время готовки\",\n  \"cooking_time\": \"\"\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Invalid cooking time (empty string)\",\n  \"text\": \"Invalid cooking time\",\n  \"cooking_time\": \"\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7787,10 +7787,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Если в запросе автора на обновление рецепта поле `cooking_time` содержит значение меньше единицы - должен вернуться ответ со статусом 400\"",
+													"        \"The author's request to update a recipe with `cooking_time` less than 1 must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -7818,7 +7818,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Некорректное время готовки\",\n  \"text\": \"Некорректное время готовки\",\n  \"cooking_time\": 0\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": {{firstIngredientAmount}}\n    }\n  ],\n  \"tags\": [\n    {{firstTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Invalid cooking time\",\n  \"text\": \"Invalid cooking time\",\n  \"cooking_time\": 0\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7847,10 +7847,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 404\", function () {",
+													"pm.test(\"The response status code must be 404\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Запрос пользователя на обновление несуществующего рецепта должен вернуть ответ со статусом 404\"",
+													"        \"A user's request to update a nonexistent recipe must return a response with status code 404\"",
 													"    ).to.be.eql(\"Not Found\");",
 													"});"
 												],
@@ -7878,7 +7878,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 25\n    }\n  ],\n  \"tags\": [\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Обновление рецепта\",\n  \"text\": \"Проверка прав доступа.\",\n  \"cooking_time\": 12\n}",
+											"raw": "{\n  \"ingredients\": [\n    {\n      \"id\": {{firstIndredientId}},\n      \"amount\": 25\n    }\n  ],\n  \"tags\": [\n    {{secondTagId}}\n  ],\n  \"image\": \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAgMAAABieywaAAAACVBMVEUAAAD///9fX1/S0ecCAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAACklEQVQImWNoAAAAggCByxOyYQAAAABJRU5ErkJggg==\",\n  \"name\": \"Update a recipe\",\n  \"text\": \"Permission check.\",\n  \"cooking_time\": 12\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7975,13 +7975,13 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 201\", function () {",
+											"pm.test(\"The response status code must be 201\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя на создание подписки должен вернуть ответ со статус-кодом 201\"",
+											"        \"A registered user's request to create a subscription must return a response with status code 201\"",
 											"    ).to.be.eql(\"Created\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -8063,23 +8063,23 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 201\", function () {",
+											"pm.test(\"The response status code must be 201\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя на создание подписки должен вернуть ответ со статус-кодом 201\"",
+											"        \"A registered user's request to create a subscription must return a response with status code 201\"",
 											"    ).to.be.eql(\"Created\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});",
 											"pm.test(",
-											"    \"Должна быть возможность изменить количество выводимых рецептов в данных пользователя через параметр `recipes_limit`\",",
+											"    \"The `recipes_limit` parameter must allow changing the number of recipes included in user details\",",
 											"    function () {",
 											"        const recipes_limit = Number(pm.request.url.query.get(\"recipes_limit\"));",
 											"        const responseData = pm.response.json();",
 											"        pm.expect(",
 											"            responseData.recipes.length,",
-											"            \"Убедитесь, что с помощью параметра запроса `recipes_limit` можно изменять количество отображаемых рецептов в данных пользователей, на которых оформлена подписка\"    ",
+											"            \"Make sure the `recipes_limit` query parameter can change the number of recipes shown for users being followed\"    ",
 											"        ).to.be.lte(recipes_limit)",
 											"    }",
 											");"
@@ -8186,16 +8186,16 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя на получение перечня подписок должен вернуть ответ со статус-кодом 200\"",
+											"        \"A registered user's request to retrieve their subscriptions must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.expect(",
 											"        pm.response,",
-											"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+											"        \"Make sure pagination is configured correctly for the requested endpoint\"",
 											"    ).to.have.jsonSchema({\"type\": \"object\"});",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
@@ -8290,27 +8290,27 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя на получение перечня подписок должен вернуть ответ со статус-кодом 200\"",
+											"        \"A registered user's request to retrieve their subscriptions must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.expect(",
 											"        pm.response,",
-											"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+											"        \"Make sure pagination is configured correctly for the requested endpoint\"",
 											"    ).to.have.jsonSchema({\"type\": \"object\"});",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});",
 											"pm.test(",
-											"    \"Должна быть возможность изменить количество объектов на странице через параметр запроса `limit`\",",
+											"    \"The `limit` query parameter must allow changing the number of items per page\",",
 											"    function () {",
 											"        const limit = Number(pm.request.url.query.get(\"limit\"));",
 											"        const responseData = pm.response.json();",
 											"        pm.expect(",
 											"            responseData.results.length,",
-											"            \"Убедитесь, что с помощью параметра запроса `limit` можно изменять количество объектов на странице пагинатора\"    ",
+											"            \"Make sure the `limit` query parameter can change the number of items on each page of paginated results\"    ",
 											"        ).to.be.eql(limit)",
 											"    }",
 											");"
@@ -8411,28 +8411,28 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя на получение перечня подписок должен вернуть ответ со статус-кодом 200\"",
+											"        \"A registered user's request to retrieve their subscriptions must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.expect(",
 											"        pm.response,",
-											"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+											"        \"Make sure pagination is configured correctly for the requested endpoint\"",
 											"    ).to.have.jsonSchema({\"type\": \"object\"});",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});",
 											"pm.test(",
-											"    \"Убедитесь, что количество выводимых рецептов в данных пользователя можно изменить через параметр `recipes_limit`\",",
+											"    \"Make sure the `recipes_limit` parameter can change the number of recipes included in user details\",",
 											"    function () {",
 											"        const recipes_limit = Number(pm.request.url.query.get(\"recipes_limit\"));",
 											"        const responseData = pm.response.json();",
 											"        for (elem of responseData.results) {",
 											"            pm.expect(",
 											"                elem.recipes.length,",
-											"                \"Убедитесь, что с помощью параметра запроса `recipes_limit` можно изменять количество отображаемых рецептов в данных пользователей, на которых оформлена подписка\"    ",
+											"                \"Make sure the `recipes_limit` query parameter can change the number of recipes shown for users being followed\"    ",
 											"            ).to.be.lte(recipes_limit)",
 											"        };",
 											"    }",
@@ -8493,10 +8493,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 401\", function () {",
+											"pm.test(\"The response status code must be 401\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос незарегистрированного пользователя на создание подписки должен вернуть ответ со статусом 401\"",
+											"        \"An unregistered user's request to create a subscription must return a response with status code 401\"",
 											"    ).to.be.eql(\"Unauthorized\");",
 											"});"
 										],
@@ -8533,10 +8533,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"При попытке создания дублирующейся подписки должен вернуться ответ со статусом 400\"",
+											"        \"An attempt to create a duplicate subscription must return a response with status code 400\"",
 											"    ).to.be.eql(\"Bad Request\");",
 											"});"
 										],
@@ -8585,10 +8585,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"При попытке создания подписки на самого себя должен вернуться ответ со статусом 400\"",
+											"        \"An attempt to follow yourself must return a response with status code 400\"",
 											"    ).to.be.eql(\"Bad Request\");",
 											"});"
 										],
@@ -8637,10 +8637,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 404\", function () {",
+											"pm.test(\"The response status code must be 404\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"При попытке создания подписки на несуществующего автора должен вернуться ответ со статусом 404\"",
+											"        \"An attempt to follow a nonexistent author must return a response with status code 404\"",
 											"    ).to.be.eql(\"Not Found\");",
 											"});"
 										],
@@ -8746,13 +8746,13 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 201\", function () {",
+											"pm.test(\"The response status code must be 201\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя на добавление рецепта в корзину должен вернуть ответ со статус-кодом 201\"",
+											"        \"A registered user's request to add a recipe to the shopping cart must return a response with status code 201\"",
 											"    ).to.be.eql(\"Created\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -8806,10 +8806,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"pm.test(\"The response status code must be 200\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя на скачивание списка покупок должен вернуть ответ со статус-кодом 200\"",
+											"        \"A registered user's request to download the shopping list must return a response with status code 200\"",
 											"    ).to.be.eql(\"OK\");",
 											"});",
 											""
@@ -8863,10 +8863,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 401\", function () {",
+											"pm.test(\"The response status code must be 401\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос неавторизованного пользователя не добавление рецепта в корзину должен вернуть ответ со статусом 401\"",
+											"        \"An unauthenticated user's request to add a recipe to the shopping cart must return a response with status code 401\"",
 											"    ).to.be.eql(\"Unauthorized\");",
 											"});"
 										],
@@ -8903,10 +8903,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"При попытке повторно добавить рецепт в корзину должен вернуться ответ со статусом 400\"",
+											"        \"An attempt to add a recipe to the shopping cart again must return a response with status code 400\"",
 											"    ).to.be.eql(\"Bad Request\");",
 											"});"
 										],
@@ -8955,10 +8955,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 404\", function () {",
+											"pm.test(\"The response status code must be 404\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"При попытке добавить несуществующий рецепт в корзину должен вернуться ответ со статусом 404\"",
+											"        \"An attempt to add a nonexistent recipe to the shopping cart must return a response with status code 404\"",
 											"    ).to.be.eql(\"Not Found\");",
 											"});"
 										],
@@ -9065,13 +9065,13 @@
 											"    \"additionalProperties\": false",
 											"};",
 											"",
-											"pm.test(\"Статус-код ответа должен быть 201\", function () {",
+											"pm.test(\"The response status code must be 201\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя на добавление рецепта в избранное должен вернуть ответ со статус-кодом 201\"",
+											"        \"A registered user's request to add a recipe to favorites must return a response with status code 201\"",
 											"    ).to.be.eql(\"Created\");",
 											"});",
-											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"pm.test('The response structure must match the expected structure', function () {",
 											"    pm.response.to.have.jsonSchema(responseSchema);",
 											"});"
 										],
@@ -9125,10 +9125,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 401\", function () {",
+											"pm.test(\"The response status code must be 401\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос неавторизованного пользователя на добавление рецепта в избранное должен вернуть ответ со статусом 401\"",
+											"        \"An unauthenticated user's request to add a recipe to favorites must return a response with status code 401\"",
 											"    ).to.be.eql(\"Unauthorized\");",
 											"});"
 										],
@@ -9165,10 +9165,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"pm.test(\"The response status code must be 400\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"При попытке повторно добавить рецепт в избранное должен вернуться ответ со статусом 400\"",
+											"        \"An attempt to add a recipe to favorites again must return a response with status code 400\"",
 											"    ).to.be.eql(\"Bad Request\");",
 											"});"
 										],
@@ -9217,10 +9217,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 404\", function () {",
+											"pm.test(\"The response status code must be 404\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"При попытке добавить несуществующий рецепт в избранное должен вернуться ответ со статусом 404\"",
+											"        \"An attempt to add a nonexistent recipe to favorites must return a response with status code 404\"",
 											"    ).to.be.eql(\"Not Found\");",
 											"});"
 										],
@@ -9386,23 +9386,23 @@
 									"    }",
 									"};",
 									"",
-									"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+									"pm.test(\"The response status code must be 200\", function () {",
 									"    pm.expect(",
 									"        pm.response.status,",
-									"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+									"        \"A request from a registered user must return a response with status code 200\"",
 									"    ).to.be.eql(\"OK\");",
 									"});",
-									"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+									"pm.test('The response structure must match the expected structure', function () {",
 									"    pm.expect(",
 									"        pm.response,",
-									"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+									"        \"Make sure pagination is configured correctly for the requested endpoint\"",
 									"    ).to.have.jsonSchema({\"type\": \"object\"});",
 									"    pm.response.to.have.jsonSchema(responseSchema);",
 									"});",
 									"pm.test(",
-									"    \"Должна быть возможность фильтровать рецепты через параметр запроса `is_in_shopping_cart`\",",
+									"    \"The `is_in_shopping_cart` query parameter must allow filtering recipes\",",
 									"    function () {",
-									"        assert_msg = \"Убедитесь, что с помощью параметра запроса `is_in_shopping_cart` можно отфильтровать рецепты, добавленные в корзину пользователя\" ",
+									"        assert_msg = \"Make sure the `is_in_shopping_cart` query parameter can filter recipes added to the user's shopping cart\" ",
 									"        const authorId = Number(pm.request.url.query.get(\"author\"));",
 									"        const responseData = pm.response.json();",
 									"        pm.expect(",
@@ -9540,16 +9540,16 @@
 									"    }",
 									"};",
 									"",
-									"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+									"pm.test(\"The response status code must be 200\", function () {",
 									"    pm.expect(",
 									"        pm.response.status,",
-									"        \"Запрос с параметром `is_favorited`, отправленный незарегистрированным пользователем, должен вернуть ответ со статусом 200\"",
+									"        \"A request with the `is_favorited` parameter sent by an unregistered user must return a response with status code 200\"",
 									"    ).to.be.eql(\"OK\");",
 									"});",
-									"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+									"pm.test('The response structure must match the expected structure', function () {",
 									"    pm.expect(",
 									"        pm.response,",
-									"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+									"        \"Make sure pagination is configured correctly for the requested endpoint\"",
 									"    ).to.have.jsonSchema({\"type\": \"object\"});",
 									"    pm.response.to.have.jsonSchema(responseSchema);",
 									"});",
@@ -9665,23 +9665,23 @@
 									"    }",
 									"};",
 									"",
-									"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+									"pm.test(\"The response status code must be 200\", function () {",
 									"    pm.expect(",
 									"        pm.response.status,",
-									"        \"GET-запрос зарегистрированного пользователя к `/api/recipes/` должен вернуть ответ со статус-кодом 200\"",
+									"        \"A registered user's GET request to `/api/recipes/` must return a response with status code 200\"",
 									"    ).to.be.eql(\"OK\");",
 									"});",
-									"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+									"pm.test('The response structure must match the expected structure', function () {",
 									"    pm.expect(",
 									"        pm.response,",
-									"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+									"        \"Make sure pagination is configured correctly for the requested endpoint\"",
 									"    ).to.have.jsonSchema({\"type\": \"object\"});",
 									"    pm.response.to.have.jsonSchema(responseSchema);",
 									"});",
 									"pm.test(",
-									"    \"Должна быть возможность фильтровать рецепты через параметр запроса `is_favorited`\",",
+									"    \"The `is_favorited` query parameter must allow filtering recipes\",",
 									"    function () {",
-									"        assert_msg = \"Убедитесь, что с помощью параметра запроса `is_favorited` можно отфильтровать рецепты, добавленные в 'Избранное' пользователя\" ",
+									"        assert_msg = \"Make sure the `is_favorited` query parameter can filter recipes added to the user's 'Favorites'\" ",
 									"        const responseData = pm.response.json();",
 									"        pm.expect(",
 									"            responseData.results.length > 0,",
@@ -9818,16 +9818,16 @@
 									"    }",
 									"};",
 									"",
-									"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+									"pm.test(\"The response status code must be 200\", function () {",
 									"    pm.expect(",
 									"        pm.response.status,",
-									"        \"Запрос с параметром `is_favorited`, отправленный незарегистрированным пользователем, должен вернуть ответ со статусом 200\"",
+									"        \"A request with the `is_favorited` parameter sent by an unregistered user must return a response with status code 200\"",
 									"    ).to.be.eql(\"OK\");",
 									"});",
-									"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+									"pm.test('The response structure must match the expected structure', function () {",
 									"    pm.expect(",
 									"        pm.response,",
-									"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+									"        \"Make sure pagination is configured correctly for the requested endpoint\"",
 									"    ).to.have.jsonSchema({\"type\": \"object\"});",
 									"    pm.response.to.have.jsonSchema(responseSchema);",
 									"});",
@@ -9881,10 +9881,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 401\", function () {",
+													"pm.test(\"The response status code must be 401\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Запрос неавторизованного пользователя на удаление подписки должен вернуть ответ со статусом 401\"",
+													"        \"An unauthenticated user's request to delete a subscription must return a response with status code 401\"",
 													"    ).to.be.eql(\"Unauthorized\");",
 													"});"
 												],
@@ -9921,10 +9921,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"При попытке пользователя удалить несуществующую подписку должен вернуться ответ со статусом 400\"",
+													"        \"A user's attempt to delete a nonexistent subscription must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -9973,10 +9973,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 404\", function () {",
+													"pm.test(\"The response status code must be 404\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"При попытке пользователя удалить подписку на несуществующего автора должен вернуться ответ со статусом 404\"",
+													"        \"A user's attempt to unfollow a nonexistent author must return a response with status code 404\"",
 													"    ).to.be.eql(\"Not Found\");",
 													"});"
 												],
@@ -10027,10 +10027,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 204\", function () {",
+											"pm.test(\"The response status code must be 204\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя на удаление существующей подписки должен вернуть ответ со статус-кодом 204\"",
+											"        \"A registered user's request to delete an existing subscription must return a response with status code 204\"",
 											"    ).to.be.eql(\"No Content\");",
 											"});"
 										],
@@ -10079,10 +10079,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 204\", function () {",
+											"pm.test(\"The response status code must be 204\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя на удаление существующей подписки должен вернуть ответ со статус-кодом 204\"",
+											"        \"A registered user's request to delete an existing subscription must return a response with status code 204\"",
 											"    ).to.be.eql(\"No Content\");",
 											"});"
 										],
@@ -10139,10 +10139,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 401\", function () {",
+													"pm.test(\"The response status code must be 401\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Запрос неавторизованного пользователя на удаление рецепта из корзины должен вернуть ответ со статусом 401\"",
+													"        \"An unauthenticated user's request to remove a recipe from the shopping cart must return a response with status code 401\"",
 													"    ).to.be.eql(\"Unauthorized\");",
 													"});"
 												],
@@ -10179,10 +10179,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Запрос зарегистрированного пользователя на удаление из корзины рецепта, который не был туда добавлен, должен вернуть ответ со статусом 400\"",
+													"        \"A registered user's request to remove a recipe that is not in their shopping cart must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -10231,10 +10231,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 404\", function () {",
+													"pm.test(\"The response status code must be 404\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"При попытке пользователя удалить несуществующий рецепт из корзины должен вернуться ответ со статусом 404\"",
+													"        \"A user's attempt to remove a nonexistent recipe from the shopping cart must return a response with status code 404\"",
 													"    ).to.be.eql(\"Not Found\");",
 													"});"
 												],
@@ -10285,10 +10285,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 204\", function () {",
+											"pm.test(\"The response status code must be 204\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя на удаление ранее добавленного рецепта из корзины должен вернуть ответ со статус-кодом 204\"",
+											"        \"A registered user's request to remove a previously added recipe from the shopping cart must return a response with status code 204\"",
 											"    ).to.be.eql(\"No Content\");",
 											"});"
 										],
@@ -10345,10 +10345,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 401\", function () {",
+													"pm.test(\"The response status code must be 401\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Запрос неавторизованного пользователя на удаление рецепта из избранного должен вернуть ответ со статусом 401\"",
+													"        \"An unauthenticated user's request to remove a recipe from favorites must return a response with status code 401\"",
 													"    ).to.be.eql(\"Unauthorized\");",
 													"});"
 												],
@@ -10386,10 +10386,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+													"pm.test(\"The response status code must be 400\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Запрос пользователя на удаление из избранного рецепта, который не был туда добавлен, должен вернуть ответ со статусом 400\"",
+													"        \"A user's request to remove a recipe that is not in their favorites must return a response with status code 400\"",
 													"    ).to.be.eql(\"Bad Request\");",
 													"});"
 												],
@@ -10438,10 +10438,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 404\", function () {",
+													"pm.test(\"The response status code must be 404\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"При попытке пользователя удалить несуществующий рецепт из избранного должен вернуться ответ со статусом 404\"",
+													"        \"A user's attempt to remove a nonexistent recipe from favorites must return a response with status code 404\"",
 													"    ).to.be.eql(\"Not Found\");",
 													"});"
 												],
@@ -10492,10 +10492,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 204\", function () {",
+											"pm.test(\"The response status code must be 204\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос зарегистрированного пользователя на удаление ранее добавленного рецепта из избранного должен вернуть ответ со статус-кодом 204\"",
+											"        \"A registered user's request to remove a previously added recipe from favorites must return a response with status code 204\"",
 											"    ).to.be.eql(\"No Content\");",
 											"});"
 										],
@@ -10552,10 +10552,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 401\", function () {",
+													"pm.test(\"The response status code must be 401\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Запрос незарегистрированного пользователя на удаление рецепта должен вернуть ответ со статусом 401\"",
+													"        \"An unregistered user's request to delete a recipe must return a response with status code 401\"",
 													"    ).to.be.eql(\"Unauthorized\");",
 													"});"
 												],
@@ -10600,10 +10600,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 403\", function () {",
+													"pm.test(\"The response status code must be 403\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"Запрос пользователя на удаление чужого рецепта должен вернуть ответ со статусом 403\"",
+													"        \"A user's request to delete someone else's recipe must return a response with status code 403\"",
 													"    ).to.be.eql(\"Forbidden\");",
 													"});"
 												],
@@ -10660,10 +10660,10 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Статус-код ответа должен быть 404\", function () {",
+													"pm.test(\"The response status code must be 404\", function () {",
 													"    pm.expect(",
 													"        pm.response.status,",
-													"        \"При попытке пользователя удалить несуществующий рецепт должен вернуться ответ со статусом 404\"",
+													"        \"A user's attempt to delete a nonexistent recipe must return a response with status code 404\"",
 													"    ).to.be.eql(\"Not Found\");",
 													"});"
 												],
@@ -10722,10 +10722,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 204\", function () {",
+											"pm.test(\"The response status code must be 204\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос автора на удаление собственного рецепта должен вернуть ответ со статус-кодом 204\"",
+											"        \"The author's request to delete their own recipe must return a response with status code 204\"",
 											"    ).to.be.eql(\"No Content\");",
 											"});"
 										],
@@ -10782,10 +10782,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 204\", function () {",
+											"pm.test(\"The response status code must be 204\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос автора на удаление собственного рецепта должен вернуть ответ со статус-кодом 204\"",
+											"        \"The author's request to delete their own recipe must return a response with status code 204\"",
 											"    ).to.be.eql(\"No Content\");",
 											"});"
 										],
@@ -10842,10 +10842,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 204\", function () {",
+											"pm.test(\"The response status code must be 204\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос автора на удаление собственного рецепта должен вернуть ответ со статус-кодом 204\"",
+											"        \"The author's request to delete their own recipe must return a response with status code 204\"",
 											"    ).to.be.eql(\"No Content\");",
 											"});"
 										],
@@ -10902,10 +10902,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 204\", function () {",
+											"pm.test(\"The response status code must be 204\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос автора на удаление собственного рецепта должен вернуть ответ со статус-кодом 204\"",
+											"        \"The author's request to delete their own recipe must return a response with status code 204\"",
 											"    ).to.be.eql(\"No Content\");",
 											"});"
 										],
@@ -10962,10 +10962,10 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Статус-код ответа должен быть 204\", function () {",
+											"pm.test(\"The response status code must be 204\", function () {",
 											"    pm.expect(",
 											"        pm.response.status,",
-											"        \"Запрос автора на удаление собственного рецепта должен вернуть ответ со статус-кодом 204\"",
+											"        \"The author's request to delete their own recipe must return a response with status code 204\"",
 											"    ).to.be.eql(\"No Content\");",
 											"});"
 										],
@@ -11098,7 +11098,7 @@
 		},
 		{
 			"key": "tooLongName",
-			"value": "Старинный рецепт, передаваемый из поколения в поколение через сказки и народные предания. Немногие могут правильно его приготовить. Большая сложность обусловлена названием, которое длиннее 256 символов, что существенно усложняет его запоминание. Дерзайте!!!",
+			"value": "An ancient recipe passed down through generations in fairy tales and folk legends. Few can prepare it correctly. Much of the difficulty lies in its name, which is longer than 256 characters and therefore particularly hard to remember. Give it a try!!!",
 			"type": "string"
 		},
 		{

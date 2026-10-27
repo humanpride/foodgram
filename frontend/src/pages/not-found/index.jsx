@@ -11,7 +11,7 @@ const Favorites = () => {
   return (
     <Main className={styles.root}>
       <Container>
-        <img src={image} className={styles.img} alt="логотип." />
+        <img src={image} className={styles.img} alt="logo." />
         <p className={styles.text}>Page not found</p>
         <Button
           modifier="style_dark"

@@ -179,37 +179,37 @@ class RecipeCreateUpdateSerializer(django_serializers.ModelSerializer):
             values=tags,
             field_name='tags',
             id_getter=lambda tag: tag.id,
-            error_message='Теги с id {} повторяются.',
+            error_message='Duplicate tag IDs: {}.',
         )
         return tags
 
     def validate_ingredients(self, ingredients):
         if not ingredients:
             raise django_serializers.ValidationError(
-                {'ingredients': ['Укажите хотя бы 1 продукт.']}
+                {'ingredients': ['Specify at least one ingredient.']}
             )
 
         self._validate_duplicates(
             values=ingredients,
             field_name='ingredients',
             id_getter=lambda item: item['id'].id,
-            error_message='Продукты с id {} повторяются.',
+            error_message='Duplicate ingredient IDs: {}.',
         )
         return ingredients
 
     def validate(self, attrs):
         """
-        Дополнительная валидация: при `partial=True` (PATCH).
+        Additional validation for `partial=True` (PATCH).
 
-        Требуем, чтобы оба поля `ingredients` и `tags` присутствовали
-        в исходных данных запроса.
+        Require both `ingredients` and `tags` fields
+        in the original request data.
         """
         if self.partial:
             missing = {}
             if 'ingredients' not in self.initial_data:
-                missing['ingredients'] = ['Это поле обязательно.']
+                missing['ingredients'] = ['This field is required.']
             if 'tags' not in self.initial_data:
-                missing['tags'] = ['Это поле обязательно.']
+                missing['tags'] = ['This field is required.']
             if missing:
                 raise django_serializers.ValidationError(missing)
 

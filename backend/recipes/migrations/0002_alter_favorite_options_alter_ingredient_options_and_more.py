@@ -12,18 +12,18 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='favorite',
-            options={'default_related_name': '%(class)ss', 'verbose_name': 'Избранное', 'verbose_name_plural': 'Избранное'},
+            options={'default_related_name': '%(class)ss', 'verbose_name': 'Favorites', 'verbose_name_plural': 'Favorites'},
         ),
         migrations.AlterModelOptions(
             name='ingredient',
-            options={'ordering': ('name',), 'verbose_name': 'Продукт', 'verbose_name_plural': 'Продукты'},
+            options={'ordering': ('name',), 'verbose_name': 'Ingredient', 'verbose_name_plural': 'Ingredients'},
         ),
         migrations.AlterModelOptions(
             name='shoppingcartitem',
-            options={'default_related_name': '%(class)ss', 'verbose_name': 'Рецепт в корзине', 'verbose_name_plural': 'Рецепты в корзине'},
+            options={'default_related_name': '%(class)ss', 'verbose_name': 'Recipe in shopping cart', 'verbose_name_plural': 'Recipes in shopping cart'},
         ),
         migrations.AlterModelOptions(
             name='tag',
-            options={'ordering': ('name',), 'verbose_name': 'Тег', 'verbose_name_plural': 'Теги'},
+            options={'ordering': ('name',), 'verbose_name': 'Tag', 'verbose_name_plural': 'Tags'},
         ),
     ]
