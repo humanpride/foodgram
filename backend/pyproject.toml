@@ -1,7 +1,7 @@
 [project]
 name = "foodgram"
 version = "1.0.0"
-description = "A platform for publishing recipes with photos."
+description = "A platform for sharing recipes with photos."
 authors = [
     { name = "humanpride", email = "sergei.pashkovskii@outlook.com" }
 ]
@@ -21,7 +21,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pre-commit==4.6.2",
-    "pytest>=9.0",
+    "pytest==9.0",
     "pytest-django",
     "ruff==0.16.9",
 ]
