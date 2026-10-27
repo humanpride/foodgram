@@ -17,7 +17,7 @@ const AccountMenu = ({ onSignOut, orders }) => {
           if (isActive) {
             return (
               <Button
-                key={item.href || index} // добавлен key
+                key={item.href || index} // added key
                 href={item.href}
                 modifier='style_dark'
                 className={styles.menuButton}
@@ -28,7 +28,7 @@ const AccountMenu = ({ onSignOut, orders }) => {
           } else {
             return (
               <LinkComponent
-                key={item.href || index} // добавлен key
+                key={item.href || index} // added key
                 title={item.title}
                 href={item.href}
                 className={styles.menuLink}

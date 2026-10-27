@@ -38,7 +38,7 @@ class IngrediendFilter(filters.FilterSet):
     name = CharFilter(
         field_name='name',
         method='filter_with_q',
-        label='Фильтрация (istartswith + icontains)',
+        label='Filtering (istartswith + icontains)',
     )
 
     class Meta:

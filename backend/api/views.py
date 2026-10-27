@@ -85,7 +85,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
                 is_in_shopping_cart=Exists(cart_qs),
             )
         else:
-            # анонимному пользователю — False по обоим полям
+            # False for both fields for anonymous users
             qs = qs.annotate(
                 is_favorited=Value(False, output_field=BooleanField()),
                 is_in_shopping_cart=Value(False, output_field=BooleanField()),
@@ -109,14 +109,15 @@ class RecipeViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
     def _add_to_collection(self, request, id, model):
-        """Добавляет рецепт в коллекцию (избранное или корзину)."""
+        """Add a recipe to a collection (favorites or shopping cart)."""
         recipe = self.get_object()
         user = request.user
 
         _, created = model.objects.get_or_create(user=user, recipe=recipe)
         if not created:
             raise ValidationError(
-                f'{recipe} уже добавлен в {model._meta.verbose_name}'
+                f'{recipe} has already been added to '
+                f'{model._meta.verbose_name}'
             )
 
         return Response(
@@ -158,9 +159,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
     )
     def get_link(self, request, id):
         """
-        Возвращает короткую ссылку на рецепт.
+        Return a short link to the recipe.
 
-        Формат: `/s/<int:id>`
+        Format: `/s/<int:id>`
         """
         return Response(
             {
@@ -173,8 +174,8 @@ class RecipeViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'])
     def download_shopping_cart(self, request):
         """
-        Собирает все рецепты из корзины пользователя, агрегирует продукты
-        и отдаёт в виде .txt файла.
+        Collect all recipes from the user's shopping cart,
+        aggregate ingredients, and return them as a .txt file.
         """
 
         recipes = Recipe.objects.filter(shoppingcartitems__user=request.user)
@@ -207,7 +208,7 @@ class TagViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class UserViewSet(DjoserUserViewSet):
-    """Действия:
+    """Actions:
     - create / list / retrieve
     - me (GET)
     - set_password
@@ -233,13 +234,13 @@ class UserViewSet(DjoserUserViewSet):
         target_user = get_object_or_404(User, id=id)
         current_user = request.user
         if target_user == current_user:
-            raise ValidationError({'detail': 'Нельзя подписаться на себя.'})
+            raise ValidationError({'detail': 'You cannot follow yourself.'})
         _, created = Subscription.objects.get_or_create(
             from_user=current_user, to_user=target_user
         )
         if not created:
             raise ValidationError(
-                {'detail': f'Вы уже подписаны на пользователя {target_user}.'},
+                {'detail': f'You are already following {target_user}.'},
             )
 
         return Response(

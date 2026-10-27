@@ -6,17 +6,17 @@ const Technologies = () => {
   return (
     <Main>
       <Helmet>
-        <title>О проекте</title>
-        <meta name="description" content="Фудграм - Технологии" />
-        <meta property="og:title" content="О проекте" />
+        <title>About</title>
+        <meta name="description" content="Foodgram - Technologies" />
+        <meta property="og:title" content="About" />
       </Helmet>
 
       <Container>
-        <h1 className={styles.title}>Технологии</h1>
+        <h1 className={styles.title}>Technologies</h1>
         <div className={styles.content}>
           <div>
             <h2 className={styles.subtitle}>
-              Технологии, которые применены в этом проекте:
+              Technologies used in this project:
             </h2>
             <div className={styles.text}>
               <ul className={styles.textItem}>

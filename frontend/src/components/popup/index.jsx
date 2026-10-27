@@ -22,13 +22,13 @@ const Popup = ({
           className={styles.popup__button}
           clickHandler={onSubmit}
         >
-          Да
+          Yes
         </Button>
         <Button
           clickHandler={onClose}
           className={styles.popup__button}
         >
-          Нет
+          No
         </Button>
       </div>}
     </div>
