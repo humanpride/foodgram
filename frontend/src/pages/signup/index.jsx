@@ -27,12 +27,12 @@ const SignUp = ({ onSignUp, submitError, setSubmitError }) => {
       {authContext && <Navigate to="/recipes" />}
       <Container className={styles.center}>
         <Helmet>
-          <title>Регистрация</title>
+          <title>Sign Up</title>
           <meta
             name="description"
-            content="Фудграм - Регистрация"
+            content="Foodgram - Sign Up"
           />
-          <meta property="og:title" content="Регистрация" />
+          <meta property="og:title" content="Sign Up" />
         </Helmet>
         <Form
           className={styles.form}
@@ -41,9 +41,9 @@ const SignUp = ({ onSignUp, submitError, setSubmitError }) => {
             onSignUp(values);
           }}
         >
-          <FormTitle>Регистрация</FormTitle>
+          <FormTitle>Sign Up</FormTitle>
           <Input
-            placeholder="Имя"
+            placeholder="First Name"
             name="first_name"
             required
             isAuth={true}
@@ -51,7 +51,7 @@ const SignUp = ({ onSignUp, submitError, setSubmitError }) => {
             onChange={onChange}
           />
           <Input
-            placeholder="Фамилия"
+            placeholder="Last Name"
             name="last_name"
             required
             isAuth={true}
@@ -59,7 +59,7 @@ const SignUp = ({ onSignUp, submitError, setSubmitError }) => {
             onChange={onChange}
           />
           <Input
-            placeholder="Имя пользователя"
+            placeholder="Username"
             name="username"
             required
             isAuth={true}
@@ -68,7 +68,7 @@ const SignUp = ({ onSignUp, submitError, setSubmitError }) => {
           />
 
           <Input
-            placeholder="Адрес электронной почты"
+            placeholder="Email address"
             name="email"
             required
             isAuth={true}
@@ -76,7 +76,7 @@ const SignUp = ({ onSignUp, submitError, setSubmitError }) => {
             onChange={onChange}
           />
           <Input
-            placeholder="Пароль"
+            placeholder="Password"
             type="password"
             name="password"
             required
@@ -86,7 +86,7 @@ const SignUp = ({ onSignUp, submitError, setSubmitError }) => {
             onChange={onChange}
           />
           <Button modifier="style_dark" type="submit" className={styles.button}>
-            Создать аккаунт
+            Create account
           </Button>
         </Form>
       </Container>

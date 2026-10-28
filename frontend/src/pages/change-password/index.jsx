@@ -28,12 +28,12 @@ const ChangePassword = ({ onPasswordChange, submitError, setSubmitError }) => {
     <Main withBG asFlex>
       <Container className={styles.center}>
         <Helmet>
-          <title>Изменить пароль</title>
+          <title>Change Password</title>
           <meta
             name="description"
-            content="Фудграм - Изменить пароль"
+            content="Foodgram - Change Password"
           />
-          <meta property="og:title" content="Изменить пароль" />
+          <meta property="og:title" content="Change Password" />
         </Helmet>
 
         <Form
@@ -43,12 +43,12 @@ const ChangePassword = ({ onPasswordChange, submitError, setSubmitError }) => {
             onPasswordChange(values);
           }}
         >
-          <FormTitle>Изменить пароль</FormTitle>
+          <FormTitle>Change Password</FormTitle>
 
           <Input
             required
             isAuth={true}
-            placeholder="Старый пароль"
+            placeholder="Current password"
             type="password"
             name="current_password"
             error={errors}
@@ -58,7 +58,7 @@ const ChangePassword = ({ onPasswordChange, submitError, setSubmitError }) => {
           <Input
             required
             isAuth={true}
-            placeholder="Новый пароль"
+            placeholder="New password"
             type="password"
             name="new_password"
             error={errors}
@@ -67,23 +67,23 @@ const ChangePassword = ({ onPasswordChange, submitError, setSubmitError }) => {
 
           <ul className={styles.texts}>
             <li className={styles.text}>
-              <ChangePasswordText text="Ваш пароль не должен совпадать с вашим именем или другой персональной информацией или быть слишком похожим на неё" />
+              <ChangePasswordText text="Your password should not match your name or other personal information or be too similar to it" />
             </li>
             <li className={styles.text}>
-              <ChangePasswordText text="Ваш пароль должен содержать как минимум 8 символов" />
+              <ChangePasswordText text="Your password must contain at least 8 characters" />
             </li>
             <li className={styles.text}>
-              <ChangePasswordText text="Ваш пароль не может быть одним из широко распространённых паролей" />
+              <ChangePasswordText text="Your password cannot be one of the commonly used passwords" />
             </li>
             <li className={styles.text}>
-              <ChangePasswordText text="Ваш пароль не может состоять только из цифр" />
+              <ChangePasswordText text="Your password cannot consist only of numbers" />
             </li>
           </ul>
 
           <Input
             required
             isAuth={true}
-            placeholder="Подтвердите новый пароль"
+            placeholder="Confirm new password"
             type="password"
             name="repeat_password"
             error={errors}
@@ -99,7 +99,7 @@ const ChangePassword = ({ onPasswordChange, submitError, setSubmitError }) => {
               !isValid || values.new_password !== values.repeat_password
             }
           >
-            Изменить пароль
+            Change Password
           </Button>
         </Form>
       </Container>

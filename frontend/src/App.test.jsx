@@ -1,9 +1,8 @@
 // src/App.test.jsx
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import App from './App.jsx';
-
 
 test('renders element', async () => {
   render(
@@ -14,8 +13,8 @@ test('renders element', async () => {
     </HelmetProvider>
   );
 
-  await waitFor(() => {
-    const element = screen.getByText('Технологии');
-    expect(element).toBeInTheDocument();
-  });
+  const elements = await screen.findAllByText('Sign Up');
+
+  expect(elements.length).toBeGreaterThan(0);
+  expect(elements[0]).toBeInTheDocument();
 });

@@ -14,21 +14,21 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='recipe',
             name='cooking_time',
-            field=models.PositiveIntegerField(validators=[django.core.validators.MinValueValidator(1)], verbose_name='Время (мин)'),
+            field=models.PositiveIntegerField(validators=[django.core.validators.MinValueValidator(1)], verbose_name='Time (min)'),
         ),
         migrations.AlterField(
             model_name='recipe',
             name='image',
-            field=models.ImageField(upload_to='recipes/images/', verbose_name='Фото'),
+            field=models.ImageField(upload_to='recipes/images/', verbose_name='Photo'),
         ),
         migrations.AlterField(
             model_name='recipe',
             name='tags',
-            field=models.ManyToManyField(to='recipes.tag', verbose_name='Теги'),
+            field=models.ManyToManyField(to='recipes.tag', verbose_name='Tags'),
         ),
         migrations.AlterField(
             model_name='recipe',
             name='text',
-            field=models.TextField(verbose_name='Текст'),
+            field=models.TextField(verbose_name='Text'),
         ),
     ]

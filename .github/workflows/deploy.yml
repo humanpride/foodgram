@@ -2,12 +2,13 @@ name: Deploy
 on:
   push:
     branches:
-      - dev
+      - main
     paths:
       - '.github/workflows/**'
       - 'backend/**'
       - 'frontend/**'
       - 'infra/**'
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -52,7 +53,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          Деплой Foodgram успешно выполнен!
-          Автор коммита - ${{ github.actor }}
-          Сообщение коммита - ${{ github.event.commits[0].message }}
-          Ссылка на коммит - https://github.com/${{github.repository}}/commit/${{github.sha}}
+          Foodgram deployed successfully!
+          Commit author - ${{ github.actor }}
+          Commit message - ${{ github.event.commits[0].message }}
+          Commit link - https://github.com/${{github.repository}}/commit/${{github.sha}}

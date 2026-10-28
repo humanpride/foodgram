@@ -4,8 +4,8 @@ from recipes.models import Ingredient
 
 class Command(BaseImportCommand):
     help = (
-        'Импорт ингредиентов из JSON фикстуры. '
-        'Пример: python manage.py import_ingredients /path/to/file'
+        'Import ingredients from a JSON fixture. '
+        'Example: python manage.py import_ingredients /path/to/file'
     )
     model = Ingredient
     path = 'data/ingredients.json'

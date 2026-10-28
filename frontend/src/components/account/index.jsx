@@ -101,7 +101,7 @@ const Account = ({ onSignOut, orders }) => {
               <div className={styles.accountLinkIcon}>
                 <Icons.LogoutMenu />
               </div>
-              Выйти
+              Log out
             </li>
           </ul>
         </div>

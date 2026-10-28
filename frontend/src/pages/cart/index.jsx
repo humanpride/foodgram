@@ -36,12 +36,12 @@ const Cart = ({ updateOrders, orders }) => {
   return <Main>
     <Container className={styles.container}>
       <Helmet>
-        <title>Список покупок</title>
-        <meta name="description" content="Фудграм - Список покупок" />
-        <meta property="og:title" content="Список покупок" />
+        <title>Shopping List</title>
+        <meta name="description" content="Foodgram - Shopping List" />
+        <meta property="og:title" content="Shopping List" />
       </Helmet>
       <div className={styles.cart}>
-        <Title title='Список покупок' />
+        <Title title='Shopping List' />
         <PurchaseList
           orders={recipes}
           handleRemoveFromCart={handleAddToCart}
@@ -50,7 +50,7 @@ const Cart = ({ updateOrders, orders }) => {
         {orders > 0 && <Button
           modifier='style_dark'
           clickHandler={downloadDocument}
-        >Скачать список</Button>}
+        >Download list</Button>}
       </div>
     </Container>
   </Main>

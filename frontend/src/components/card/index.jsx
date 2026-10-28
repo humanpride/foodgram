@@ -7,7 +7,7 @@ import cn from "classnames";
 import DefaultImage from "../../images/userpic-icon.jpg";
 
 const Card = ({
-  name = "Без названия",
+  name = "Untitled",
   id,
   image,
   is_favorited,
@@ -29,9 +29,9 @@ const Card = ({
         <Popup
           title={
             <>
-              <LinkComponent href="/signin" title="Войдите" /> или{" "}
-              <LinkComponent href="/signup" title="зарегистрируйтесь" />, чтобы
-              сохранить рецепт
+              <LinkComponent href="/signin" title="Sign in" /> or{" "}
+              <LinkComponent href="/signup" title="Sign up" /> to
+              save the recipe
             </>
           }
           onClose={() => {
@@ -77,7 +77,7 @@ const Card = ({
               className={styles.card__link}
             />
           </div>
-          <div className={styles.card__time}>{cooking_time} мин.</div>
+          <div className={styles.card__time}>{cooking_time} min.</div>
         </div>
         <div className={styles.card__controls}>
           <Button
@@ -96,11 +96,11 @@ const Card = ({
             {is_in_shopping_cart ? (
               <>
                 <Icons.CheckIcon />
-                Рецепт добавлен
+                Recipe added
               </>
             ) : (
               <>
-                <Icons.PlusIcon /> Добавить в покупки
+                <Icons.PlusIcon /> Add to shopping list
               </>
             )}
           </Button>
@@ -118,7 +118,7 @@ const Card = ({
             })}
             data-tooltip-id={id}
             data-tooltip-content={
-              is_favorited ? "Удалить из избранного" : "Добавить в избранное"
+              is_favorited ? "Remove from favorites" : "Add to favorites"
             }
             data-tooltip-place="bottom"
           >

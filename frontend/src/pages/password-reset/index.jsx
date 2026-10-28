@@ -25,9 +25,9 @@ const ResetPassword = ({ onPasswordReset }) => {
     <Main withBG asFlex>
       <Container className={styles.center}>
         <Helmet>
-          <title>Сброс пароля</title>
-          <meta name="description" content="Фудграм - Сброс пароля" />
-          <meta property="og:title" content="Сброс пароля" />
+          <title>Reset password</title>
+          <meta name="description" content="Foodgram - Reset password" />
+          <meta property="og:title" content="Reset password" />
         </Helmet>
 
         <Form
@@ -37,7 +37,7 @@ const ResetPassword = ({ onPasswordReset }) => {
             onPasswordReset(values);
           }}
         >
-          <FormTitle>Сброс пароля</FormTitle>
+          <FormTitle>Reset password</FormTitle>
 
           <Input
             required
@@ -52,7 +52,7 @@ const ResetPassword = ({ onPasswordReset }) => {
             type="submit"
             className={styles.button}
           >
-            Сбросить
+            Reset
           </Button>
         </Form>
       </Container>

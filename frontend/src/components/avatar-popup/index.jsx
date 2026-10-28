@@ -28,11 +28,11 @@ export const AvatarPopup = ({
     const format = fileNameArr[fileNameArr.length - 1];
 
     if (fileSize && file.size / (1024 * 1024) > fileSize) {
-      return setError(`Загрузите файл размером не более ${fileSize}Мб`);
+      return setError(`Upload a file no larger than ${fileSize} MB`);
     }
     if (fileTypes && !fileTypes.includes(format)) {
       return setError(
-        `Загрузите файл одного из типов: ${fileTypes.join(", ")}`
+        `Upload a file of one of these types: ${fileTypes.join(", ")}`
       );
     }
     reader.readAsDataURL(file);
@@ -58,7 +58,7 @@ export const AvatarPopup = ({
         <div className={styles.popup__close} onClick={onClose}>
           <Icons.PopupClose />
         </div>
-        <h3 className={styles.popup__title}>Аватар</h3>
+        <h3 className={styles.popup__title}>Avatar</h3>
         <div
           className={styles.image}
           style={{
@@ -99,11 +99,11 @@ export const AvatarPopup = ({
           }}
         />
         {error && <p className={styles.error}>{error}</p>}
-        <p className={styles.info}>{`формат ${fileTypes.join(
+        <p className={styles.info}>{`format ${fileTypes.join(
           "/"
-        )}, размер до ${fileSize}мб`}</p>
+        )}, up to ${fileSize} MB`}</p>
         <Button className={styles.popup__button} clickHandler={onSubmit}>
-          Сохранить
+          Save
         </Button>
       </div>
     </div>

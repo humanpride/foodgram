@@ -1,11 +1,11 @@
-Список покупок от {% now 'DATE_FORMAT' %}
+Shopping list as of {% now 'DATE_FORMAT' %}
 
-Продукты
+Products
 {% for product in aggregated %}
 {{ forloop.counter }}.{% for name, amount in product.items %} {{ name|capfirst }}{{ amount }}{% endfor %}
 {% endfor %}
 
-Для следующих рецептов
+For the following recipes
 {% for recipe in recipes %}
-  * {{ recipe.name|slice:':10' }} от {{ recipe.author }}
+  * {{ recipe.name|slice:':10' }} by {{ recipe.author }}
 {% endfor %}

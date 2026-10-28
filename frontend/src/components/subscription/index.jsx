@@ -35,7 +35,7 @@ const Subscription = ({
     <div className={styles.subscription}>
       {toDelete && (
         <Popup
-          title="Вы уверены, что хотите отписаться?"
+          title="Are you sure you want to unsubscribe?"
           onSubmit={() => {
             removeSubscription({
               id,
@@ -83,7 +83,7 @@ const Subscription = ({
                         {recipe.name}
                       </h3>
                       <p className={styles.subscriptionRecipeText}>
-                        {recipe.cooking_time} мин.
+                        {recipe.cooking_time} min.
                       </p>
                     </div>
                   }
@@ -95,10 +95,10 @@ const Subscription = ({
             <li className={styles.subscriptionMore}>
               <LinkComponent
                 className={styles.subscriptionLink}
-                title={`Еще ${moreRecipes} ${countForm(moreRecipes, [
-                  "рецепт",
-                  "рецепта",
-                  "рецептов",
+                title={`More ${moreRecipes} ${countForm(moreRecipes, [
+                  "recipe",
+                  "recipes",
+                  "recipes",
                 ])}...`}
                 href={`/user/${id}`}
               />
@@ -128,7 +128,7 @@ const Subscription = ({
               stroke-linejoin="round"
             />
           </svg>
-          Отписаться
+          Unsubscribe
         </Button>
       </div>
     </div>

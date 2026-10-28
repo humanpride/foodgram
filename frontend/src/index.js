@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 
 const container = document.getElementById('root');
-const root = createRoot(container); // создаём корневой элемент React 18
+const root = createRoot(container); // create the React 18 root
 
 root.render(
   <React.StrictMode>
@@ -18,5 +18,5 @@ root.render(
   </React.StrictMode>
 );
 
-// Если хочешь измерять производительность, используй reportWebVitals
+// To measure performance, use reportWebVitals
 reportWebVitals();

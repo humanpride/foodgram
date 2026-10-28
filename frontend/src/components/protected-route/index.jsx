@@ -2,27 +2,27 @@ import React from "react";
 import { Navigate, useLocation } from "react-router-dom";
 
 /**
- * Защищённый маршрут.
+ * Protected route.
  *
- * Использование (рекомендуемое — как у вас в App.js):
+ * Usage (recommended, as in your App.js):
  * <Route path="/cart" element={
  *   <ProtectedRoute isAuth={loggedIn}>
  *     <Cart />
  *   </ProtectedRoute>
  * } />
  *
- * Альтернативно (устаревший стиль, для совместимости):
+ * Alternatively (legacy style, for compatibility):
  * <ProtectedRoute component={Cart} isAuth={loggedIn} />
  *
  * props:
- *  - isAuth (boolean) или loggedIn (boolean) — флаг, авторизован ли пользователь
- *  - redirectTo (string) — куда редиректить при отсутствии авторизации (по умолчанию "/signin")
- *  - children — дочерний компонент(ы), которые нужно показать, если авторизован
- *  - component — (опционально) компонент для рендера (для совместимости со старым кодом)
+ *  - isAuth (boolean) or loggedIn (boolean) — whether the user is authenticated
+ *  - redirectTo (string) — redirect destination for unauthenticated users (defaults to "/signin")
+ *  - children — child component(s) to display when authenticated
+ *  - component — (optional) component to render (for compatibility with legacy code)
  */
 function ProtectedRoute({
   isAuth,
-  loggedIn, // поддержка старого имени пропса
+  loggedIn, // support the legacy prop name
   redirectTo = "/signin",
   children,
   component: Component,
@@ -32,15 +32,15 @@ function ProtectedRoute({
   const location = useLocation();
 
   if (auth) {
-    // если передан component (старый стиль) — отрендерим его
+    // if component is provided (legacy style), render it
     if (Component) {
       return <Component {...rest} />;
     }
-    // иначе — отрендерим children (рекомендуемый способ)
+    // otherwise, render children (recommended)
     return children;
   }
 
-  // не авторизован — редирект на страницу входа, сохраним откуда пришли
+  // if unauthenticated, redirect to the sign-in page and preserve the original location
   return <Navigate to={redirectTo} replace state={{ from: location }} />;
 }
 

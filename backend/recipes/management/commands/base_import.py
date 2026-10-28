@@ -5,10 +5,10 @@ from django.core.management.base import BaseCommand, CommandError
 
 class BaseImportCommand(BaseCommand):
     """
-    Базовая команда для импорта данных из JSON фикстур.
-    Наследники должны указать:
-        - model: модель для импорта
-        - help: описание команды
+    Base command for importing data from JSON fixtures.
+    Subclasses must specify:
+        - model: model to import data into
+        - help: command description
     """
 
     model = None
@@ -28,10 +28,10 @@ class BaseImportCommand(BaseCommand):
 
             self.stdout.write(
                 self.style.SUCCESS(
-                    f'{self.path} импортирован успешно: '
-                    f'создано {created_count}, пропущено {skipped_count}'
+                    f'{self.path} imported successfully: '
+                    f'created {created_count}, skipped {skipped_count}'
                 )
             )
 
         except Exception as err:
-            raise CommandError(f'Ошибка импорта {self.path}: {err}') from err
+            raise CommandError(f'Failed to import {self.path}: {err}') from err

@@ -6,45 +6,29 @@ const About = ({ updateOrders, orders }) => {
 
   return <Main>
     <Helmet>
-      <title>О проекте</title>
-      <meta name="description" content="Фудграм - О проекте" />
-      <meta property="og:title" content="О проекте" />
+      <title>About</title>
+      <meta name="description" content="Foodgram - About" />
+      <meta property="og:title" content="About" />
     </Helmet>
 
     <Container>
-      <h1 className={styles.title}>Привет!</h1>
+      <h1 className={styles.title}>Hello!</h1>
       <div className={styles.content}>
         <div>
-          <h2 className={styles.subtitle}>Что это за сайт?</h2>
+          <h2 className={styles.subtitle}>About</h2>
           <div className={styles.text}>
             <p className={styles.textItem}>
-              Представляю вам проект, созданный во время обучения в Яндекс Практикуме. Этот проект — часть учебного курса, но он создан полностью самостоятельно.
+              This site lets users create and store recipes online. You can also download a list of ingredients needed to
+              prepare a dish, browse friends' recipes, and save your favorite recipes.
             </p>
             <p className={styles.textItem}>
-              Цель этого сайта — дать возможность пользователям создавать и хранить рецепты на онлайн-платформе. Кроме того, можно скачать список продуктов, необходимых для
-              приготовления блюда, просмотреть рецепты друзей и добавить любимые рецепты в список избранных.
+              Register to access all the site's features. Email addresses are not verified, so you can enter any email address.
             </p>
             <p className={styles.textItem}>
-              Чтобы использовать все возможности сайта — нужна регистрация. Проверка адреса электронной почты не осуществляется, вы можете ввести любой email.
-            </p>
-            <p className={styles.textItem}>
-              Заходите и делитесь своими любимыми рецептами!
+              Join us and share your favorite recipes!
             </p>
           </div>
         </div>
-        <aside>
-          <h2 className={styles.additionalTitle}>
-            Ссылки
-          </h2>
-          <div className={styles.text}>
-            <p className={styles.textItem}>
-              Код проекта находится тут - <a href="#" className={styles.textLink}>Github</a>
-            </p>
-            <p className={styles.textItem}>
-              Автор проекта: <a href="#" className={styles.textLink}>Имя Автора</a>
-            </p>
-          </div>
-        </aside>
       </div>
 
     </Container>

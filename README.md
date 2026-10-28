@@ -1,8 +1,8 @@
 # Foodgram
 
-> Платформа для публикации рецептов: пользователи регистрируются, публикуют свои рецепты, подписываются на других авторов, добавляют рецепты в избранное и формируют список покупок.
+> Foodgram helps home cooks discover and share recipes, build a personal collection, follow other authors, and create shopping lists.
 
-<!-- Сайт: [https://foodgram-8.ddns.net/](https://foodgram-8.ddns.net/) -->
+Website: [https://foodgram.servebeer.com](https://foodgram.servebeer.com)
 
 [![Backend CI](https://github.com/humanpride/foodgram/actions/workflows/backend_ci.yml/badge.svg)](https://github.com/humanpride/foodgram/actions/workflows/backend_ci.yml)
 [![Frontend CI](https://github.com/humanpride/foodgram/actions/workflows/frontend_ci.yml/badge.svg)](https://github.com/humanpride/foodgram/actions/workflows/frontend_ci.yml)
@@ -10,173 +10,35 @@
 
 ---
 
-## О проекте
+## Features
 
-**Foodgram** — веб-приложение для публикации и поиска рецептов. Пользователи могут создавать свои рецепты, добавлять чужие в избранное, формировать список покупок и подписываться на других авторов.
-
-Основные сценарии:
-
-* Регистрация и вход пользователей.
-* Создание, просмотр, редактирование и удаление рецептов.
-* Добавление рецептов в избранное и список покупок.
-* Подписка на других пользователей и просмотр их публикаций.
-* Фильтрация рецептов по тегам.
-* Скачивание списка покупок с суммированными ингредиентами.
-
-**Целевая аудитория:** пользователи, которые готовят по рецептам и хотят вести собственную коллекцию рецептов.
+* **User accounts:** registration, authentication, password changes, and avatar uploads and updates.
+* **Recipes:** create, edit, delete, and view full recipe details.
+* **Favorites:** save recipes and browse your favorites.
+* **Shopping list:** add recipes, view the ingredient list, and download it with quantities combined across recipes.
+* **Following:** follow other authors and view their latest recipes, grouped by author, on a dedicated page.
+* **Filters:** filter recipes by one or more tags.
+* **Access control:** separate permissions for guests, registered users, and administrators.
 
 ---
 
-## Функции
+## Tech stack
 
-* **Пользователи:** регистрация, аутентификация, смена пароля, загрузка и смена аватара.
-* **Рецепты:** создание, редактирование, удаление, просмотр полной информации.
-* **Избранное:** добавление рецептов в избранное и просмотр своего списка.
-* **Список покупок:** добавление рецептов, просмотр и скачивание списка ингредиентов с суммарным количеством.
-* **Подписки:** подписка на других авторов, страница подписок с последними рецептами по автору.
-* **Фильтры:** фильтрация рецептов по тегам, поддержка нескольких тегов одновременно.
-* **Разграничение прав:** гость, зарегистрированный пользователь, администратор.
-* **Страницы `О проекте` и `Технологии`:** будут реализованы позже.
-
----
-
-## Стек технологий
-
-* **Бэкенд:** Python, Django, Django REST Framework, djoser, python-dotenv, gunicorn
-* **Фронтенд:** React, react-helmet-async, Vite
-* **База данных:** PostgreSQL (альтернативно SQLite при `USE_SQLITE=True`)
+* **Backend:** Python, Django, Django REST Framework, djoser, python-dotenv, gunicorn
+* **Frontend:** React, react-helmet-async, Vite
+* **Database:** PostgreSQL (or SQLite when `USE_SQLITE=True`)
 * **DevOps:** Docker Compose, GitHub Actions (CI/CD)
 
 ---
 
-## Как развернуть
+## Configuration
 
-### Продакшен (новый сервер)
+Choose the environment file location for your setup:
 
-#### Требования
+* **Local development or Docker builds:** `backend/.env`.
+* **Production with prebuilt images:** `infra/.env`, alongside `docker-compose-prod.yml`.
 
-На сервере должны быть установлены:
-
-* **Docker** (версия 20.10+)
-* **Docker Compose** (v2)
-
-#### Клонирование проекта
-
-```bash
-git clone https://github.com/humanpride/foodgram.git
-cd foodgram
-```
-
-#### Настройка переменных окружения
-
-Создайте файлы `backend/.env` и `frontend/.env` (см. раздел Environment variables). Внутри `.env` файла фронтенда обязательно укажите `VITE_API_URL=http://backend:<port>`.
-
-#### Запуск контейнров и инициализация проекта
-
-Запустите проект с помощью Docker Compose:
-
-##### Образы на DockerHub
-
-```bash
-cd infra
-sudo docker compose -p foodgram -f docker-compose-prod.yml up -d
-```
-
-##### Сборка своих образов на сервере
-
-```bash
-cd infra
-sudo docker compose -p foodgram -f docker-compose-dev.yml up -d --build
-```
-
-После старта контейнеров выполните миграции:
-
-```bash
-sudo docker compose -p foodgram exec backend python manage.py migrate
-```
-
-Создайте суперпользователя:
-
-```bash
-sudo docker compose -p foodgram exec backend python manage.py createsuperuser
-```
-
-Соберите статику:
-
-```bash
-sudo docker compose -p foodgram exec backend python manage.py collectstatic --noinput
-```
-
-Импортируйте фикстуры
-
-```bash
-sudo docker compose -p foodgram exec backend python manage.py import_ingredients
-```
-
-После успешного запуска вы можете ознакомиться с документацией по API. Будет лежать по адресу `<ваш домен>/api/docs/`
-
----
-
-### Локально
-
-Для локального развёртывания используйте Docker Compose и `infra/docker-compose-dev.yml`. После поднятия контейнеров необходимо выполнить миграции и собрать статику.
-
-#### Установите ПО
-
-* **Docker** (версия 20.10+)
-* **Docker Compose** (v2)
-
-#### Выполните пошагово
-
-1. Клонируйте репозиторий:
-
-    ```bash
-    git clone https://github.com/humanpride/foodgram.git
-    cd foodgram
-    ```
-
-2. Создайте файлы `backend/.env` и `frontend/.env` (см. раздел Environment variables).
-
-3. Запустите контейнеры:
-
-    ```bash
-    cd infra
-    docker compose -p foodgram -f docker-compose-dev.yml up -d --build
-    ```
-
-4. Выполните миграции Django:
-
-    ```bash
-    docker compose -p foodgram exec backend python manage.py migrate
-    ```
-
-5. Соберите статику Django:
-
-    ```bash
-    docker compose -p foodgram exec backend python manage.py collectstatic
-    docker compose -p foodgram exec backend cp -r /app/collected_static/. /backend_static/static/
-    ```
-
-6. Создайте суперпользователя:
-
-    ```bash
-    docker compose -p foodgram exec backend python manage.py createsuperuser
-    ```
-
-7. Импортируйте фикстуры:
-
-    ```bash
-    docker compose -p foodgram exec backend python manage.py import_ingredients
-    ```
-
-Поддерживаются файлы JSON
-Подробнее в подсказке `--help`
-
----
-
-## Environment variables — как заполнить `.env`
-
-Файл: `.env` в папке `backend`. Пример:
+Backend environment variables:
 
 ```ini
 # Django settings
@@ -193,109 +55,167 @@ DB_HOST=db
 DB_PORT=5432
 ```
 
-Пояснения:
+Settings:
 
-* `DJANGO_SECRET_KEY` — секретный ключ Django.
-* `DJANGO_DEBUG` — включение/отключение режима отладки.
-* `DJANGO_ALLOWED_HOSTS` — список хостов для доступа.
-* `USE_SQLITE` — выбор базы данных: SQLite или PostgreSQL.
-* `POSTGRES_*` и `DB_HOST/DB_PORT` — настройки для PostgreSQL.
+* `DJANGO_SECRET_KEY` — Django's secret key.
+* `DJANGO_DEBUG` — enables or disables debug mode.
+* `DJANGO_ALLOWED_HOSTS` — hostnames the application is allowed to serve.
+* `USE_SQLITE` — selects SQLite or PostgreSQL as the database.
+* `POSTGRES_*` and `DB_HOST/DB_PORT` — PostgreSQL connection settings.
+
+For frontend builds, create `frontend/.env` and set `VITE_API_URL=http://backend:<port>`.
 
 ---
 
-## Локальное развёртывание без Docker
+## Local development
 
-Вы можете весьма быстро и просто запустить локальный сервер разработки.
+### With Docker
 
-### Для запуска бекэнда
+Build and run the application with `infra/docker-compose-dev.yml`. Start Compose from `infra` with `-p foodgram -f docker-compose-dev.yml`. Once the containers are running, the `docker compose -p foodgram exec ...` commands below can be run from any directory. Keep `-f` when running `up` again or building images.
 
-Установите менеджер пакетов uv:
+#### Prerequisites
+
+* **Docker** (20.10+)
+* **Docker Compose** (v2)
+
+#### Setup steps
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/humanpride/foodgram.git
+    cd foodgram
+    ```
+
+2. Create `backend/.env` and `frontend/.env` (see [Configuration](#configuration)).
+
+3. From the repository root, switch to `infra` and start the containers:
+
+    ```bash
+    cd infra
+    docker compose -p foodgram -f docker-compose-dev.yml up -d --build
+    ```
+
+4. Apply the Django database migrations:
+
+    ```bash
+    docker compose -p foodgram exec backend python manage.py migrate
+    ```
+
+5. Collect Django static files:
+
+    ```bash
+    docker compose -p foodgram exec backend python manage.py collectstatic
+    docker compose -p foodgram exec backend cp -r /app/collected_static/. /backend_static/static/
+    ```
+
+6. Create a superuser:
+
+    ```bash
+    docker compose -p foodgram exec backend python manage.py createsuperuser
+    ```
+
+7. Import the ingredient data:
+
+    ```bash
+    docker compose -p foodgram exec backend python manage.py import_ingredients
+    ```
+
+The import command supports JSON files. Use `--help` for details.
+
+---
+
+### Without Docker
+
+#### Backend
+
+Install the uv package manager:
 
 ```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh  # для macOS и Linux
-powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"  # для Windows
+curl -LsSf https://astral.sh/uv/install.sh | sh  # for macOS and Linux
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"  # for Windows
 ```
 
-Далее установите Python v3.14:
+Install Python 3.14:
 
 ```bash
 uv python install 3.14
 ```
 
-Установите зависимости:
+Install the dependencies:
 
 ```bash
 cd backend
 uv sync
 ```
 
-Активируйте окружение:
+Activate the virtual environment:
 
 ```bash
-source venv/bin/activate # для Linux и macOS
-source venv/Scripts/activate # для Windows
+source venv/bin/activate # for Linux and macOS
+source venv/Scripts/activate # for Windows
 ```
 
-Выполните миграции:
+Apply the database migrations:
 
 ```bash
 python manage.py migrate
 ```
 
-Создайте суперпользователя
+Create a superuser:
 
 ```bash
 python manage.py createsuperuser
 ```
 
-Импортируйте фикстуры
+Import the ingredient data:
 
 ```bash
 python manage.py import_ingredients
 ```
 
-Запустите сервер:
+Start the server:
 
 ```bash
 python manage.py runserver
 ```
 
-### Для фронтенда
+#### Frontend
 
-Установите node v24+ (вместе с ним установится менеджер пакетов npm v10+). Воспользуйтесь nvm:
+Install Node.js 24+ (which includes npm 10+). Use nvm:
 
-curl
+With curl:
 
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
 ```
 
-wget
+With wget:
 
 ```bash
 wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
 ```
 
-И далее:
+Then run:
 
 ```bash
 nvm install 24
 ```
 
-Перейдите в папку с файлами фронтенда и запустите установку пакетов:
+Install frontend dependencies:
 
 ```bash
 cd ../frontend
 npm install
 ```
 
-По завершении установки можете запустить веб-сервер:
+Start the development server:
 
 ```bash
 npm run dev
 ```
 
-Если всё в порядке, то вас встретит примерно такое сообщение:
+Example output:
 
 ```bash
 VITE v7.3.1  ready in 2206 ms
@@ -305,18 +225,86 @@ VITE v7.3.1  ready in 2206 ms
   ➜  press h + enter to show help
 ```
 
-Остановить сервер вы можете сочетанием клавиш `Ctrl+C`
+Press `Ctrl+C` to stop the server.
 
 ---
 
-<!-- ## Полезные ссылки
-* [Посмотреть проект вживую](https://foodgram-8.ddns.net)
-* [Документация API](https://foodgram-8.ddns.net/api/docs/)
+## Production deployment
+
+### Prerequisites
+
+Server requirements:
+
+* **Docker** (20.10+)
+* **Docker Compose** (v2)
+
+### Clone the repository
+
+```bash
+git clone https://github.com/humanpride/foodgram.git
+cd foodgram
+```
+
+### Configure environment variables
+
+For prebuilt images, create `infra/.env` alongside `docker-compose-prod.yml`. To build images on the server with `docker-compose-dev.yml`, create `backend/.env` and `frontend/.env` instead. See [Configuration](#configuration).
+
+### Start the containers and initialize the application
+
+Run one of the following commands from the repository root; each switches to `infra` before starting Compose:
+
+#### Use images from Docker Hub
+
+```bash
+cd infra
+sudo docker compose -p foodgram -f docker-compose-prod.yml up -d
+```
+
+#### Build your own images on the server
+
+```bash
+cd infra
+sudo docker compose -p foodgram -f docker-compose-dev.yml up -d --build
+```
+
+Once the containers are running, the following `docker compose -p foodgram exec ...` commands can be run from any directory. Keep `-f` when running `up` again or building images.
+
+Apply database migrations:
+
+```bash
+sudo docker compose -p foodgram exec backend python manage.py migrate
+```
+
+Create a superuser:
+
+```bash
+sudo docker compose -p foodgram exec backend python manage.py createsuperuser
+```
+
+Collect static files:
+
+```bash
+sudo docker compose -p foodgram exec backend python manage.py collectstatic --noinput
+```
+
+Import the ingredient data:
+
+```bash
+sudo docker compose -p foodgram exec backend python manage.py import_ingredients
+```
+
+API documentation: `<your-domain>/api/docs/`.
+
+---
+
+<!-- ## Useful links
+* [Live demo](https://foodgram-8.ddns.net)
+* [API documentation](https://foodgram-8.ddns.net/api/docs/)
 --- -->
 
-## Автор
+## Author
 
-Сергей Пашковский
+Sergei Pashkovskii
 
 [![GitHub](https://img.shields.io/badge/GitHub-humanpride-181717?logo=github&logoColor=white)](https://github.com/humanpride)
 [![Telegram](https://img.shields.io/badge/Telegram-@bronze_beard8-2CA5E0?logo=telegram&logoColor=white)](https://t.me/bronze_beard8)

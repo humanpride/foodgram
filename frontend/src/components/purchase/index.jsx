@@ -19,7 +19,7 @@ const Purchase = ({
 
   return <li className={styles.purchase}>
     {toDelete && <Popup
-      title='Вы уверены, что хотите удалить рецепт?'
+      title='Are you sure you want to delete the recipe?'
       onSubmit={() => {
         handleRemoveFromCart({
           id,
@@ -52,7 +52,7 @@ const Purchase = ({
           </div>
         </h3>
         <p className={styles.purchaseText}>
-          {cooking_time} мин.
+          {cooking_time} min.
         </p>
       </div>
       <a
