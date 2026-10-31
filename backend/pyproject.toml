@@ -1,7 +1,7 @@
 [project]
 name = "foodgram"
 version = "1.0.0"
-description = "A platform for publishing recipes with photos."
+description = "A platform for sharing recipes with photos."
 authors = [
     { name = "humanpride", email = "sergei.pashkovskii@outlook.com" }
 ]
@@ -21,9 +21,9 @@ dependencies = [
 [dependency-groups]
 dev = [
     "pre-commit==4.6.2",
-    "pytest>=9.0",
+    "pytest==9.1.1",
     "pytest-django",
-    "ruff==0.16.9",
+    "ruff==0.17.2",
 ]
 
 [tool.uv]
@@ -48,7 +48,7 @@ docstring-code-format = true
 extend-select = [
     "B",    # flake8-bugbear
     "C4",   # flake8-comprehensions
-    "I",    # isort (импорты)
+    "I",    # isort (imports)
     "N",    # pep8-naming
     "S",    # security (bandit-like)
     "E",    # pycodestyle

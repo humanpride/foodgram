@@ -4,12 +4,12 @@ import styles from './styles.module.css'
 import { Subscription } from '../index'
 
 const SubscriptionList = ({ subscriptions = [], removeSubscription }) => {
-  // безопасная проверка: если передали не массив — считаем, что подписок нет
+  // defensive check: if the value is not an array, assume there are no subscriptions
   if (!Array.isArray(subscriptions) || subscriptions.length === 0) {
     return (
       <div className={styles.subscriptionList}>
-        {/* Можно заменить на любой UI — спиннер, пустое состояние или ссылку */}
-        <p>У вас пока нет подписок.</p>
+        {/* Replace with any UI: a spinner, an empty state, or a link */}
+        <p>You are not following anyone yet.</p>
       </div>
     )
   }

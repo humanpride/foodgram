@@ -15,14 +15,14 @@ const Footer = () => {
         <ul className={styles['footer__menu-list']}>
           <li className={styles['footer__menu-item']}>
             <LinkComponent
-              title='О проекте'
+              title='About'
               href='/about'
               className={styles['footer__menu-link']}
             />
           </li>
           <li className={styles['footer__menu-item']}>
             <LinkComponent
-              title='Технологии'
+              title='Technologies'
               href='/technologies'
               className={styles['footer__menu-link']}
             />

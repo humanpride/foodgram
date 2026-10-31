@@ -26,7 +26,7 @@ class RecipeIngredientInline(admin.TabularInline):
 
 
 class CookingTimeHistogramFilter(admin.SimpleListFilter):
-    title = 'Время приготовления'
+    title = 'Cooking time'
     parameter_name = 'cooking_time_bin'
 
     def lookups(self, request, model_admin):
@@ -61,9 +61,9 @@ class CookingTimeHistogramFilter(admin.SimpleListFilter):
         ).count()
 
         return (
-            ('fast', f'быстрее {fast} мин ({fast_count})'),
-            ('mid', f'быстрее {long} мин ({mid_count})'),
-            ('long', f'долго ({long_count})'),
+            ('fast', f'under {fast} min ({fast_count})'),
+            ('mid', f'under {long} min ({mid_count})'),
+            ('long', f'long ({long_count})'),
         )
 
     def queryset(self, request, recipes):
@@ -76,17 +76,17 @@ class CookingTimeHistogramFilter(admin.SimpleListFilter):
 
 class HasRelatedObjectsFilter(admin.SimpleListFilter):
     """
-    Фильтр "Есть связанные объекты".
-    Наследники должны задать:
-        - title: заголовок фильтра
-        - parameter_name: GET-параметр
-        - relation_field: атрибут, по которому считаем наличие
-        (например, '_recipes_count')
+    "Has related objects" filter.
+    Subclasses must define:
+        - title: filter title
+        - parameter_name: GET parameter
+        - relation_field: attribute used to check for related objects
+        (for example, '_recipes_count')
     """
 
     OPTIONS = (
-        ('yes', 'Да'),
-        ('no', 'Нет'),
+        ('yes', 'Yes'),
+        ('no', 'No'),
     )
 
     def lookups(self, request, model_admin):
@@ -102,39 +102,39 @@ class HasRelatedObjectsFilter(admin.SimpleListFilter):
 
 
 class InRecipesFilter(HasRelatedObjectsFilter):
-    title = 'Есть в рецептах'
+    title = 'Used in recipes'
     parameter_name = 'in_recipes'
     relation_field = '_recipes_count'
 
 
 class HasRecipesFilter(HasRelatedObjectsFilter):
-    title = 'Есть рецепты'
+    title = 'Has recipes'
     parameter_name = 'has_recipes'
     relation_field = '_recipes_count'
 
 
 class HasSubscriptionsFilter(HasRelatedObjectsFilter):
-    title = 'Есть подписки'
+    title = 'Follows users'
     parameter_name = 'has_subscriptions'
     relation_field = '_subscriptions_count'
 
 
 class HasSubscribersFilter(HasRelatedObjectsFilter):
-    title = 'Есть подписчики'
+    title = 'Has followers'
     parameter_name = 'has_subscribers'
     relation_field = '_subscribers_count'
 
 
 class ImagePreviewAdminMixin:
     """
-    Миксин для Django Admin:
-    добавляет fieldset с полем изображения и его превью
+    Django Admin mixin:
+    add a fieldset containing the image field and its preview
     """
 
     image_field = 'image'
     image_preview_field = 'image_preview'
-    image_fieldset_title = 'Изображение'
-    image_preview_description = 'Превью'
+    image_fieldset_title = 'Image'
+    image_preview_description = 'Preview'
 
     # --- PREVIEW ---
     @admin.display(description=image_preview_description)
@@ -146,7 +146,7 @@ class ImagePreviewAdminMixin:
                 f'<img src="{image.url}" '
                 'style="max-width: 200px; max-height: 200px;" />'
             )
-        return 'Нет изображения'
+        return 'No image'
 
     def get_readonly_fields(self, request, obj=None):
         return (
@@ -172,8 +172,8 @@ class ImagePreviewAdminMixin:
 @admin.register(Recipe)
 class RecipeAdmin(ImagePreviewAdminMixin, admin.ModelAdmin):
     image_field = 'image'
-    image_fieldset_title = 'Фото рецепта'
-    image_preview_description = 'Превью фото'
+    image_fieldset_title = 'Recipe photo'
+    image_preview_description = 'Photo preview'
 
     list_display = (
         'id',
@@ -210,11 +210,11 @@ class RecipeAdmin(ImagePreviewAdminMixin, admin.ModelAdmin):
             _favorites_count=Count('favorites', distinct=True)
         )
 
-    @admin.display(description='В избранном')
+    @admin.display(description='In favorites')
     def favorites_count(self, recipe):
         return recipe._favorites_count
 
-    @admin.display(description='Продукты')
+    @admin.display(description='Ingredients')
     @mark_safe
     def ingredients_html(self, recipe):
         return '<br>'.join(
@@ -225,12 +225,12 @@ class RecipeAdmin(ImagePreviewAdminMixin, admin.ModelAdmin):
             )
         )
 
-    @admin.display(description='Теги')
+    @admin.display(description='Tags')
     @mark_safe
     def tags_html(self, recipe):
         return '<br>'.join(tag.name for tag in recipe.tags.all())
 
-    @admin.display(description='Фото')
+    @admin.display(description='Photo')
     @mark_safe
     def image_html(self, recipe):
         return (
@@ -246,7 +246,7 @@ class RecipeIngredientAdmin(admin.ModelAdmin):
 
 
 class RecipesCountMixin(admin.ModelAdmin):
-    """Миксин для админок, где нужна колонка с количеством рецептов."""
+    """Mixin for admin classes that need a recipe count column."""
 
     list_display = ('recipes_count',)
 
@@ -257,7 +257,7 @@ class RecipesCountMixin(admin.ModelAdmin):
             .annotate(_recipes_count=Count('recipes', distinct=True))
         )
 
-    @admin.display(description='Рецептов')
+    @admin.display(description='Recipe count')
     def recipes_count(self, obj):
         return getattr(obj, '_recipes_count', 0)
 
@@ -284,8 +284,8 @@ class TagAdmin(RecipesCountMixin, admin.ModelAdmin):
 @admin.register(User)
 class UserAdmin(RecipesCountMixin, ImagePreviewAdminMixin, DjangoUserAdmin):
     image_field = 'avatar'
-    image_fieldset_title = 'Аватар'
-    image_preview_description = 'Превью аватарки'
+    image_fieldset_title = 'Avatar'
+    image_preview_description = 'Avatar preview'
 
     list_display = (
         'id',
@@ -313,7 +313,7 @@ class UserAdmin(RecipesCountMixin, ImagePreviewAdminMixin, DjangoUserAdmin):
     fieldsets = (
         (None, {'fields': ('username', 'password')}),
         (
-            'Персональная информация',
+            'Personal information',
             {
                 'fields': (
                     'email',
@@ -323,10 +323,10 @@ class UserAdmin(RecipesCountMixin, ImagePreviewAdminMixin, DjangoUserAdmin):
             },
         ),
         (
-            'Права доступа',
+            'Permissions',
             {'fields': ('is_active', 'is_staff', 'is_superuser')},
         ),
-        ('Даты', {'fields': ('last_login', 'date_joined')}),
+        ('Dates', {'fields': ('last_login', 'date_joined')}),
     )
 
     def get_queryset(self, request):
@@ -342,7 +342,7 @@ class UserAdmin(RecipesCountMixin, ImagePreviewAdminMixin, DjangoUserAdmin):
             ),
         )
 
-    @admin.display(description='Превью аватарки')
+    @admin.display(description='Avatar preview')
     @mark_safe
     def avatar_preview(self, user):
         if user.avatar:
@@ -350,13 +350,13 @@ class UserAdmin(RecipesCountMixin, ImagePreviewAdminMixin, DjangoUserAdmin):
                 f'<img src="{user.avatar.url}" '
                 f'style="max-height: 200px; max-width: 200px;" />'
             )
-        return 'Нет аватарки'
+        return 'No avatar'
 
-    @admin.display(description='ФИО')
+    @admin.display(description='Full name')
     def full_name(self, user):
         return f'{user.first_name} {user.last_name}'
 
-    @admin.display(description='Аватар')
+    @admin.display(description='Avatar')
     @mark_safe
     def avatar_html(self, user):
         return (
@@ -365,11 +365,11 @@ class UserAdmin(RecipesCountMixin, ImagePreviewAdminMixin, DjangoUserAdmin):
             else '—'
         )
 
-    @admin.display(description='Подписок')
+    @admin.display(description='Following count')
     def subscribtions_count(self, user):
         return user._subscriptions_count
 
-    @admin.display(description='Подписчиков')
+    @admin.display(description='Follower count')
     def subscribers_count(self, user):
         return user._subscribers_count
 

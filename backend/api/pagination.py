@@ -3,9 +3,9 @@ from rest_framework.pagination import PageNumberPagination
 
 class PageLimitPagination(PageNumberPagination):
     """
-    Пагинация в стиле `?page=<n>&limit=<m>`.
+    Pagination using `?page=<n>&limit=<m>`.
 
-    Возвращает: {count, next, previous, results}
+    Returns: {count, next, previous, results}
     """
 
     page_query_param = 'page'
